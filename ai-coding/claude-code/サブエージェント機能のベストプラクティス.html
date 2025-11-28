@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code 実践ベストプラクティス</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #f472b6 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .step-connector {
+            position: absolute;
+            top: 2rem;
+            left: 50%;
+            width: 2px;
+            height: calc(100% + 2rem);
+            background: #334155;
+            z-index: 0;
+            transform: translateX(-50%);
+        }
+        .code-snippet {
+            font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+            background-color: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+            color: #d4d4d4;
+        }
+        .keyword { color: #569cd6; }
+        .string { color: #ce9178; }
+        .comment { color: #6a9955; }
+        .property { color: #9cdcfe; }
+    </style>
+</head>
+<body class="antialiased selection:bg-pink-500 selection:text-white">
+
+    <!-- Header -->
+    <header class="border-b border-slate-800 bg-slate-900/50 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <i data-lucide="award" class="w-6 h-6 text-pink-400"></i>
+                <span class="text-lg font-bold tracking-tight">Claude Code <span class="text-slate-500 font-normal">| Best Practices</span></span>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-sm font-medium text-slate-400">
+                <a href="#workflow" class="hover:text-white transition">推奨フロー</a>
+                <a href="#frequency" class="hover:text-white transition">レビュー頻度</a>
+                <a href="#agents" class="hover:text-white transition">必須エージェント</a>
+                <a href="#tips" class="hover:text-white transition">Pro Tips</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="py-16 text-center border-b border-slate-800">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="inline-flex items-center px-3 py-1 rounded-full bg-pink-500/10 border border-pink-500/20 text-pink-300 text-xs font-medium mb-6">
+                <i data-lucide="sparkles" class="w-3 h-3 mr-2"></i>
+                エキスパートの知見まとめ
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">
+                <span class="gradient-text">「小さく回し、厳しく守る」</span>
+            </h1>
+            <p class="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                公式ドキュメントやトップエンジニアたちが推奨する、<br>
+                最も効率的で安全なサブエージェント運用パターンを集約しました。
+            </p>
+        </div>
+    </section>
+
+    <!-- Section 1: The Golden Workflow -->
+    <section id="workflow" class="py-16 bg-slate-900">
+        <div class="max-w-5xl mx-auto px-4">
+            <h2 class="text-2xl font-bold mb-8 flex items-center">
+                <i data-lucide="git-merge" class="w-6 h-6 mr-3 text-pink-400"></i>
+                推奨される「黄金のワークフロー」
+            </h2>
+            
+            <div class="bg-slate-800/50 rounded-2xl p-8 border border-slate-700">
+                <p class="text-slate-300 mb-8 text-center font-medium">
+                    「30分で完了するタスク」を1単位として回すのが鉄則です。
+                </p>
+
+                <!-- Workflow Steps -->
+                <div class="grid md:grid-cols-4 gap-4 relative">
+                    <!-- Step 1 -->
+                    <div class="relative z-10 bg-slate-800 border border-slate-600 p-4 rounded-xl text-center group hover:border-blue-400 transition">
+                        <div class="w-10 h-10 bg-blue-500/20 text-blue-400 rounded-full flex items-center justify-center mx-auto mb-3 font-bold">1</div>
+                        <h3 class="font-bold text-white mb-1">Plan</h3>
+                        <div class="text-xs text-slate-400">@Architect</div>
+                        <p class="text-xs text-slate-500 mt-2">タスク分割と設計。<br>実装はしない。</p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="relative z-10 bg-slate-800 border border-slate-600 p-4 rounded-xl text-center group hover:border-emerald-400 transition">
+                        <div class="w-10 h-10 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-3 font-bold">2</div>
+                        <h3 class="font-bold text-white mb-1">Implement</h3>
+                        <div class="text-xs text-slate-400">Main / @Coder</div>
+                        <p class="text-xs text-slate-500 mt-2">実装とテスト作成。<br>自動編集モード。</p>
+                    </div>
+
+                    <!-- Step 3 (Crucial) -->
+                    <div class="relative z-10 bg-slate-900 border-2 border-pink-500/50 p-4 rounded-xl text-center shadow-[0_0_20px_rgba(236,72,153,0.15)] transform scale-105">
+                        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-pink-500 text-white text-[10px] px-2 py-0.5 rounded-full font-bold tracking-wider">CRITICAL</div>
+                        <div class="w-10 h-10 bg-pink-500/20 text-pink-400 rounded-full flex items-center justify-center mx-auto mb-3 font-bold">3</div>
+                        <h3 class="font-bold text-white mb-1">Review</h3>
+                        <div class="text-xs text-slate-400">@Reviewer</div>
+                        <p class="text-xs text-slate-500 mt-2">書き込み権限なし。<br>厳格な指摘のみ。</p>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="relative z-10 bg-slate-800 border border-slate-600 p-4 rounded-xl text-center group hover:border-purple-400 transition">
+                        <div class="w-10 h-10 bg-purple-500/20 text-purple-400 rounded-full flex items-center justify-center mx-auto mb-3 font-bold">4</div>
+                        <h3 class="font-bold text-white mb-1">Commit</h3>
+                        <div class="text-xs text-slate-400">Main</div>
+                        <p class="text-xs text-slate-500 mt-2">修正完了後に<br>Gitへ保存。</p>
+                    </div>
+                    
+                    <!-- Arrow for desktop -->
+                    <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-slate-700 -z-0 -translate-y-1/2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Frequency & Timing -->
+    <section id="frequency" class="py-16 border-t border-slate-800">
+        <div class="max-w-5xl mx-auto px-4">
+            <h2 class="text-2xl font-bold mb-8 flex items-center">
+                <i data-lucide="clock" class="w-6 h-6 mr-3 text-pink-400"></i>
+                レビューを挟むタイミングの正解
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Recommended -->
+                <div class="bg-slate-800/30 rounded-xl p-6 border border-emerald-500/30">
+                    <div class="flex items-center mb-4 text-emerald-400">
+                        <i data-lucide="thumbs-up" class="w-5 h-5 mr-2"></i>
+                        <h3 class="font-bold">推奨：コミット直前 (Pre-commit)</h3>
+                    </div>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                        「機能の実装が一通り動き、テストが通ったタイミング」でレビューエージェントを呼び出すのが最も対費用効果が高いです。
+                    </p>
+                    <ul class="text-sm text-slate-400 space-y-2 list-disc list-inside">
+                        <li>文脈の切り替えコストを最小限に抑えられる</li>
+                        <li>人間がPRを出す前の「セルフチェック」の代わりになる</li>
+                        <li>OWASPなどのセキュリティチェックを網羅的に行える</li>
+                    </ul>
+                </div>
+
+                <!-- Not Recommended -->
+                <div class="bg-slate-800/30 rounded-xl p-6 border border-slate-700">
+                    <div class="flex items-center mb-4 text-slate-400">
+                        <i data-lucide="thumbs-down" class="w-5 h-5 mr-2"></i>
+                        <h3 class="font-bold">非推奨：プロンプトごとのレビュー</h3>
+                    </div>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                        1行コードを書くたびにレビューを挟むのは、APIコストと時間の無駄になることが多いです。
+                    </p>
+                    <ul class="text-sm text-slate-400 space-y-2 list-disc list-inside">
+                        <li>コンテキストの読み込み直しが頻発する</li>
+                        <li>スピード感が失われる</li>
+                        <li>エージェントが「細かすぎる指摘」をしがちになる</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Must-Have Agents -->
+    <section id="agents" class="py-16 bg-slate-900 border-t border-slate-800">
+        <div class="max-w-5xl mx-auto px-4">
+            <h2 class="text-2xl font-bold mb-8 flex items-center">
+                <i data-lucide="user-plus" class="w-6 h-6 mr-3 text-pink-400"></i>
+                作っておくべき「3人の賢者」
+            </h2>
+
+            <div class="space-y-8">
+                <!-- Agent 1: The Strict Reviewer -->
+                <div class="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden">
+                    <div class="p-4 bg-slate-900/50 border-b border-slate-700 flex justify-between items-center">
+                        <h3 class="font-bold text-indigo-300">1. Strict Reviewer (書き込み権限なし)</h3>
+                        <span class="text-xs bg-pink-500/20 text-pink-300 px-2 py-1 rounded">Must Have</span>
+                    </div>
+                    <div class="p-6 grid md:grid-cols-2 gap-6">
+                        <div>
+                            <p class="text-sm text-slate-400 mb-4">
+                                ファイル編集権限を剥奪し、「読むこと」と「批判すること」だけに集中させたエージェント。忖度のない指摘が得られます。
+                            </p>
+                            <div class="text-xs text-slate-500">
+                                <span class="block mb-1">👍 推奨ツール設定:</span>
+                                <code class="bg-slate-900 px-2 py-1 rounded">Bash (readonly)</code>
+                                <code class="bg-slate-900 px-2 py-1 rounded">Grep</code>
+                                <code class="bg-slate-900 px-2 py-1 rounded">Glob</code>
+                                <span class="text-red-400 ml-2">※ Edit禁止</span>
+                            </div>
+                        </div>
+                        <div class="code-snippet text-xs">
+                            <span class="comment"># .claude/agents/reviewer.md</span><br>
+                            <span class="property">name</span>: code-reviewer<br>
+                            <span class="property">description</span>: Expert code reviewer. <span class="keyword">MUST BE USED</span> before any commit.<br>
+                            <span class="property">instructions</span>: |<br>
+                            &nbsp;&nbsp;あなたは厳格なシニアエンジニアです。<br>
+                            &nbsp;&nbsp;コードを変更することは許可されていません。<br>
+                            &nbsp;&nbsp;以下の観点でのみ指摘を行ってください：<br>
+                            &nbsp;&nbsp;- セキュリティ脆弱性 (OWASP Top 10)<br>
+                            &nbsp;&nbsp;- 可読性と命名規則<br>
+                            &nbsp;&nbsp;- エラーハンドリングの欠落
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Agent 2: The Architect -->
+                <div class="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden">
+                    <div class="p-4 bg-slate-900/50 border-b border-slate-700 flex justify-between items-center">
+                        <h3 class="font-bold text-amber-300">2. Directory Architect (構造の番人)</h3>
+                        <span class="text-xs bg-slate-700 text-slate-300 px-2 py-1 rounded">Useful</span>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-sm text-slate-400 mb-4">
+                            コードを書く前に呼び出し、「どのファイルをどこに作るべきか」だけを相談するエージェント。プロジェクト構造の崩壊を防ぎます。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Pro Tips -->
+    <section id="tips" class="py-16 border-t border-slate-800">
+        <div class="max-w-5xl mx-auto px-4">
+            <h2 class="text-2xl font-bold mb-8 flex items-center">
+                <i data-lucide="zap" class="w-6 h-6 mr-3 text-pink-400"></i>
+                プロが教えるテクニック (Pro Tips)
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Tip 1 -->
+                <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 hover:border-pink-500/50 transition">
+                    <h3 class="font-bold text-white mb-2">魔法の言葉 "MUST BE USED"</h3>
+                    <p class="text-sm text-slate-400">
+                        エージェントの <code>description</code> フィールドに <b>"MUST BE USED for all PRs"</b> や <b>"PROACTIVELY use this"</b> と記述すると、メインエージェントが自律的にそのサブエージェントを呼び出す確率が劇的に上がります。
+                    </p>
+                </div>
+
+                <!-- Tip 2 -->
+                <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 hover:border-pink-500/50 transition">
+                    <h3 class="font-bold text-white mb-2">Gitコミット権限の委譲</h3>
+                    <p class="text-sm text-slate-400">
+                        <code>git-committer</code> というエージェントを作成し、コミットメッセージの生成と実行だけを任せると便利です。「Conventional Commitsを守って」と指示しておけば、履歴が非常に綺麗になります。
+                    </p>
+                </div>
+
+                <!-- Tip 3 -->
+                <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 hover:border-pink-500/50 transition">
+                    <h3 class="font-bold text-white mb-2">ドキュメント専任担当</h3>
+                    <p class="text-sm text-slate-400">
+                        コード修正が終わった後、最後に呼び出すのが <code>doc-updater</code>。コードの変更を読み取り、READMEやAPI仕様書だけを更新させます。人間が一番サボりがちなタスクを自動化できます。
+                    </p>
+                </div>
+
+                <!-- Tip 4 -->
+                <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 hover:border-pink-500/50 transition">
+                    <h3 class="font-bold text-white mb-2">出力形式の固定</h3>
+                    <p class="text-sm text-slate-400">
+                        サブエージェントへの指示で「結果は必ずJSON形式で出力して」と指定しておくと、メインエージェントがその結果をプログラム的に処理しやすくなり、連携ミスが減ります。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 bg-slate-950 border-t border-slate-900 text-center text-slate-600 text-sm">
+        <p>Expert patterns curated from official docs & community insights.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

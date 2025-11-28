@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIエージェント vs Agentic RAG：概念の違いと関係性</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans JP', sans-serif; background-color: #f1f5f9; color: #334155; }
+        .concept-circle { transition: all 0.3s ease; }
+        .concept-circle:hover { transform: scale(1.02); }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-slate-800 text-white py-10 shadow-lg">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="flex items-center gap-3 mb-3 text-emerald-400 font-bold uppercase tracking-wider text-sm">
+                <i class="fa-solid fa-book-open"></i> Terminology Definition
+            </div>
+            <h1 class="text-3xl md:text-4xl font-bold mb-4">
+                AIエージェントと<br>Agentic RAGは同じものか？
+            </h1>
+            <p class="text-slate-400 text-lg">
+                混同されやすい2つの用語の定義、包含関係、およびシステム設計上の使い分けについて。
+            </p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 max-w-4xl flex-grow py-12 space-y-12">
+
+        <!-- Conclusion Box -->
+        <section class="bg-white rounded-xl shadow-sm border-l-8 border-emerald-500 p-8">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4">結論：同義ではありません</h2>
+            <p class="text-lg leading-relaxed text-slate-700 font-bold">
+                「AIエージェント」という大きな枠組みの中に、特定用途としての「Agentic RAG」が含まれます。
+            </p>
+            <p class="mt-2 text-slate-600">
+                関係性を図で表すと以下のようになります。
+            </p>
+            
+            <!-- Venn Diagram -->
+            <div class="mt-8 flex justify-center">
+                <div class="relative w-72 h-72 bg-indigo-50 rounded-full border-2 border-indigo-200 flex items-start justify-center pt-6 shadow-inner concept-circle">
+                    <div class="text-center">
+                        <span class="font-bold text-indigo-800 text-lg block">AI Agent</span>
+                        <span class="text-xs text-indigo-400">(広義の自律システム)</span>
+                    </div>
+                    
+                    <!-- Inner Circle -->
+                    <div class="absolute bottom-4 w-44 h-44 bg-emerald-100/90 rounded-full border-2 border-emerald-400 flex items-center justify-center shadow-md backdrop-blur-sm">
+                        <div class="text-center">
+                            <span class="font-bold text-emerald-800 text-lg block">Agentic RAG</span>
+                            <span class="text-xs text-emerald-600 block">(検索特化型)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="text-center text-sm text-slate-500 mt-4">（AI Agent という集合の中に Agentic RAG が含まれる）</p>
+        </section>
+
+        <!-- Visual Analogy -->
+        <section>
+            <h2 class="text-2xl font-bold text-slate-800 mb-8 flex items-center gap-3">
+                <span class="bg-slate-200 w-8 h-8 rounded-full flex items-center justify-center text-sm text-slate-600"><i class="fa-solid fa-layer-group"></i></span>
+                関係性のイメージ
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-8 items-center bg-white p-8 rounded-xl shadow-sm border border-slate-200">
+                <!-- Left: Diagram Description -->
+                <div class="space-y-6">
+                    <div class="p-4 rounded-lg bg-indigo-50 border border-indigo-100 concept-circle">
+                        <h3 class="font-bold text-indigo-800 text-lg mb-2"><i class="fa-solid fa-robot mr-2"></i>AIエージェント (広義)</h3>
+                        <p class="text-sm text-indigo-700">
+                            <strong>定義:</strong> 自律的に考え、道具を使ってゴールを達成する仕組み全般。<br>
+                            <strong>例:</strong> メール送信、会議予約、コード記述、データ分析など。
+                        </p>
+                    </div>
+                    <div class="flex justify-center text-slate-400">
+                        <i class="fa-solid fa-arrow-down text-2xl"></i>
+                    </div>
+                    <div class="p-4 rounded-lg bg-emerald-50 border border-emerald-100 ml-8 concept-circle shadow-md relative">
+                        <div class="absolute -left-3 top-1/2 -translate-y-1/2 w-3 h-px bg-emerald-300"></div>
+                        <h3 class="font-bold text-emerald-800 text-lg mb-2"><i class="fa-solid fa-magnifying-glass mr-2"></i>Agentic RAG (特化型)</h3>
+                        <p class="text-sm text-emerald-700">
+                            <strong>定義:</strong> エージェントの仕組みを使い、「検索と回答」に特化させたもの。<br>
+                            <strong>特徴:</strong> 検索結果が足りなければ、自分で検索ワードを変えて再試行する。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right: Human Analogy -->
+                <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 h-full flex flex-col justify-center">
+                    <h4 class="text-center font-bold text-slate-600 mb-6 border-b border-slate-200 pb-2">人間に例えると...</h4>
+                    
+                    <div class="mb-6">
+                        <p class="font-bold text-slate-700 mb-1">AIエージェント ＝ <span class="text-indigo-600">「社員」</span></p>
+                        <p class="text-xs text-slate-500">何でもできる。営業も経理も開発も、指示されれば何でもこなす能力（ポテンシャル）がある。</p>
+                    </div>
+
+                    <div>
+                        <p class="font-bold text-slate-700 mb-1">Agentic RAG ＝ <span class="text-emerald-600">「調査専門スタッフ」</span></p>
+                        <p class="text-xs text-slate-500">「社員」の一種だが、仕事は「資料探し」と「レポート作成」だけ。ただし、その仕事に関しては粘り強く、見つかるまで探すプロフェッショナル。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detailed Comparison Table -->
+        <section>
+            <h2 class="text-2xl font-bold text-slate-800 mb-6">詳細比較：違いの境界線</h2>
+            <div class="overflow-hidden rounded-xl border border-slate-200 shadow-sm">
+                <table class="w-full text-left border-collapse bg-white">
+                    <thead class="bg-slate-50">
+                        <tr>
+                            <th class="p-4 text-sm font-bold text-slate-600 border-b border-slate-200">比較項目</th>
+                            <th class="p-4 text-sm font-bold text-indigo-600 border-b border-slate-200 bg-indigo-50/50">AIエージェント (Agent)</th>
+                            <th class="p-4 text-sm font-bold text-emerald-600 border-b border-slate-200 bg-emerald-50/50">Agentic RAG</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="p-4 text-sm font-bold text-slate-700 border-b border-slate-100">主な目的 (Goal)</td>
+                            <td class="p-4 text-sm text-slate-600 border-b border-slate-100">タスクの実行・完遂<br><span class="text-xs text-slate-400">(Do things)</span></td>
+                            <td class="p-4 text-sm text-slate-600 border-b border-slate-100">情報の探索・回答<br><span class="text-xs text-slate-400">(Know things)</span></td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 text-sm font-bold text-slate-700 border-b border-slate-100">アウトプット</td>
+                            <td class="p-4 text-sm text-slate-600 border-b border-slate-100">アクション<br><span class="text-xs text-slate-500">（メール送信、DB更新、ファイル作成）</span></td>
+                            <td class="p-4 text-sm text-slate-600 border-b border-slate-100">テキスト回答<br><span class="text-xs text-slate-500">（質問への答え、要約レポート）</span></td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 text-sm font-bold text-slate-700 border-b border-slate-100">使う道具 (Tools)</td>
+                            <td class="p-4 text-sm text-slate-600 border-b border-slate-100">API全般、計算機、ブラウザ操作など何でも</td>
+                            <td class="p-4 text-sm text-slate-600 border-b border-slate-100">主に<strong>検索エンジン</strong>、ベクトルDB、Webブラウザ</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 text-sm font-bold text-slate-700">n8nでの実装例</td>
+                            <td class="p-4 text-sm text-slate-600">AI Agentノード + <span class="font-bold text-indigo-600">Gmail / Slackツール</span></td>
+                            <td class="p-4 text-sm text-slate-600">AI Agentノード + <span class="font-bold text-emerald-600">Vector Storeツール</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Why Confusion Exists -->
+        <section class="grid md:grid-cols-2 gap-8 mt-4">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <h3 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-circle-question text-slate-400"></i>
+                    なぜ混同されるのか？
+                </h3>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                    現在のビジネス現場における「AIエージェントの需要」の9割近くが、実質的に<strong>「高度な検索（＝Agentic RAG）」</strong>を指しているためです。<br><br>
+                    「自律的に調べて答えてほしい」という要望は、技術的にはAgentic RAGですが、ユーザーにとっては「エージェント」として認識されます。
+                </p>
+            </div>
+
+            <div class="bg-slate-800 text-slate-300 p-6 rounded-xl shadow-md">
+                <h3 class="font-bold text-white mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-wrench"></i>
+                    社内SEとしての使い分け
+                </h3>
+                <ul class="space-y-3 text-sm">
+                    <li class="flex gap-3">
+                        <span class="bg-slate-700 px-2 py-1 rounded text-xs font-mono text-emerald-400 h-fit">Talk</span>
+                        <span>上司への説明は<strong>「AIエージェントの一種」</strong>でOK。</span>
+                    </li>
+                    <li class="flex gap-3">
+                        <span class="bg-slate-700 px-2 py-1 rounded text-xs font-mono text-emerald-400 h-fit">Design</span>
+                        <span>
+                            システム設計時は区別する：<br>
+                            ・DBを書き換えるなら <strong class="text-white">Agent (Automation)</strong><br>
+                            ・情報を探すだけなら <strong class="text-white">Agentic RAG</strong>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-200 py-6 mt-12 text-center text-slate-500 text-xs">
+        <p>Internal Terminology Guide: AI Agent vs Agentic RAG</p>
+    </footer>
+
+</body>
+</html>
