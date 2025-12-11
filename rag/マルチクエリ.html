@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Query RAG & Prompt Engineering</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .step-number {
+            background: #dbeafe;
+            color: #1e40af;
+            font-weight: bold;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 0.75rem;
+        }
+    </style>
+</head>
+<body class="text-slate-800 pb-20">
+
+    <div class="max-w-4xl mx-auto pt-10 px-4">
+        
+        <!-- Intro Section (Restored/Added) -->
+        <div class="mb-10">
+            <h1 class="text-3xl font-bold text-slate-800 mb-4">Multi-Query RAG & Prompt Engineering</h1>
+            <p class="text-slate-600 leading-relaxed mb-4">
+                通常のRAG（検索拡張生成）では、ユーザーの質問をそのまま検索クエリとして使用しますが、
+                「キーワードの不一致」や「質問の曖昧さ」により、重要なドキュメントが検索漏れになる課題があります。
+            </p>
+            <p class="text-slate-600 leading-relaxed">
+                <strong>Multi-Query RAG</strong>は、LLMを活用して「単一の質問」から「複数の異なる視点の検索クエリ」を生成し、
+                多角的に検索を行うことで回答精度を劇的に向上させるテクニックです。
+            </p>
+        </div>
+
+        <!-- Section 1: Concept Flow -->
+        <div class="flex items-center mb-6">
+            <div class="step-number">1</div>
+            <h2 class="text-2xl font-bold text-slate-700">Multi-Query Generation Flow</h2>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm p-6 mb-12 border border-slate-200">
+            <h2 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4 text-center">クエリ生成のプロセス</h2>
+            
+            <div class="flex flex-col md:flex-row justify-center gap-4 mb-6">
+                <div class="bg-blue-50 border border-blue-100 rounded-lg p-3 text-xs text-center flex-1">
+                    <span class="font-bold text-blue-600 block mb-1">Query A (同義語)</span>
+                    "RAGの検索精度向上テクニック"
+                </div>
+                <div class="bg-blue-50 border border-blue-100 rounded-lg p-3 text-xs text-center flex-1">
+                    <span class="font-bold text-blue-600 block mb-1">Query B (原因分析)</span>
+                    "ベクトル検索 精度低下 原因"
+                </div>
+                <div class="bg-blue-50 border border-blue-100 rounded-lg p-3 text-xs text-center flex-1">
+                    <span class="font-bold text-blue-600 block mb-1">Query C (解決策)</span>
+                    "Hallucination 対策 手法"
+                </div>
+            </div>
+
+            <div class="flex justify-center mb-2 text-slate-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+            </div>
+
+            <div class="text-center">
+                <p class="text-xs font-bold text-slate-500 mb-2">SEARCH & FUSION</p>
+                <p class="text-sm text-slate-600 mb-3">3回分の検索結果を合体 ＋ 重複を削除 (De-duplication)</p>
+                <span class="inline-block bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full font-bold">網羅的なコンテキストの完成</span>
+            </div>
+        </div>
+
+        <!-- Section 2: Prompts -->
+        <div class="flex items-center mb-6">
+            <div class="step-number">2</div>
+            <h2 class="text-2xl font-bold text-slate-700">実践！日本語プロンプト例</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6 mb-4">
+            <!-- Pattern A -->
+            <div class="bg-slate-700 rounded-xl overflow-hidden shadow-lg flex flex-col text-white">
+                <div class="bg-slate-800 p-3 px-4 flex justify-between items-center border-b border-slate-600">
+                    <span class="font-bold text-sm">パターンA：同義語・類義語展開</span>
+                    <span class="text-xs bg-slate-600 px-2 py-0.5 rounded text-slate-300">汎用</span>
+                </div>
+                <div class="p-5 text-sm leading-relaxed font-mono opacity-90 flex-grow">
+                    あなたは優秀なAIアシスタントです。<br>
+                    ユーザーの質問に基づいて、ベクトルデータベースから関連文書を検索しようとしています。<br><br>
+                    ユーザーの質問は、言葉足らずであったり、特定のキーワードが含まれていない可能性があります。<br>
+                    検索漏れを防ぐために、元の質問と同じ意味を持つが、異なる角度や表現を用いた検索クエリを【3つ】生成してください。<br><br>
+                    以下のルールを守ってください：<br>
+                    1. 元の質問の意図を崩さないこと。
+                </div>
+            </div>
+
+            <!-- Pattern B -->
+            <div class="bg-slate-700 rounded-xl overflow-hidden shadow-lg flex flex-col text-white">
+                <div class="bg-slate-800 p-3 px-4 flex justify-between items-center border-b border-slate-600">
+                    <span class="font-bold text-sm">パターンB：視点の多角化</span>
+                    <span class="text-xs bg-indigo-500 px-2 py-0.5 rounded text-white">課題解決・学習用</span>
+                </div>
+                <div class="p-5 text-sm leading-relaxed font-mono opacity-90 flex-grow">
+                    あなたは検索クエリの最適化エンジンです。<br>
+                    ユーザーの入力した質問に対して、多角的な情報を収集するために、以下の3つの視点から検索クエリを作成してください。<br><br>
+                    1. 【具体的】 具体的な手順や方法を問うクエリ<br>
+                    2. 【抽象的】 概念や背景、定義を問うクエリ<br>
+                    3. 【関連語】 関連する技術用語や類義語を含んだクエリ<br><br>
+                    出力形式：<br>
+                    1. [クエリ1]<br>
+                    2. [クエリ2]
+                </div>
+            </div>
+        </div>
+        
+        <p class="text-sm text-slate-500 mb-12 ml-2 flex items-center">
+            <svg class="w-4 h-4 mr-1 text-amber-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+            LangChain等のライブラリを使う場合は、以下の解説のようにOutputParserを活用してリスト形式に整形します。
+        </p>
+
+
+        <!-- Section 3: Output Parser Explanation -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="bg-indigo-50 p-6 border-b border-indigo-100">
+                <div class="flex items-center mb-2">
+                    <div class="step-number !bg-indigo-600 !text-white">3</div>
+                    <h2 class="text-xl font-bold text-indigo-900">LangChain実装: OutputParserの活用</h2>
+                </div>
+                <p class="text-indigo-700 text-sm ml-11">
+                    Multi-Query RAGでは、LLMに生成させた<strong>「複数の検索クエリ」</strong>（同義語、多角的質問など）をリスト化し、プログラムで一括検索できるようにします。
+                </p>
+            </div>
+
+            <div class="p-6 md:p-8">
+                <!-- Why it's needed -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-bold text-slate-800 mb-3 flex items-center">
+                        <span class="w-1 h-6 bg-indigo-500 mr-3 rounded-full"></span>
+                        リスト化の対象とメリット
+                    </h3>
+                    <div class="flex flex-col md:flex-row gap-6 items-center">
+                        <div class="flex-1 bg-red-50 p-4 rounded-lg border border-red-100 w-full">
+                            <p class="text-xs font-bold text-red-500 mb-2 uppercase">Before (テキスト出力)</p>
+                            <p class="text-sm text-slate-600 font-mono">"1.RAG 精度向上、2.ベクトル検索 仕組み、3.AI 検索"</p>
+                            <div class="mt-2 text-xs text-red-400">⚠️ 文字列なので、ここから1つずつ取り出して検索APIに投げるのが大変</div>
+                        </div>
+                        <div class="text-slate-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transform rotate-90 md:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                        </div>
+                        <div class="flex-1 bg-green-50 p-4 rounded-lg border border-green-100 w-full">
+                            <p class="text-xs font-bold text-green-600 mb-2 uppercase">After (リスト化)</p>
+                            <p class="text-sm text-slate-600 font-mono">['RAG 精度向上', 'ベクトル検索 仕組み', 'AI 検索']</p>
+                            <div class="mt-2 text-xs text-green-600">✅ リスト（配列）になるため、for文で回して一括検索が可能</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tips (Code removed as requested) -->
+                <div class="bg-yellow-50 border border-yellow-100 rounded-lg p-4 flex items-start">
+                    <svg class="w-5 h-5 text-yellow-500 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <div>
+                        <h4 class="font-bold text-yellow-800 text-sm mb-1">同義語以外もリスト化できますか？</h4>
+                        <p class="text-xs text-yellow-700 leading-relaxed">
+                            はい、可能です。例えばプロンプトの指示次第で以下のようなリストを出力させることができます。
+                        </p>
+                        <ul class="list-disc list-inside text-xs text-yellow-700 mt-1 ml-1 space-y-1">
+                            <li><strong>視点の異なる質問:</strong> 「原因、解決策、予防策」の3点</li>
+                            <li><strong>意見の分類:</strong> 「肯定的な意見、否定的な意見」</li>
+                            <li><strong>サブタスク分解:</strong> 複雑な質問を解決するための手順リスト</li>
+                        </ul>
+                        <p class="text-xs text-yellow-700 leading-relaxed mt-2">
+                            重要なのは<strong>「LLMが生成した複数のテキストを、プログラムで処理しやすい配列（リスト）として受け取る」</strong>点にあります。
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
