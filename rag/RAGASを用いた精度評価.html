@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAGAS 導入ガイド・まとめ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans JP', sans-serif; }
+        .card-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-blue-700 to-indigo-800 text-white py-8">
+        <div class="container mx-auto px-4 max-w-5xl">
+            <h1 class="text-3xl md:text-4xl font-bold mb-2">RAGAS 導入ガイド</h1>
+            <p class="text-blue-100 text-lg">RAGシステムの評価フレームワーク：基本概念と導入準備まとめ</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 max-w-5xl py-10 space-y-12">
+
+        <!-- Section 1: RAGASとは -->
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="bg-blue-600 text-white p-2 rounded-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800">1. RAGASとは？何ができるのか</h2>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-lg font-bold text-blue-800 mb-3">概要</h3>
+                        <p class="text-gray-600 leading-relaxed mb-4">
+                            <strong>"LLMを使って、LLM（RAG）を評価する"</strong> <span class="bg-blue-100 text-blue-800 px-1 py-0.5 rounded font-bold text-sm mx-1">オープンソース (OSS)</span> のフレームワークです。人間がすべてのログを目視チェックする代わりに、GPT-5.2などの高性能モデルが「採点者（裁判官）」となり、システムの精度を数値化します。
+                        </p>
+                        <h3 class="text-lg font-bold text-blue-800 mb-3">主な機能</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <span class="text-green-500 mr-2">✓</span>
+                                <span>検索精度と回答精度の自動採点</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-green-500 mr-2">✓</span>
+                                <span>ドキュメントからの<strong>テストデータ自動生成</strong></span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-green-500 mr-2">✓</span>
+                                <span>ハルシネーション（嘘）の検知</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-100 rounded-lg p-5 border border-gray-200">
+                        <h4 class="font-bold text-gray-700 mb-3 text-center">RAGASの正体＝「優秀な作問者」</h4>
+                        <p class="text-sm text-gray-600 mb-4">
+                            RAGASのテストデータ生成機能は、ドキュメント（答え）を最初に見ながらテスト問題を作る「逆算（カンニング）」アプローチです。そのため、検索能力がゼロでも高品質なテストデータを作れます。
+                        </p>
+                        <div class="bg-white p-3 rounded border border-gray-300 text-sm">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-bold text-indigo-600">RAGアプリ</span>
+                                <span class="text-xs text-gray-500">検索して答えを探す（難しい）</span>
+                            </div>
+                            <div class="w-full bg-gray-200 h-1 mb-2"></div>
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-pink-600">RAGAS</span>
+                                <span class="text-xs text-gray-500">答えを見て問題を作る（簡単）</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: 評価指標 -->
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="bg-pink-600 text-white p-2 rounded-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800">2. 代表的な評価指標</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Metrics Card 1 -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border-l-4 border-blue-500 card-hover transition duration-300">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Context Precision</h3>
+                    <p class="text-sm text-blue-600 font-bold mb-3 tracking-wide uppercase">検索精度の評価</p>
+                    <p class="text-gray-600">
+                        検索してきたドキュメントの中に、正解に必要な情報が含まれているか？余計なノイズ（ゴミ情報）を拾ってきていないか？
+                    </p>
+                </div>
+
+                <!-- Metrics Card 2 -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border-l-4 border-green-500 card-hover transition duration-300">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Faithfulness</h3>
+                    <p class="text-sm text-green-600 font-bold mb-3 tracking-wide uppercase">ハルシネーションの評価</p>
+                    <p class="text-gray-600">
+                        生成された回答は、検索されたドキュメントの内容に基づいているか？ドキュメントにないことを勝手に捏造していないか？
+                    </p>
+                </div>
+
+                <!-- Metrics Card 3 -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border-l-4 border-indigo-500 card-hover transition duration-300">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Answer Correctness</h3>
+                    <p class="text-sm text-indigo-600 font-bold mb-3 tracking-wide uppercase">正解との一致度</p>
+                    <p class="text-gray-600">
+                        用意した「正解データ（Ground Truth）」と、RAGの回答が合っているか？
+                        <br><span class="text-xs text-red-500">※テストデータ作成時の参照資料と、検索範囲がズレているとスコアが激減するので注意。</span>
+                    </p>
+                </div>
+
+                <!-- Metrics Card 4 -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border-l-4 border-purple-500 card-hover transition duration-300">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Answer Relevance</h3>
+                    <p class="text-sm text-purple-600 font-bold mb-3 tracking-wide uppercase">回答の適切さ</p>
+                    <p class="text-gray-600">
+                        ユーザーの質問に対して、的確に答えているか？（トンチンカンな回答をしていないか？）
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: 評価の仕組み -->
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="bg-yellow-600 text-white p-2 rounded-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800">3. 評価実行のステップ</h2>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                <div class="p-6 md:p-8">
+                    <ol class="relative border-l border-gray-200 ml-4 space-y-8">
+                        <li class="mb-10 ml-6">
+                            <span class="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -left-4 ring-4 ring-white text-blue-600 font-bold">1</span>
+                            <h3 class="flex items-center mb-3 text-lg font-bold text-gray-900">テストデータの準備（2つのパターン）</h3>
+                            <p class="mb-4 text-base font-normal text-gray-600">
+                                目的に合わせて、以下のどちらかの方法で質問と正解を用意します。
+                            </p>
+
+                            <div class="grid md:grid-cols-2 gap-4 mt-4">
+                                <!-- Pattern A: Manual -->
+                                <div class="bg-gray-50 p-5 rounded-lg border border-gray-200 flex flex-col">
+                                    <div class="flex items-center mb-2">
+                                        <span class="bg-gray-600 text-white text-xs px-2 py-1 rounded mr-2">パターン A</span>
+                                        <h4 class="font-bold text-gray-800">手動で作成（スモールスタート）</h4>
+                                    </div>
+                                    <p class="text-sm text-gray-600 mb-3 flex-grow">
+                                        自分で10〜20件の質問と正解のペアを作る方法。まずはここから始めるのが推奨。
+                                    </p>
+                                    <ul class="text-sm space-y-2 mt-2 pt-2 border-t border-gray-200">
+                                        <li class="flex items-start text-green-700">
+                                            <span class="mr-2">●</span>RAGASへのドキュメント登録が<strong class="ml-1">不要</strong>
+                                        </li>
+                                        <li class="flex items-start text-green-700">
+                                            <span class="mr-2">●</span>すぐに評価を開始できる
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!-- Pattern B: Auto -->
+                                <div class="bg-blue-50 p-5 rounded-lg border border-blue-100 flex flex-col">
+                                    <div class="flex items-center mb-2">
+                                        <span class="bg-blue-600 text-white text-xs px-2 py-1 rounded mr-2">パターン B</span>
+                                        <h4 class="font-bold text-blue-800">自動生成（本格運用）</h4>
+                                    </div>
+                                    <p class="text-sm text-gray-600 mb-3 flex-grow">
+                                        RAGASにドキュメントを読ませて、大量のテストデータを自動で作らせる方法。
+                                    </p>
+                                    <ul class="text-sm space-y-2 mt-2 pt-2 border-t border-blue-200">
+                                        <li class="flex items-start text-blue-800">
+                                            <span class="mr-2">●</span>RAGASへのドキュメント登録が<strong class="ml-1">必須</strong>
+                                        </li>
+                                        <li class="text-xs text-gray-600 pl-4">
+                                            ※ Blob Storage等の場合、LangChainローダー経由で連携可能。
+                                        </li>
+                                        <li class="text-xs text-gray-600 pl-4">
+                                            ※ <span class="font-bold">社内プロキシ経由</span>でのLLM利用も、Base URL設定により可能です。
+                                        </li>
+                                        <li class="text-xs text-gray-600 pl-4">
+                                            <span class="font-bold text-red-500">コツ：</span> 全ファイルではなく、代表的な数十ファイルをサンプリングして渡せばOK。
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="mb-10 ml-6">
+                            <span class="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -left-4 ring-4 ring-white text-blue-600 font-bold">2</span>
+                            <h3 class="mb-1 text-lg font-bold text-gray-900">RAGアプリを実行＆ログ収集</h3>
+                            <p class="text-base font-normal text-gray-600 mb-2">
+                                質問をシステムに投げ、以下のセットを保存します。
+                            </p>
+                            <div class="bg-gray-50 p-3 rounded border border-gray-200 font-mono text-sm">
+                                [Question, Answer, <span class="text-red-600 font-bold">Contexts</span>]
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1">※ Contextsは検索されたテキスト全文のリストが必要です。</p>
+                        </li>
+                        <li class="ml-6">
+                            <span class="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -left-4 ring-4 ring-white text-blue-600 font-bold">3</span>
+                            <h3 class="mb-1 text-lg font-bold text-gray-900">RAGASで評価実行</h3>
+                            <p class="text-base font-normal text-gray-600">
+                                ログデータと正解データをRAGASに渡し、評価を実行します。<br>
+                                <strong>注意：</strong>評価用のLLMには <code>GPT-5.2</code> などの高性能モデルを指定してください。
+                            </p>
+                            <div class="mt-3 bg-blue-50 p-3 rounded-lg border border-blue-100">
+                                <p class="text-sm text-blue-800">
+                                    <span class="font-bold">Point:</span> パターンA（手動作成）の場合、RAGAS側にドキュメントを読み込ませる<strong>セットアップは不要</strong>です。ログ内の <code>Contexts</code> を使って評価が行われます。
+                                </p>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: 用意するものリスト -->
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="bg-green-600 text-white p-2 rounded-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800">4. 準備物チェックリスト</h2>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="font-bold text-lg mb-4 text-gray-800 border-b pb-2">📦 必須データ</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <input type="checkbox" class="mt-1 h-5 w-5 text-blue-600 rounded border-gray-300" disabled checked>
+                                <div class="ml-3">
+                                    <span class="font-medium text-gray-900">システム出力ログ (3点)</span>
+                                    <p class="text-sm text-gray-500">Question, Answer, <span class="text-red-500 font-bold">Contexts</span></p>
+                                    <p class="text-xs text-red-500 mt-1">※ContextsはURLではなく「中身のテキスト」が必須</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <input type="checkbox" class="mt-1 h-5 w-5 text-blue-600 rounded border-gray-300" disabled>
+                                <div class="ml-3">
+                                    <span class="font-medium text-gray-900">プロキシ接続情報</span>
+                                    <p class="text-sm text-gray-500">Endpoint URL, API Key</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="font-bold text-lg mb-4 text-gray-800 border-b pb-2">🧪 あると良い / 推奨</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <input type="checkbox" class="mt-1 h-5 w-5 text-blue-600 rounded border-gray-300" disabled>
+                                <div class="ml-3">
+                                    <span class="font-medium text-gray-900">正解データ (Ground Truth)</span>
+                                    <p class="text-sm text-gray-500">これがないと「検索漏れ」の測定が不可。</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <input type="checkbox" class="mt-1 h-5 w-5 text-blue-600 rounded border-gray-300" disabled>
+                                <div class="ml-3">
+                                    <span class="font-medium text-gray-900">高性能な評価モデル</span>
+                                    <p class="text-sm text-gray-500">GPT-5.2クラス推奨。<br><span class="text-xs">※性能の低いモデルだとJSONエラーや採点ミスが多発します。</span></p>
+                                </div>
+                            </li>
+                             <li class="flex items-start">
+                                <input type="checkbox" class="mt-1 h-5 w-5 text-blue-600 rounded border-gray-300" disabled>
+                                <div class="ml-3">
+                                    <span class="font-medium text-gray-900">ドキュメント原本（パターンBのみ）</span>
+                                    <p class="text-sm text-gray-500">テスト自動生成を行う場合のみ必要。</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-gray-400 py-6 mt-10">
+        <div class="container mx-auto px-4 text-center text-sm">
+            <p>RAGAS Quick Summary | Generated for internal team reference.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
