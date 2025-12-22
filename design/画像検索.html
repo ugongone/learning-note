@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Image Search</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- SheetJS (Excel Library) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #f97316; /* Orange-500 */
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .image-card {
+            opacity: 1 !important;
+            display: flex !important;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        /* Tab Active State */
+        .tab-active {
+            color: #ea580c; /* Orange-600 */
+            border-bottom: 2px solid #ea580c;
+        }
+        .tab-inactive {
+            color: #6b7280;
+            border-bottom: 2px solid transparent;
+        }
+        .tab-inactive:hover {
+            color: #374151;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        
+        /* Modern Switch Toggle */
+        .toggle-checkbox {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+        .toggle-label {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            background-color: #e5e7eb;
+            border-radius: 9999px;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+        }
+        .toggle-label:before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #f97316;
+        }
+        .toggle-checkbox:checked + .toggle-label:before {
+            transform: translateX(20px);
+        }
+
+        /* Options Panel Animation */
+        #optionsPanel {
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        #optionsPanel.open {
+            max-height: 200px; /* Approximate max height */
+            opacity: 1;
+            transform: translateY(0);
+            margin-top: 0.5rem; /* 少しマージンを追加 */
+        }
+        
+        /* Select styling */
+        .custom-select-wrapper {
+            position: relative;
+        }
+        .custom-select-wrapper::after {
+            content: '';
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 4px solid #6b7280;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen text-gray-800 font-sans">
+
+    <!-- Header / Navigation -->
+    <div class="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-end py-3">
+                <!-- Navigation Tabs -->
+                <nav class="flex gap-6 w-full md:w-auto justify-center md:justify-end">
+                    <button onclick="switchTab('search')" id="tabSearch" class="tab-active flex items-center gap-2 px-2 py-2 font-medium transition-colors">
+                        <i class="ph ph-magnifying-glass text-lg"></i> さがす
+                    </button>
+                    <button onclick="switchTab('add')" id="tabAdd" class="tab-inactive flex items-center gap-2 px-2 py-2 font-medium transition-colors">
+                        <i class="ph ph-file-xls text-lg"></i> 追加する
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-8">
+        
+        <!-- SECTION: SEARCH VIEW -->
+        <div id="searchView" class="block">
+            <!-- Search Bar Area -->
+            <div class="max-w-3xl mx-auto mb-8">
+                <!-- Search Input Group -->
+                <div class="relative flex items-center gap-2">
+                    <div class="relative flex-1">
+                        <input type="text" id="searchInput" 
+                            placeholder="検索ワードを入力 (例: 猫, 東京, 自然)" 
+                            class="w-full pl-5 pr-14 py-3 bg-white border-2 border-gray-200 focus:border-orange-500 rounded-full outline-none transition-all shadow-sm focus:shadow-md text-lg z-10"
+                        >
+                        <button id="searchBtn" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-orange-500 hover:bg-orange-600 text-white p-2.5 rounded-full transition-colors shadow-sm z-20">
+                            <i class="ph ph-magnifying-glass text-xl"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Toggle Options Button -->
+                    <button id="toggleOptionsBtn" class="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-white border-2 border-gray-200 text-gray-500 rounded-full hover:bg-gray-50 hover:border-orange-300 hover:text-orange-500 transition-all shadow-sm focus:outline-none" title="検索オプション">
+                        <i class="ph ph-sliders-horizontal text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- Search Options Panel (Collapsible) -->
+                <div id="optionsPanel" class="w-full">
+                    <div class="pt-4 px-2 flex flex-col md:flex-row items-center gap-6 md:gap-8 justify-between">
+                        
+                        <!-- LLM Model Select -->
+                        <div class="flex items-center gap-3 w-full md:w-auto">
+                            <!-- 変更箇所: アイコン削除、クラス調整 -->
+                            <label class="text-sm font-bold text-gray-600 flex-shrink-0">
+                                LLMモデル
+                            </label>
+                            <div class="custom-select-wrapper">
+                                <select id="optModel" class="appearance-none bg-transparent border-b border-gray-300 text-gray-700 font-medium py-2 px-4 pr-8 leading-tight focus:outline-none focus:border-orange-500 transition-all cursor-pointer text-sm w-48 hover:border-gray-400">
+                                    <option value="gpt-4o">GPT-4o</option>
+                                    <option value="claude-3-5">Claude 3.5 Sonnet</option>
+                                    <option value="gemini-1.5">Gemini 1.5 Pro</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="h-6 w-px bg-gray-300 hidden md:block"></div>
+
+                        <!-- Rerank Toggle -->
+                        <div class="flex items-center justify-between w-full md:w-auto gap-4">
+                            <div class="flex flex-col">
+                                <span class="text-sm font-bold text-gray-600">リランク機能</span>
+                            </div>
+                            <label class="flex items-center cursor-pointer">
+                                <input type="checkbox" id="optRerank" class="toggle-checkbox">
+                                <span class="toggle-label"></span>
+                            </label>
+                        </div>
+
+                        <div class="h-6 w-px bg-gray-300 hidden md:block"></div>
+
+                        <!-- Hide Used Toggle -->
+                        <div class="flex items-center justify-between w-full md:w-auto gap-4">
+                            <div class="flex flex-col">
+                                <span class="text-sm font-bold text-gray-600">利用済み非表示</span>
+                            </div>
+                            <label class="flex items-center cursor-pointer">
+                                <input type="checkbox" id="optHideUsed" class="toggle-checkbox" onchange="performSearch()">
+                                <span class="toggle-label"></span>
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status -->
+            <div id="statusMessage" class="text-center text-gray-500 mb-6 hidden"></div>
+
+            <!-- Loading -->
+            <div id="loading" class="hidden flex flex-col items-center justify-center py-12">
+                <div class="loader mb-4"></div>
+                <p class="text-gray-500 animate-pulse">画像を検索中...</p>
+            </div>
+
+            <!-- Grid -->
+            <div id="imageGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Initial content will be injected by JS -->
+            </div>
+        </div>
+
+        <!-- SECTION: ADD VIEW -->
+        <div id="addView" class="hidden">
+            <div class="max-w-2xl mx-auto">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    <div class="p-6 border-b border-gray-100">
+                        <h2 class="text-xl font-bold flex items-center gap-2">
+                            <i class="ph ph-microsoft-excel-logo text-green-600"></i>
+                            Excelファイルから画像を追加
+                        </h2>
+                    </div>
+                    
+                    <div class="p-8 space-y-6 flex flex-col items-center">
+                        <!-- File Input Area -->
+                        <div class="w-full relative group">
+                            <input type="file" id="excelInput" accept=".xlsx, .xls" 
+                                class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                                onchange="updateFileName(this)"
+                            >
+                            <div class="border-2 border-dashed border-gray-300 group-hover:border-orange-400 rounded-xl p-10 flex flex-col items-center justify-center transition-colors bg-gray-50 group-hover:bg-orange-50">
+                                <i class="ph ph-upload-simple text-4xl text-gray-400 mb-3 group-hover:text-orange-500"></i>
+                                <p class="text-lg font-medium text-gray-700">ファイルを選択 または ドラッグ&ドロップ</p>
+                                <p id="fileNameDisplay" class="text-sm text-gray-500 mt-2">対応形式: .xlsx, .xls</p>
+                            </div>
+                        </div>
+
+                        <!-- Info Box -->
+                        <div class="w-full bg-orange-50 text-orange-800 text-sm p-4 rounded-lg flex items-start gap-2">
+                            <i class="ph ph-info text-lg mt-0.5"></i>
+                            <div>
+                                <p class="font-bold mb-1">データ形式について</p>
+                                <p>Excelの最初のシート、<strong>A列</strong>に画像URLを入力してください。<br>ヘッダー行は不要です（1行目から読み込みます）。</p>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button onclick="uploadExcel()" id="uploadBtn" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-lg transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+                            画像を追加
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Modal (Lightroom) -->
+    <div id="imageModal" class="fixed inset-0 z-[100] bg-black bg-opacity-95 hidden flex items-center justify-center p-4 backdrop-blur-sm transition-opacity duration-300">
+        <div class="absolute top-4 right-4 flex items-center gap-3 z-50">
+            <button id="copyModalBtn" class="text-white hover:text-orange-400 bg-white/10 hover:bg-white/20 p-3 rounded-full backdrop-blur-sm transition-all" title="URLをコピー">
+                <i class="ph ph-copy text-2xl"></i>
+            </button>
+            <button id="closeModal" class="text-white hover:text-red-400 bg-white/10 hover:bg-white/20 p-3 rounded-full backdrop-blur-sm transition-all" title="閉じる">
+                <i class="ph ph-x text-2xl"></i>
+            </button>
+        </div>
+        <img id="modalImg" src="" alt="Full view" class="max-h-[90vh] max-w-[90vw] object-contain rounded shadow-2xl bg-gray-800">
+        <p id="modalCaption" class="absolute bottom-6 text-white text-lg bg-black bg-opacity-50 px-4 py-2 rounded pointer-events-none"></p>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-4 right-4 transform translate-y-20 opacity-0 transition-all duration-300 bg-gray-800 text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-3 z-[110]">
+        <i class="ph ph-check-circle text-orange-400 text-xl"></i>
+        <span id="toastMsg">Message</span>
+    </div>
+
+    <script>
+        // --- State Management ---
+        let localImages = [];
+        try {
+            localImages = JSON.parse(localStorage.getItem('my_images')) || [];
+        } catch(e) {
+            console.error("Local storage error:", e);
+        }
+
+        // --- DOM Elements ---
+        const searchView = document.getElementById('searchView');
+        const addView = document.getElementById('addView');
+        const tabSearch = document.getElementById('tabSearch');
+        const tabAdd = document.getElementById('tabAdd');
+        
+        const searchInput = document.getElementById('searchInput');
+        const imageGrid = document.getElementById('imageGrid');
+        const loading = document.getElementById('loading');
+        const statusMessage = document.getElementById('statusMessage');
+        
+        // Options Elements
+        const toggleOptionsBtn = document.getElementById('toggleOptionsBtn');
+        const optionsPanel = document.getElementById('optionsPanel');
+        const optModel = document.getElementById('optModel');
+        const optRerank = document.getElementById('optRerank');
+        const optHideUsed = document.getElementById('optHideUsed');
+
+        const excelInput = document.getElementById('excelInput');
+        const fileNameDisplay = document.getElementById('fileNameDisplay');
+        
+        const imageModal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImg');
+        const modalCaption = document.getElementById('modalCaption');
+        const copyModalBtn = document.getElementById('copyModalBtn');
+
+        // --- Helper: Generate SVG Data URI for Demo ---
+        function generatePlaceholderURL(text, width=400, height=300) {
+            const bgColors = ['#f87171', '#fb923c', '#fbbf24', '#a3e635', '#34d399', '#22d3ee', '#60a5fa', '#818cf8', '#c084fc', '#f472b6'];
+            let hash = 0;
+            for (let i = 0; i < text.length; i++) {
+                hash = text.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            const colorIndex = Math.abs(hash) % bgColors.length;
+            const bgColor = bgColors[colorIndex];
+            
+            const svg = `
+            <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
+                <rect width="100%" height="100%" fill="${bgColor}"/>
+                <text x="50%" y="50%" font-family="sans-serif" font-size="24" fill="white" text-anchor="middle" dy=".3em">${text}</text>
+            </svg>`;
+            return 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
+        }
+
+        // --- Core Functions ---
+
+        // Toggle Options Panel
+        toggleOptionsBtn.addEventListener('click', () => {
+            optionsPanel.classList.toggle('open');
+            // Toggle icon visual state
+            if(optionsPanel.classList.contains('open')) {
+                toggleOptionsBtn.classList.add('bg-orange-50', 'border-orange-300', 'text-orange-500');
+            } else {
+                toggleOptionsBtn.classList.remove('bg-orange-50', 'border-orange-300', 'text-orange-500');
+            }
+        });
+
+        function switchTab(tab) {
+            if (tab === 'search') {
+                searchView.classList.remove('hidden');
+                addView.classList.add('hidden');
+                tabSearch.className = 'tab-active flex items-center gap-2 px-2 py-2 font-medium transition-colors';
+                tabAdd.className = 'tab-inactive flex items-center gap-2 px-2 py-2 font-medium transition-colors';
+            } else {
+                searchView.classList.add('hidden');
+                addView.classList.remove('hidden');
+                tabSearch.className = 'tab-inactive flex items-center gap-2 px-2 py-2 font-medium transition-colors';
+                tabAdd.className = 'tab-active flex items-center gap-2 px-2 py-2 font-medium transition-colors';
+            }
+        }
+
+        function updateFileName(input) {
+            if (input.files && input.files.length > 0) {
+                fileNameDisplay.innerText = `選択中: ${input.files[0].name}`;
+                fileNameDisplay.className = "text-sm text-orange-600 font-bold mt-2";
+            } else {
+                fileNameDisplay.innerText = "対応形式: .xlsx, .xls";
+                fileNameDisplay.className = "text-sm text-gray-500 mt-2";
+            }
+        }
+
+        function uploadExcel() {
+            const file = excelInput.files[0];
+            if (!file) {
+                showToast('Excelファイルを選択してください', 'error');
+                return;
+            }
+
+            if (typeof XLSX === 'undefined') {
+                showToast('Excel読み込みライブラリのロードに失敗しました', 'error');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, {type: 'array'});
+                    const firstSheetName = workbook.SheetNames[0];
+                    const worksheet = workbook.Sheets[firstSheetName];
+                    const rows = XLSX.utils.sheet_to_json(worksheet, {header: 1});
+                    
+                    let addedCount = 0;
+                    rows.forEach(row => {
+                        if (row[0] && typeof row[0] === 'string') {
+                            const url = row[0].trim();
+                            if(url) {
+                                localImages.unshift({
+                                    id: Date.now() + Math.random(),
+                                    url: url,
+                                    tags: url, 
+                                    count: 0,
+                                    date: new Date().toISOString()
+                                });
+                                addedCount++;
+                            }
+                        }
+                    });
+
+                    if (addedCount > 0) {
+                        localStorage.setItem('my_images', JSON.stringify(localImages));
+                        showToast(`${addedCount}件の画像を追加しました！`, 'success');
+                        excelInput.value = '';
+                        updateFileName(excelInput);
+                        if(searchInput.value === '') performSearch();
+                    } else {
+                        showToast('有効な画像URLが見つかりませんでした', 'error');
+                    }
+                } catch (error) {
+                    console.error(error);
+                    showToast('ファイルの読み込みに失敗しました', 'error');
+                }
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        async function performSearch() {
+            let query = searchInput.value.trim().toLowerCase();
+            const hideUsed = optHideUsed.checked;
+            const selectedModel = optModel.value;
+            const useRerank = optRerank.checked;
+
+            console.log(`Search Params: Query="${query}", Model=${selectedModel}, Rerank=${useRerank}, HideUsed=${hideUsed}`);
+
+            imageGrid.innerHTML = '';
+            statusMessage.classList.add('hidden');
+            loading.classList.remove('hidden');
+
+            setTimeout(() => {
+                loading.classList.add('hidden');
+                
+                let myResults = [];
+                // クエリがあればフィルタリング、なければ全件表示（デモ含む）
+                if (query) {
+                    statusMessage.innerText = `"${query}" の検索結果`;
+                    myResults = localImages.filter(img => 
+                        (img.tags && img.tags.toLowerCase().includes(query))
+                    );
+                } else {
+                    if (localImages.length > 0) {
+                        myResults = localImages;
+                    } else {
+                        query = "Demo"; 
+                    }
+                }
+
+                // Filter out used images if option is checked
+                if (hideUsed) {
+                    const beforeCount = myResults.length;
+                    myResults = myResults.filter(img => (img.count || 0) === 0);
+                    if (myResults.length < beforeCount && myResults.length === 0) {
+                        statusMessage.innerText += " (利用済みを非表示中)";
+                    }
+                }
+                
+                if (myResults.length > 0 || query) {
+                    // statusMessage.classList.remove('hidden');
+                }
+
+                const fragment = document.createDocumentFragment();
+
+                // 1. 保存済み画像を表示
+                myResults.forEach(item => {
+                    const card = createImageCard(item, true);
+                    fragment.appendChild(card);
+                });
+
+                // 2. 検索結果（デモ用）を表示
+                if (query && !hideUsed) { // API結果はデフォルト未使用(0)とみなす
+                    const apiResultsCount = 12;
+                    for (let i = 0; i < apiResultsCount; i++) {
+                        const displayText = `${query} ${i+1}`;
+                        const imageUrl = generatePlaceholderURL(displayText);
+                        
+                        const apiItem = {
+                            id: null, 
+                            url: imageUrl,
+                            tags: displayText,
+                            count: 0
+                        };
+                        const card = createImageCard(apiItem, false);
+                        fragment.appendChild(card);
+                    }
+                }
+
+                imageGrid.appendChild(fragment);
+
+                if (imageGrid.children.length === 0) {
+                    imageGrid.innerHTML = `<div class="col-span-full text-center py-10 text-gray-400">画像が見つかりませんでした${hideUsed ? '<br><span class="text-xs">※利用済み画像が非表示になっています</span>' : ''}</div>`;
+                }
+
+            }, 200);
+        }
+
+        // --- Card Component ---
+
+        function createImageCard(item, isLocal) {
+            const cardWrapper = document.createElement('div');
+            cardWrapper.className = `image-card flex flex-col bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gray-100`;
+            
+            // Image Area
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'relative aspect-[4/3] bg-gray-200 cursor-pointer group overflow-hidden';
+            imgContainer.onclick = () => openModal(item.url, item.tags || 'Image');
+
+            const img = document.createElement('img');
+            img.src = item.url;
+            img.alt = item.tags;
+            img.className = 'w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105';
+            img.loading = 'lazy';
+            
+            img.onerror = function() { 
+                this.onerror = null; 
+                this.src = generatePlaceholderURL("Image Error");
+            };
+
+            // Overlay
+            const overlay = document.createElement('div');
+            overlay.className = 'absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-opacity duration-300 p-2 flex justify-end items-start';
+            
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'opacity-0 group-hover:opacity-100 transition-all bg-white/90 hover:bg-white text-gray-700 p-2 rounded-full shadow-lg transform scale-90 hover:scale-100 focus:outline-none';
+            copyBtn.title = 'URLをコピー';
+            copyBtn.innerHTML = '<i class="ph ph-copy text-lg"></i>';
+            copyBtn.onclick = (e) => {
+                e.stopPropagation();
+                copyUrlToClipboard(item.url, copyBtn);
+            };
+
+            overlay.appendChild(copyBtn);
+            imgContainer.appendChild(img);
+            imgContainer.appendChild(overlay);
+
+            // Footer
+            const footer = document.createElement('div');
+            footer.className = 'p-3 flex items-center justify-between bg-white border-t border-gray-100 text-sm';
+            
+            // Count
+            const countId = `count-${isLocal ? item.id : 'api-' + Math.random().toString(36).substr(2, 9)}`;
+            
+            const countContainer = document.createElement('div');
+            countContainer.className = 'flex items-center gap-3';
+            
+            const countLabel = document.createElement('span');
+            countLabel.className = 'text-gray-500 font-medium flex items-center gap-1';
+            countLabel.innerHTML = '<i class="ph ph-chart-bar"></i> 利用回数:';
+
+            const countValue = document.createElement('span');
+            countValue.id = countId;
+            countValue.className = 'font-bold text-lg text-gray-800 w-6 text-center';
+            countValue.innerText = item.count || 0;
+
+            // Buttons
+            const btnGroup = document.createElement('div');
+            btnGroup.className = 'flex items-center gap-1';
+
+            const minusBtn = document.createElement('button');
+            minusBtn.className = 'w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors focus:outline-none';
+            minusBtn.innerHTML = '<i class="ph ph-minus"></i>';
+            minusBtn.onclick = (e) => {
+                e.stopPropagation();
+                updateCount(item, -1, countId, cardWrapper);
+            };
+
+            const plusBtn = document.createElement('button');
+            plusBtn.className = 'w-8 h-8 flex items-center justify-center rounded-full bg-orange-100 hover:bg-orange-200 text-orange-600 transition-colors focus:outline-none';
+            plusBtn.innerHTML = '<i class="ph ph-plus font-bold"></i>';
+            plusBtn.onclick = (e) => {
+                e.stopPropagation();
+                updateCount(item, 1, countId, cardWrapper);
+            };
+
+            btnGroup.appendChild(minusBtn);
+            btnGroup.appendChild(plusBtn);
+
+            countContainer.appendChild(countLabel);
+            countContainer.appendChild(countValue);
+
+            // 削除ボタン
+            if (isLocal) {
+                const trashBtn = document.createElement('button');
+                trashBtn.className = 'ml-auto text-gray-400 hover:text-red-500 p-1.5 transition-colors';
+                trashBtn.title = '削除';
+                trashBtn.innerHTML = '<i class="ph ph-trash text-lg"></i>';
+                trashBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    deleteImage(item.id);
+                };
+                footer.appendChild(countContainer);
+                footer.appendChild(btnGroup);
+                footer.appendChild(trashBtn);
+            } else {
+                footer.appendChild(countContainer);
+                footer.appendChild(btnGroup);
+            }
+
+            cardWrapper.appendChild(imgContainer);
+            cardWrapper.appendChild(footer);
+
+            return cardWrapper;
+        }
+
+        // --- Logic ---
+
+        function updateCount(item, delta, countSpanId, cardElement) {
+            const countSpan = document.getElementById(countSpanId);
+            
+            if (item.id) { // Existing Local Image
+                const target = localImages.find(img => img.id === item.id);
+                if (target) {
+                    let newCount = (target.count || 0) + delta;
+                    if (newCount < 0) newCount = 0;
+                    target.count = newCount;
+                    countSpan.innerText = newCount;
+                    saveLocalImages();
+                }
+            } else { // Promote API Image to Local (Invisible promotion)
+                if (delta > 0) {
+                    const newItem = {
+                        id: Date.now(),
+                        url: item.url,
+                        tags: item.tags,
+                        count: 1, // Start at 1
+                        date: new Date().toISOString()
+                    };
+                    localImages.unshift(newItem);
+                    saveLocalImages();
+                    
+                    item.id = newItem.id;
+                    item.count = 1;
+                    countSpan.innerText = 1;
+                }
+            }
+        }
+
+        function deleteImage(id) {
+            if(confirm('この画像を削除しますか？')) {
+                localImages = localImages.filter(img => img.id !== id);
+                saveLocalImages();
+                performSearch();
+                showToast('削除しました', 'success');
+            }
+        }
+
+        function saveLocalImages() {
+            localStorage.setItem('my_images', JSON.stringify(localImages));
+        }
+
+        function showToast(msg, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            const icon = toast.querySelector('i');
+            toastMsg.innerText = msg;
+            icon.className = type === 'error' ? 'ph ph-warning-circle text-red-400 text-xl' : 'ph ph-check-circle text-orange-400 text-xl';
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        function copyUrlToClipboard(url, btnElement) {
+            const textarea = document.createElement('textarea');
+            textarea.value = url;
+            textarea.style.position = 'fixed'; 
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                const originalHtml = btnElement.innerHTML;
+                btnElement.innerHTML = '<i class="ph ph-check text-green-500 text-lg font-bold"></i>';
+                setTimeout(() => btnElement.innerHTML = originalHtml, 2000);
+                showToast('URLをコピーしました');
+            } catch (err) {
+                showToast('コピーに失敗しました', 'error');
+            } finally {
+                document.body.removeChild(textarea);
+            }
+        }
+
+        function openModal(src, caption) {
+            modalImg.src = src;
+            modalCaption.innerText = caption;
+            imageModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeImageModal() {
+            imageModal.classList.add('hidden');
+            modalImg.src = '';
+            document.body.style.overflow = '';
+        }
+
+        // --- Event Listeners ---
+        document.getElementById('searchBtn').addEventListener('click', performSearch);
+        searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') performSearch(); });
+        document.getElementById('closeModal').addEventListener('click', closeImageModal);
+        imageModal.addEventListener('click', (e) => { if (e.target === imageModal) closeImageModal(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeImageModal(); });
+        copyModalBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (modalImg.src) copyUrlToClipboard(modalImg.src, copyModalBtn);
+        });
+
+        // Initialize (Wait for DOM)
+        document.addEventListener('DOMContentLoaded', () => {
+            performSearch();
+        });
+
+    </script>
+</body>
+</html>
