@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG定量評価 2025 | 実践ガイド完全版</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* チャットコンテナのカスタムユーティリティ */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        
+        /* スムーズスクロール */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* レンジスライダー */
+        input[type=range] {
+            -webkit-appearance: none; 
+            background: transparent; 
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: #4F46E5;
+            cursor: pointer;
+            margin-top: -8px; 
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 8px;
+            cursor: pointer;
+            background: #E2E8F0;
+            border-radius: 4px;
+        }
+        
+        /* テーブル行ハイライト */
+        tr {
+            transition: background-color 0.3s ease;
+        }
+        
+        /* カスタムアニメーション */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+        }
+    </style>
+    <!-- Chosen Palette: Slate (Backgrounds) + Indigo (Primary) + Emerald (Success) + Amber (Warning) -->
+    <!-- Application Structure Plan:
+        1. Hero Section: Overview.
+        2. Methodology (Split View): Retrieval vs Generation separation.
+        3. Data Strategy (Calculator + Stats Table): 385 rule, 100% corpus rule.
+        4. [NEW] Execution Guide (Tabs): 
+           - Environment Setup (Read-Only vs Snapshot).
+           - Data Creation (Reverse Generation logic).
+           - Evaluation Logic (Metadata Matching).
+        5. Retrieval Lab: Interactive logic demo.
+        6. Footer.
+    -->
+</head>
+<body class="bg-slate-50 text-slate-800 leading-relaxed">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl text-indigo-600"><i class="fa-solid fa-layer-group"></i></span>
+                    <span class="font-bold text-slate-900 tracking-tight">RAG Eval <span class="text-indigo-600">2025</span></span>
+                </div>
+                <div class="hidden md:flex space-x-6 text-sm font-bold">
+                    <a href="#methodology" class="text-slate-500 hover:text-indigo-600 transition">評価メソッド</a>
+                    <a href="#data-strategy" class="text-slate-500 hover:text-indigo-600 transition">データ戦略</a>
+                    <a href="#execution-guide" class="text-indigo-600 hover:text-indigo-800 transition">実践ガイド</a>
+                    <a href="#retrieval-lab" class="text-slate-500 hover:text-indigo-600 transition">検索ラボ</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative bg-white overflow-hidden border-b border-slate-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+            <div class="text-center max-w-3xl mx-auto">
+                <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">
+                    RAG定量評価の実践 <br><span class="text-indigo-600">本番データ×統計的アプローチ</span>
+                </h1>
+                <p class="text-base text-slate-600 mb-8 leading-relaxed">
+                    2025年のスタンダードは「検索と生成の分離」と「本番全量データでのテスト」です。<br>
+                    環境構築からデータセット作成の裏技まで、現場で使える手法を解説します。
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#execution-guide" class="inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-bold rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 transition shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                        実践テスト手法を見る
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Section 1: Methodology -->
+    <section id="methodology" class="py-16 bg-slate-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <h2 class="text-2xl font-bold text-slate-900">1. 評価メソッド：検索と生成の分離</h2>
+                <p class="mt-2 text-slate-600">システムを一括評価せず、ボトルネックを特定します。</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-6 items-start">
+                <!-- Controller -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 h-full">
+                    <div class="flex space-x-2 mb-6">
+                        <button id="btn-retrieval" class="flex-1 py-3 px-4 rounded-lg border-2 border-indigo-600 bg-indigo-50 text-indigo-700 font-bold text-sm transition-all focus:outline-none">
+                            <i class="fa-solid fa-magnifying-glass mr-2"></i>検索 (Retrieval)
+                        </button>
+                        <button id="btn-generation" class="flex-1 py-3 px-4 rounded-lg border-2 border-slate-200 bg-white text-slate-500 font-bold text-sm hover:border-slate-300 transition-all focus:outline-none">
+                            <i class="fa-solid fa-pen-nib mr-2"></i>生成 (Generation)
+                        </button>
+                    </div>
+                    <div id="method-description" class="text-sm text-slate-600 leading-relaxed min-h-[100px]">
+                        <!-- JS injected -->
+                    </div>
+                </div>
+
+                <!-- Visual -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 flex flex-col items-center justify-center min-h-[300px]">
+                    <div class="text-center w-full">
+                        <div class="mb-4">
+                            <span class="text-5xl text-indigo-500" id="viz-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                        </div>
+                        <h4 class="text-xl font-bold text-slate-800 mb-4" id="viz-title">検索フェーズ</h4>
+                        <div class="bg-slate-50 rounded-lg p-4 text-left inline-block w-full max-w-sm">
+                            <ul class="space-y-2 text-sm" id="viz-list">
+                                <!-- JS injected -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Data Strategy -->
+    <section id="data-strategy" class="py-16 bg-white border-y border-slate-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <h2 class="text-2xl font-bold text-slate-900">2. データ戦略と「385の法則」</h2>
+                <p class="mt-2 text-slate-600">フェーズに応じてテストデータ数を調整します。</p>
+            </div>
+
+            <div class="bg-slate-50 rounded-2xl p-8 shadow-inner">
+                <!-- Controls -->
+                <div class="mb-8 max-w-2xl mx-auto">
+                    <div class="flex justify-between mb-2">
+                        <span class="text-xs font-bold text-slate-500 uppercase">Phase Selector</span>
+                        <span id="phase-label" class="text-xs font-bold text-indigo-600 bg-indigo-100 px-2 py-1 rounded">開発フェーズ</span>
+                    </div>
+                    <input type="range" id="phase-slider" min="0" max="100" value="0" step="50" class="w-full h-2 bg-slate-200 rounded-lg cursor-pointer">
+                </div>
+
+                <!-- Dashboard -->
+                <div class="grid md:grid-cols-2 gap-8 items-center mb-10">
+                    <div class="space-y-4">
+                        <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm" id="card-qa">
+                            <h4 class="text-xs font-bold text-slate-400 uppercase">QAセット数 (テスト問題)</h4>
+                            <div class="flex items-baseline gap-2">
+                                <span id="stat-qa-count" class="text-3xl font-bold text-slate-900">50</span>
+                                <span class="text-slate-500 text-sm">ペア</span>
+                            </div>
+                        </div>
+                        <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm border-l-4 border-l-emerald-500">
+                            <h4 class="text-xs font-bold text-slate-400 uppercase">検索対象 (コーパス)</h4>
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-3xl font-bold text-slate-900">100%</span>
+                                <span class="text-slate-500 text-sm">本番全量</span>
+                            </div>
+                            <p class="text-xs text-slate-400 mt-1">※ノイズ(Distractor)再現のため必須</p>
+                        </div>
+                    </div>
+                    <div class="h-64 chart-container">
+                        <canvas id="dataChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Stats Table -->
+                <div class="bg-white rounded-lg border border-slate-200 overflow-hidden shadow-sm">
+                    <div class="px-4 py-2 bg-slate-100 border-b border-slate-200 flex items-center gap-2">
+                        <i class="fa-solid fa-table text-slate-400"></i>
+                        <span class="text-xs font-bold text-slate-600">統計的信頼性 参照テーブル</span>
+                    </div>
+                    <table class="min-w-full text-sm text-left">
+                        <thead class="bg-slate-50 text-slate-500 text-xs uppercase">
+                            <tr>
+                                <th class="px-4 py-3">サンプル数 (n)</th>
+                                <th class="px-4 py-3">許容誤差</th>
+                                <th class="px-4 py-3">信頼水準</th>
+                                <th class="px-4 py-3">フェーズ</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 text-slate-700">
+                            <tr id="row-50" class="hover:bg-slate-50">
+                                <td class="px-4 py-3 font-bold text-indigo-600">50 - 60</td>
+                                <td class="px-4 py-3">±10%以上</td>
+                                <td class="px-4 py-3">参考値</td>
+                                <td class="px-4 py-3"><span class="bg-indigo-50 text-indigo-700 px-1.5 py-0.5 rounded text-xs">開発/改善</span></td>
+                            </tr>
+                            <tr id="row-100" class="hover:bg-slate-50">
+                                <td class="px-4 py-3 font-bold text-amber-600">~ 100</td>
+                                <td class="px-4 py-3">±10%</td>
+                                <td class="px-4 py-3">95%</td>
+                                <td class="px-4 py-3"><span class="bg-amber-50 text-amber-700 px-1.5 py-0.5 rounded text-xs">中間検証</span></td>
+                            </tr>
+                            <tr id="row-385" class="hover:bg-slate-50">
+                                <td class="px-4 py-3 font-bold text-emerald-600">384 - 385</td>
+                                <td class="px-4 py-3">±5%</td>
+                                <td class="px-4 py-3">95%</td>
+                                <td class="px-4 py-3"><span class="bg-emerald-50 text-emerald-700 px-1.5 py-0.5 rounded text-xs">リリース判定</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Execution Guide (NEW!) -->
+    <section id="execution-guide" class="py-16 bg-indigo-900 text-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-indigo-300 font-bold tracking-wider text-sm uppercase">Practical Guide</span>
+                <h2 class="text-2xl md:text-3xl font-bold text-white mt-2">4. 実践ガイド：本番データでのテスト手法</h2>
+                <p class="mt-4 text-indigo-200 max-w-2xl mx-auto">
+                    「全量データでどうやってテストする？」「正解データはどう作る？」<br>
+                    現場で採用されている具体的なソリューションを解説します。
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-6">
+                
+                <!-- Card 1: Environment -->
+                <div class="bg-indigo-800 rounded-xl p-6 border border-indigo-700 hover:border-indigo-500 transition shadow-lg">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-server"></i>
+                        </div>
+                        <h3 class="font-bold text-lg">環境構築: 2つの道</h3>
+                    </div>
+                    <div class="space-y-4 text-sm text-indigo-100">
+                        <div class="bg-indigo-900/50 p-3 rounded-lg border border-indigo-600/30">
+                            <div class="font-bold text-white mb-1"><i class="fa-solid fa-bolt text-yellow-400 mr-2"></i>推奨: Read-Only接続</div>
+                            <p class="text-xs leading-relaxed opacity-90">
+                                本番DBに対し、<strong>読み取り専用キー</strong>でテストスクリプトから直接検索をかける手法。
+                                <br><span class="text-emerald-400">◎ コストゼロ / 常に最新</span>
+                                <br><span class="text-amber-400">⚠ 夜間など低負荷時に実行</span>
+                            </p>
+                        </div>
+                        <div class="p-3 rounded-lg border border-transparent hover:bg-indigo-700/50 transition">
+                            <div class="font-bold text-white mb-1">堅実: スナップショット</div>
+                            <p class="text-xs leading-relaxed opacity-80">
+                                本番DBのスナップショットを検証環境にリストアしてテスト。
+                                <br><span class="text-emerald-400">◎ 安全 / 完全再現</span>
+                                <br><span class="text-amber-400">⚠ DBコストが2倍かかる</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Data Generation (The Reverse Logic) -->
+                <div class="bg-indigo-800 rounded-xl p-6 border border-indigo-700 hover:border-indigo-500 transition shadow-lg relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-indigo-600 text-xs px-2 py-1 rounded-bl text-white font-bold">Ragas活用</div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-file-circle-question"></i>
+                        </div>
+                        <h3 class="font-bold text-lg">データ作成: 逆算思考</h3>
+                    </div>
+                    <div class="text-sm text-indigo-100 space-y-3">
+                        <p class="text-xs">全データから正解を探すのは不可能です。「部分から作る」が正解です。</p>
+                        
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-2">
+                                <span class="bg-indigo-600 text-xs font-mono px-1.5 rounded">1</span>
+                                <span class="text-xs">本番データから50件を抽出 (Sample)</span>
+                            </div>
+                            <div class="flex justify-center"><i class="fa-solid fa-arrow-down text-indigo-500 text-xs"></i></div>
+                            
+                            <div class="flex items-center gap-2">
+                                <span class="bg-indigo-600 text-xs font-mono px-1.5 rounded">2</span>
+                                <span class="text-xs">その50件を元にAIが質問生成 (Gen)</span>
+                            </div>
+                            <div class="flex justify-center"><i class="fa-solid fa-arrow-down text-indigo-500 text-xs"></i></div>
+
+                            <div class="flex items-center gap-2">
+                                <span class="bg-indigo-600 text-xs font-mono px-1.5 rounded">3</span>
+                                <span class="text-xs font-bold text-yellow-300">「元になったドキュメント」を正解とする</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-3 p-2 bg-indigo-900/50 rounded text-xs border border-indigo-600/30">
+                            <strong>テスト時の挙動:</strong><br>
+                            この質問を本番全量(10万件)に投げ込み、元ネタのドキュメントが1位に来るかを確認します。
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Matching Logic -->
+                <div class="bg-indigo-800 rounded-xl p-6 border border-indigo-700 hover:border-indigo-500 transition shadow-lg">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-tags"></i>
+                        </div>
+                        <h3 class="font-bold text-lg">判定: メタデータ照合</h3>
+                    </div>
+                    <div class="text-sm text-indigo-100 space-y-4">
+                        <p class="text-xs">
+                            本番DBではシステムIDが変わる可能性があります。不変の「メタデータ」で正解判定します。
+                        </p>
+                        
+                        <div class="bg-black/30 p-3 rounded font-mono text-xs overflow-x-auto">
+                            <span class="text-gray-400"># 正解データの定義</span><br>
+                            {<br>
+                            &nbsp;&nbsp;"question": "...",<br>
+                            &nbsp;&nbsp;"truth_meta": {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-green-400">"file": "manual.pdf"</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-green-400">"page": 5</span><br>
+                            &nbsp;&nbsp;}<br>
+                            }
+                        </div>
+
+                        <div class="flex items-start gap-2 text-xs">
+                            <i class="fa-solid fa-check text-emerald-400 mt-0.5"></i>
+                            <div>
+                                <strong>メリット:</strong><br>
+                                LLM判定(Ragas)が不要。Pythonのif文だけで判定できるため、コスト0円かつ高速です。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Retrieval Lab -->
+    <section id="retrieval-lab" class="py-16 bg-slate-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <h2 class="text-2xl font-bold text-slate-900">5. 検索ラボ：評価ロジック体験</h2>
+                <p class="mt-2 text-slate-600">メタデータ照合による自動判定をシミュレーション。</p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden max-w-4xl mx-auto">
+                <div class="bg-slate-100 px-4 py-3 border-b border-slate-200 flex justify-between items-center">
+                    <div class="flex items-center gap-2">
+                        <div class="flex gap-1">
+                            <span class="h-2.5 w-2.5 rounded-full bg-red-400"></span>
+                            <span class="h-2.5 w-2.5 rounded-full bg-amber-400"></span>
+                            <span class="h-2.5 w-2.5 rounded-full bg-green-400"></span>
+                        </div>
+                        <span class="ml-2 text-xs font-mono text-slate-500">Metadata_Matcher_v2.py</span>
+                    </div>
+                    <span class="text-xs font-bold text-slate-500 bg-slate-200 px-2 py-1 rounded">LLM FREE</span>
+                </div>
+
+                <div class="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-slate-200">
+                    <!-- Step 1 -->
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="bg-indigo-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">Input</span>
+                            <h3 class="font-bold text-slate-700 text-sm">テストケース</h3>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="bg-slate-50 p-3 rounded border border-slate-200 text-xs">
+                                <div class="font-bold text-slate-500 mb-1">質問</div>
+                                "交通費の精算期限は？"
+                            </div>
+                            <div class="bg-emerald-50 p-3 rounded border border-emerald-100 text-xs">
+                                <div class="font-bold text-emerald-700 mb-1">正解条件 (Metadata)</div>
+                                <code class="text-emerald-800">file: "経費規定.pdf"</code><br>
+                                <code class="text-emerald-800">page: 3</code>
+                            </div>
+                            <button id="run-test-btn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold py-2 rounded transition">
+                                テスト実行
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="p-6 bg-slate-50/50">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="bg-indigo-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">Output</span>
+                            <h3 class="font-bold text-slate-700 text-sm">検索結果 (Top 3)</h3>
+                        </div>
+                        <div id="retrieval-output" class="space-y-2 text-center py-4">
+                            <span class="text-xs text-slate-400">待機中...</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="bg-indigo-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">Result</span>
+                            <h3 class="font-bold text-slate-700 text-sm">判定結果</h3>
+                        </div>
+                        <div id="scoring-output" class="opacity-50 text-center">
+                            <div class="mb-4">
+                                <div class="text-xs text-slate-400">Recall (発見)</div>
+                                <div id="recall-score" class="text-3xl font-bold text-slate-200">-</div>
+                            </div>
+                            <div id="score-explanation" class="text-xs text-slate-500 text-left bg-slate-50 p-2 rounded hidden">
+                                検索2位のメタデータが正解条件と完全一致しました。<br>
+                                <span class="font-bold text-emerald-600">Hit!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-10">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <h2 class="text-white font-bold mb-2">RAG Evaluation 2025</h2>
+            <p class="text-xs text-slate-500">
+                Generated Guide. No SVG/Mermaid used.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JS Logic -->
+    <script>
+        // --- Logic: Method Tabs ---
+        const methodData = {
+            retrieval: {
+                title: "検索フェーズ (Retrieval)",
+                icon: '<i class="fa-solid fa-magnifying-glass"></i>',
+                desc: "「正しいドキュメントを見つけられたか？」を評価します。LLMを使わず、PythonでのID/メタデータ照合で完結するため高速です。",
+                list: [
+                    "目的: 情報探索の成功",
+                    "指標: Recall@K, MRR",
+                    "ツール: Pythonスクリプト"
+                ],
+                color: "text-indigo-500"
+            },
+            generation: {
+                title: "生成フェーズ (Generation)",
+                icon: '<i class="fa-solid fa-pen-nib"></i>',
+                desc: "「見つけた情報を正しく回答に使えたか？」を評価します。GPT-4などのLLMを審判(Judge)として使用します。",
+                list: [
+                    "目的: 正確な回答生成",
+                    "指標: Faithfulness (忠実性)",
+                    "ツール: LLM-as-a-Judge"
+                ],
+                color: "text-purple-500"
+            }
+        };
+
+        function setMethod(mode) {
+            const data = methodData[mode];
+            document.getElementById('method-description').innerHTML = data.desc;
+            document.getElementById('viz-title').innerText = data.title;
+            
+            const iconEl = document.getElementById('viz-icon');
+            iconEl.innerHTML = data.icon;
+            iconEl.className = `text-5xl ${data.color}`;
+
+            document.getElementById('viz-list').innerHTML = data.list.map(t => 
+                `<li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> ${t}</li>`
+            ).join('');
+
+            // Toggle Styles
+            const btnR = document.getElementById('btn-retrieval');
+            const btnG = document.getElementById('btn-generation');
+            
+            if(mode === 'retrieval'){
+                btnR.classList.add('border-indigo-600', 'bg-indigo-50', 'text-indigo-700');
+                btnR.classList.remove('border-slate-200', 'bg-white', 'text-slate-500');
+                btnG.classList.add('border-slate-200', 'bg-white', 'text-slate-500');
+                btnG.classList.remove('border-purple-600', 'bg-purple-50', 'text-purple-700');
+            } else {
+                btnG.classList.add('border-purple-600', 'bg-purple-50', 'text-purple-700');
+                btnG.classList.remove('border-slate-200', 'bg-white', 'text-slate-500');
+                btnR.classList.add('border-slate-200', 'bg-white', 'text-slate-500');
+                btnR.classList.remove('border-indigo-600', 'bg-indigo-50', 'text-indigo-700');
+            }
+        }
+
+        document.getElementById('btn-retrieval').onclick = () => setMethod('retrieval');
+        document.getElementById('btn-generation').onclick = () => setMethod('generation');
+
+        // --- Logic: Slider & Chart ---
+        const slider = document.getElementById('phase-slider');
+        const rows = {
+            50: document.getElementById('row-50'),
+            100: document.getElementById('row-100'),
+            385: document.getElementById('row-385')
+        };
+        let chartInstance = null;
+
+        function initChart() {
+            const ctx = document.getElementById('dataChart').getContext('2d');
+            chartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['QAセット (テスト数)', 'コーパス (検索対象)'],
+                    datasets: [{
+                        data: [50, 1000], 
+                        backgroundColor: ['#4F46E5', '#10B981'],
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { type: 'logarithmic', display: false },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+
+        slider.oninput = (e) => {
+            const val = parseInt(e.target.value);
+            const qa = Math.round(50 + (335 * (val / 100)));
+            document.getElementById('stat-qa-count').innerText = qa;
+
+            // Update UI Labels & Table
+            Object.values(rows).forEach(r => r.classList.remove('bg-indigo-50', 'bg-amber-50', 'bg-emerald-50'));
+            
+            const label = document.getElementById('phase-label');
+            if(val < 33) {
+                label.innerText = "開発フェーズ";
+                label.className = "text-xs font-bold text-indigo-600 bg-indigo-100 px-2 py-1 rounded";
+                rows[50].classList.add('bg-indigo-50');
+            } else if (val < 66) {
+                label.innerText = "中間検証";
+                label.className = "text-xs font-bold text-amber-600 bg-amber-100 px-2 py-1 rounded";
+                rows[100].classList.add('bg-amber-50');
+            } else {
+                label.innerText = "リリース判定";
+                label.className = "text-xs font-bold text-emerald-600 bg-emerald-100 px-2 py-1 rounded";
+                rows[385].classList.add('bg-emerald-50');
+            }
+
+            chartInstance.data.datasets[0].data[0] = qa;
+            chartInstance.update();
+        };
+
+        // --- Logic: Lab Simulation ---
+        document.getElementById('run-test-btn').onclick = () => {
+            const out = document.getElementById('retrieval-output');
+            const scoreArea = document.getElementById('scoring-output');
+            
+            out.innerHTML = '<div class="text-xs text-slate-400 py-2"><i class="fas fa-spinner fa-spin"></i> 検索中 (本番DB接続)...</div>';
+            scoreArea.style.opacity = '0.5';
+
+            setTimeout(() => {
+                // Mock Results
+                const results = [
+                    { name: '営業日報.pdf', page: 1, score: 0.91, hit: false },
+                    { name: '経費規定.pdf', page: 3, score: 0.88, hit: true }, // HIT
+                    { name: '経費規定_旧版.pdf', page: 3, score: 0.85, hit: false }
+                ];
+
+                out.innerHTML = results.map((r, i) => `
+                    <div class="flex justify-between items-center p-2 rounded border ${r.hit ? 'border-emerald-500 bg-emerald-50' : 'border-slate-100 bg-white'} text-xs mb-1 animate-fade-in" style="animation-delay:${i*100}ms">
+                        <div>
+                            <span class="font-bold text-slate-700">#${i+1}</span>
+                            <span class="font-mono text-slate-500 ml-1">${r.name} (P.${r.page})</span>
+                        </div>
+                        <div class="font-bold ${r.hit ? 'text-emerald-600' : 'text-slate-400'}">${r.hit ? 'HIT' : r.score}</div>
+                    </div>
+                `).join('');
+
+                setTimeout(() => {
+                    scoreArea.style.opacity = '1';
+                    document.getElementById('recall-score').innerText = "1.0";
+                    document.getElementById('recall-score').className = "text-3xl font-bold text-emerald-600";
+                    document.getElementById('score-explanation').classList.remove('hidden');
+                }, 500);
+
+            }, 800);
+        };
+
+        // Init
+        window.onload = () => {
+            initChart();
+            setMethod('retrieval');
+            rows[50].classList.add('bg-indigo-50');
+        };
+
+    </script>
+</body>
+</html>
