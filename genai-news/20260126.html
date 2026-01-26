@@ -1,0 +1,391 @@
+<!doctype html>
+
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>生成AI 週間ニュースまとめ（2026-01-19〜2026-01-25）</title>
+  <style>
+    :root{
+      --bg:#0b0f19; --card:#121a2b; --text:#e7ecff; --muted:#a9b4d6;
+      --line:#22304f; --accent:#6ea8fe; --accent2:#7ee787;
+      --link:#9cc2ff; --warn:#ffcc66;
+      --radius:16px;
+    }
+    html,body{height:100%;}
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", Arial, sans-serif;
+      background: radial-gradient(1200px 900px at 20% -10%, rgba(110,168,254,.25), transparent 60%),
+                  radial-gradient(900px 700px at 90% 0%, rgba(126,231,135,.14), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.7;
+    }
+    a{color:var(--link); text-decoration:none;}
+    a:hover{text-decoration:underline;}
+    header{
+      padding:40px 20px 18px;
+      max-width: 980px; margin: 0 auto;
+    }
+    .title{
+      display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap;
+    }
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 12px; border:1px solid rgba(110,168,254,.35);
+      background: rgba(18,26,43,.6);
+      border-radius: 999px; color: var(--muted);
+      font-size: 12px;
+    }
+    h1{margin:0; font-size: 26px; letter-spacing:.2px;}
+    .subtitle{margin:10px 0 0; color:var(--muted); font-size:14px;}
+    main{max-width:980px; margin:0 auto; padding: 0 20px 48px;}
+    .toc{
+      margin-top:18px;
+      border:1px solid var(--line);
+      background: rgba(18,26,43,.55);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+    }
+    .toc h2{margin:0 0 8px; font-size: 14px; color: var(--muted); font-weight: 600;}
+    .toc ul{margin:0; padding-left: 18px;}
+    .toc li{margin:4px 0;}
+
+```
+section{margin-top: 22px;}
+.section-title{
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  margin: 26px 0 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+}
+.section-title h2{margin:0; font-size: 18px;}
+.section-title .hint{color:var(--muted); font-size: 12px;}
+
+.grid{display:grid; grid-template-columns: 1fr; gap: 14px;}
+@media (min-width: 860px){ .grid{grid-template-columns: 1fr 1fr;} }
+
+article.card{
+  border:1px solid var(--line);
+  background: linear-gradient(180deg, rgba(18,26,43,.78), rgba(18,26,43,.55));
+  border-radius: var(--radius);
+  padding: 14px 14px 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.22);
+}
+article.card h3{
+  margin: 0 0 8px;
+  font-size: 15px;
+  letter-spacing: .2px;
+}
+.meta{
+  display:flex; flex-wrap:wrap; gap:8px 10px;
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.pill{
+  display:inline-flex; align-items:center; gap:6px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(0,0,0,.15);
+  color: var(--muted);
+}
+.pill.accent{border-color: rgba(110,168,254,.4); color: var(--text);}
+.pill.green{border-color: rgba(126,231,135,.45); color: var(--text);}
+.body{margin:0 0 10px; font-size: 14px; color: var(--text);}
+.cite{
+  margin-top: 8px;
+  border-left: 3px solid rgba(110,168,254,.55);
+  padding-left: 10px;
+  color: var(--muted);
+  font-size: 13px;
+}
+blockquote{
+  margin: 8px 0 0;
+  padding: 8px 10px;
+  background: rgba(0,0,0,.18);
+  border: 1px solid rgba(34,48,79,.8);
+  border-radius: 12px;
+  color: var(--text);
+  font-size: 13px;
+}
+footer{
+  max-width:980px; margin: 0 auto; padding: 18px 20px 34px;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+}
+.note{
+  display:flex; gap:10px; align-items:flex-start;
+  padding: 12px 12px;
+  border:1px solid rgba(255,204,102,.35);
+  background: rgba(255,204,102,.08);
+  border-radius: var(--radius);
+  margin-top: 18px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="title">
+      <div class="badge">Generative AI Weekly</div>
+      <div>
+        <h1>生成AI 週間ニュースまとめ（2026-01-19〜2026-01-25）</h1>
+        <p class="subtitle">対象期間：2026年1月19日（月）〜1月25日（日）（日本時間）</p>
+      </div>
+    </div>
+
+<nav class="toc" aria-label="目次">
+  <h2>目次</h2>
+  <ul>
+    <li><a href="#top">1. 【重要】トップニュース</a></li>
+    <li><a href="#tech">2. その他の新モデル・技術リリース</a></li>
+    <li><a href="#biz">3. ビジネス・提携・人事</a></li>
+  </ul>
+</nav>
+
+<div class="note">
+  <div aria-hidden="true">⚠️</div>
+  <div>
+    本HTMLは、前回提示したニュース要約をそのまま整理したものです。公開・共有用途では、必ず一次情報（リンク先本文）で事実確認のうえご利用ください。
+  </div>
+</div>
+
+  </header>
+
+  <main>
+    <!-- 1. Top -->
+    <section id="top">
+      <div class="section-title">
+        <h2>1. 【重要】トップニュース（2つ）</h2>
+        <div class="hint">業界インパクトが大きい項目</div>
+      </div>
+
+  <div class="grid">
+    <article class="card">
+      <h3>OpenAI、ChatGPT向けに「年齢予測」を段階導入し未成年保護を強化</h3>
+      <div class="meta">
+        <span class="pill accent">日付: 2026-01-20</span>
+        <span class="pill">カテゴリ: Policy / Safety</span>
+        <span class="pill green"><a href="https://openai.com/index/our-approach-to-age-prediction/" target="_blank" rel="noopener">情報源URL</a></span>
+      </div>
+      <p class="body">
+        OpenAIは、ChatGPTのコンシューマープランで「そのアカウントが18歳未満の可能性が高いか」を推定する年齢予測を段階導入すると発表しました。
+        推定結果に応じて、センシティブ／有害になり得る内容への露出を抑える追加保護を自動適用し、誤判定時には本人確認（selfie）で復帰できる導線も用意しています。
+      </p>
+      <div class="cite">
+        <div>重要箇所の引用:</div>
+        <blockquote>
+          We’re rolling out age prediction on ChatGPT consumer plans to help determine whether an account likely belongs to someone under 18.
+        </blockquote>
+      </div>
+    </article>
+
+    <article class="card">
+      <h3>Anthropic、Claudeの価値観・行動指針を明文化した「新しいConstitution」を公開</h3>
+      <div class="meta">
+        <span class="pill accent">日付: 2026-01-22</span>
+        <span class="pill">カテゴリ: Safety / Alignment</span>
+        <span class="pill green"><a href="https://www.anthropic.com/news/claude-new-constitution" target="_blank" rel="noopener">情報源URL</a></span>
+      </div>
+      <p class="body">
+        Anthropicは、AIモデルClaudeの価値観と振る舞いをより具体的に定義する「新しいConstitution（憲法）」を公開しました。
+        モデルが置かれる文脈や、どのような存在であるべきかを含めて整理した包括的ドキュメントとして位置づけ、アライメント方針の透明化を意図した動きです。
+      </p>
+      <div class="cite">
+        <div>重要箇所の引用:</div>
+        <blockquote>
+          We’re publishing a new constitution for our AI model, Claude.
+        </blockquote>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- 2. Tech -->
+<section id="tech">
+  <div class="section-title">
+    <h2>2. その他の新モデル・技術リリース</h2>
+    <div class="hint">モデル・API・プロダクトの技術的発表</div>
+  </div>
+
+  <div class="grid">
+    <article class="card">
+      <h3>Google、Gemini APIの<code>latest</code>エイリアスをGemini 3プレビューへ切替、同時に一部2.0系の終了も告知</h3>
+      <div class="meta">
+        <span class="pill accent">日付: 2026-01-21 / 2026-01-22</span>
+        <span class="pill">カテゴリ: API / Model Alias</span>
+        <span class="pill green"><a href="https://ai.google.dev/gemini-api/docs/changelog" target="_blank" rel="noopener">情報源URL</a></span>
+      </div>
+      <p class="body">
+        GoogleはGemini APIの<code>latest</code>系エイリアス参照先を更新し、<code>gemini-pro-latest</code>と<code>gemini-flash-latest</code>をそれぞれGemini 3のプレビューモデルへ切り替えました。
+        あわせて、Gemini 2.0の一部モデルについて2026年3月31日のシャットダウン（提供終了）も告知しており、既存利用者は移行計画が必要になります。
+      </p>
+      <div class="cite">
+        <div>重要箇所の引用:</div>
+        <blockquote>
+          Changed the <code>latest</code> aliases: <code>gemini-pro-latest</code> switched to <code>gemini-3-pro-preview</code>
+        </blockquote>
+      </div>
+    </article>
+
+    <article class="card">
+      <h3>Google Cloud Vertex AI、GLM 4.7をModel GardenでGA提供（マネージドAPI）</h3>
+      <div class="meta">
+        <span class="pill accent">日付: 2026-01-20</span>
+        <span class="pill">カテゴリ: Cloud / LLM</span>
+        <span class="pill green"><a href="https://docs.cloud.google.com/vertex-ai/docs/release-notes" target="_blank" rel="noopener">情報源URL</a></span>
+      </div>
+      <p class="body">
+        Google CloudはVertex AIの更新として、GLM 4.7のGA提供をModel Gardenで開始しました。
+        コーディング、ツール利用、複雑推論向けと説明され、マネージドAPIとして利用できる点が開発導入のハードルを下げます。
+      </p>
+      <div class="cite">
+        <div>重要箇所の引用:</div>
+        <blockquote>
+          GLM 4.7 GA is now available in Model Garden.
+        </blockquote>
+      </div>
+    </article>
+
+    <article class="card">
+      <h3>Oracle OCI Generative AI、CohereのCommand A（Reasoning / Vision）を提供開始</h3>
+      <div class="meta">
+        <span class="pill accent">日付: 2026-01-21</span>
+        <span class="pill">カテゴリ: Cloud / Model Availability</span>
+        <span class="pill green"><a href="https://docs.oracle.com/en-us/iaas/releasenotes/generative-ai/command-a-reasoning-vision.htm" target="_blank" rel="noopener">情報源URL</a></span>
+      </div>
+      <p class="body">
+        OracleはOCI Generative AIで、CohereのCommand A ReasoningおよびCommand A Visionの提供開始を告知しました。
+        エンタープライズ推論やエージェント的ワークフロー、画像・文書理解を含むユースケースを想定し、OCI上での選択肢が拡充しています。
+      </p>
+      <div class="cite">
+        <div>重要箇所の引用:</div>
+        <blockquote>
+          Cohere Command A Reasoning and Command A Vision are now available in OCI Generative AI.
+        </blockquote>
+      </div>
+    </article>
+
+    <article class="card">
+      <h3>Google、教育向けにGemini / Classroomの更新を発表（Gemini 3 Proの提供拡大など）</h3>
+      <div class="meta">
+        <span class="pill accent">日付: 2026-01-21</span>
+        <span class="pill">カテゴリ: Education / Product</span>
+        <span class="pill green"><a href="https://blog.google/products-and-platforms/products/education/bett-2026-gemini-classroom-updates/" target="_blank" rel="noopener">情報源URL</a></span>
+      </div>
+      <p class="body">
+        GoogleはBett 2026に合わせ、GeminiとGoogle Classroomの更新を発表しました。
+        学習支援や教員向け作業などの用途を打ち出し、教育向けにGemini 3 Proへのアクセス拡大も明記しています。
+      </p>
+      <div class="cite">
+        <div>重要箇所の引用:</div>
+        <blockquote>
+          Gemini for Education provides expanded access to Gemini 3 Pro, our most intelligent model, free of charge.
+        </blockquote>
+      </div>
+    </article>
+
+    <article class="card">
+      <h3>Google Workspace、Meetの「Ask Gemini」をBusiness Standardや多言語・モバイルへ拡大</h3>
+      <div class="meta">
+        <span class="pill accent">日付: 2026-01-21</span>
+        <span class="pill">カテゴリ: Workspace / Feature Rollout</span>
+        <span class="pill green"><a href="https://workspaceupdates.googleblog.com/2026/01/ask-gemini-google-meet-expansion-business-standard.html" target="_blank" rel="noopener">情報源URL</a></span>
+      </div>
+      <p class="body">
+        GoogleはGoogle Meet内の「Ask Gemini」について、Workspace Business Standardへの提供拡大、多言語対応、モバイル対応を順次進めると発表しました。
+        対応言語に日本語も含まれており、会議要約やアクション抽出などの利用範囲が広がります。
+      </p>
+      <div class="cite">
+        <div>重要箇所の引用:</div>
+        <blockquote>
+          Beginning in early February, it will become available in French, German, Italian, Japanese, Korean, Portuguese, and Spanish.
+        </blockquote>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- 3. Biz -->
+<section id="biz">
+  <div class="section-title">
+    <h2>3. ビジネス・提携・人事</h2>
+    <div class="hint">提携・資金・ガバナンス・主要人事</div>
+  </div>
+
+  <div class="grid">
+    <article class="card">
+      <h3>Anthropic、Teach For Allと提携し「教育者向けAIトレーニング」を63か国へ展開</h3>
+      <div class="meta">
+        <span class="pill accent">日付: 2026-01-21</span>
+        <span class="pill">カテゴリ: Partnership</span>
+        <span class="pill green"><a href="https://www.anthropic.com/news/anthropic-teach-for-all" target="_blank" rel="noopener">情報源URL</a></span>
+      </div>
+      <p class="body">
+        AnthropicはTeach For Allとの提携を発表し、63か国の教育者にAIツールとトレーニング機会を提供するとしました。
+        大規模な教育者ネットワークでClaudeの活用・適応を促す枠組みを掲げており、教育分野での生成AI活用を組織的に推進する動きです。
+      </p>
+      <div class="cite">
+        <div>重要箇所の引用:</div>
+        <blockquote>
+          Anthropic is partnering with Teach For All to bring AI tools and training to educators in 63 countries.
+        </blockquote>
+      </div>
+    </article>
+
+    <article class="card">
+      <h3>Anthropic、長期的な公共利益ミッションを監督するTrustに新メンバーを任命</h3>
+      <div class="meta">
+        <span class="pill accent">日付: 2026-01-21</span>
+        <span class="pill">カテゴリ: Governance</span>
+        <span class="pill green"><a href="https://www.anthropic.com/news/mariano-florentino-long-term-benefit-trust" target="_blank" rel="noopener">情報源URL</a></span>
+      </div>
+      <p class="body">
+        Anthropicは、同社の公共利益ミッション達成を支える独立組織「Long-Term Benefit Trust」に、新たなメンバーとしてMariano-Florentino（Tino）Cuéllar氏を任命しました。
+        ガバナンス強化の文脈で、AI企業の監督体制を外部性のある形で整える動きとして注目されます。
+      </p>
+      <div class="cite">
+        <div>重要箇所の引用:</div>
+        <blockquote>
+          Anthropic’s Long-Term Benefit Trust announced the appointment of Mariano-Florentino (Tino) Cuéllar as a new member of the Trust.
+        </blockquote>
+      </div>
+    </article>
+
+    <article class="card">
+      <h3>Meta、ティーンのAIキャラクター利用を一時停止（新バージョン開発と保護者向け機能を優先）</h3>
+      <div class="meta">
+        <span class="pill accent">日付: 2026-01-23</span>
+        <span class="pill">カテゴリ: Safety / Product</span>
+        <span class="pill green"><a href="https://about.fb.com/news/2025/10/teen-ai-safety-approach/" target="_blank" rel="noopener">情報源URL</a></span>
+      </div>
+      <p class="body">
+        Metaは、ティーン向けの安全対策を強化するため、既存のAIキャラクターへのティーンアクセスをグローバルで一時停止すると更新情報として明記しました。
+        新しいAIキャラクター体験の開発を優先し、保護者の可視化・制御を組み込んだ形で提供する方針を示しています。
+      </p>
+      <div class="cite">
+        <div>重要箇所の引用:</div>
+        <blockquote>
+          Starting in the coming weeks, teens will no longer be able to access AI characters across our apps until the updated experience is ready.
+        </blockquote>
+      </div>
+    </article>
+  </div>
+</section>
+
+  </main>
+
+  <footer>
+    <div>
+      <strong>出典</strong>：各カード内の「情報源URL」リンク先（一次情報優先）
+    </div>
+    <div style="margin-top:6px;">
+      <small>作成日：2026-01-26（日本時間）</small>
+    </div>
+  </footer>
+</body>
+</html>
