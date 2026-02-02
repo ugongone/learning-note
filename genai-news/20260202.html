@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>週刊 生成AIニュース（2026/01/26〜02/01）</title>
+  <style>
+    :root{
+      /* Light Theme Palette */
+      --bg-body: #f8fafc;       /* Slate 50 */
+      --bg-card: #ffffff;       /* White */
+      
+      --text-main: #0f172a;     /* Slate 900 */
+      --text-muted: #64748b;    /* Slate 500 */
+      
+      --accent: #0284c7;        /* Sky 600 - Darker for visibility on white */
+      --accent-glow: rgba(2, 132, 199, 0.15);
+      --border: #e2e8f0;        /* Slate 200 */
+      --bg-facts: #f1f5f9;      /* Slate 100 */
+      
+      --radius-card: 12px;
+      --radius-btn: 6px;
+      
+      --max-width: 1080px;
+    }
+
+    * { box-sizing: border-box; }
+    
+    html, body {
+      height: 100%;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans JP", ui-sans-serif, system-ui, sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { 
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    a:hover { 
+      color: #0369a1; /* Sky 700 */
+      text-decoration: underline; 
+    }
+
+    .wrap {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 40px 24px;
+    }
+
+    /* --- Header Area --- */
+    .topbar {
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .title h1 {
+      margin: 0 0 12px;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      /* Dark gradient for light mode */
+      background: linear-gradient(90deg, #0f172a, #475569);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      padding: 4px 12px;
+      background: rgba(2, 132, 199, 0.05);
+      border: 1px solid rgba(2, 132, 199, 0.2);
+      border-radius: 99px;
+      font-size: 12px;
+      color: var(--accent);
+    }
+    .pill .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 4px var(--accent); /* Soften glow */
+    }
+
+    /* --- Navigation --- */
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    .nav a {
+      font-size: 13px;
+      color: var(--text-muted);
+      background: var(--bg-card);
+      padding: 8px 16px;
+      border-radius: var(--radius-btn);
+      border: 1px solid var(--border);
+      transition: all 0.2s ease;
+    }
+
+    .nav a:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: rgba(2, 132, 199, 0.05);
+      text-decoration: none;
+      transform: translateY(-2px);
+    }
+
+    /* --- Grid Layout --- */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    /* Desktop: 2 Columns */
+    @media (min-width: 768px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* --- Card Design --- */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02); /* Subtle shadow for light mode */
+    }
+
+    /* Hover Effect */
+    .card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+      transform: translateY(-4px);
+    }
+    
+    /* Top accent line */
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      opacity: 0.8;
+    }
+
+    .cardhead {
+      margin-bottom: 16px;
+    }
+
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      line-height: 1.4;
+      color: var(--text-main); /* Reset to variable */
+    }
+
+    .kicker {
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin: 0;
+    }
+
+    .body {
+      font-size: 14px;
+      color: var(--text-main); /* Reset to variable */
+      flex-grow: 1; 
+    }
+    .body p { margin: 0 0 16px; }
+
+    /* --- Facts Area (Table-like) --- */
+    .facts {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px dashed var(--border); /* Dashed for lighter feel */
+      font-size: 12px;
+      color: var(--text-muted);
+      background: var(--bg-facts);
+      padding: 12px;
+      border-radius: 8px;
+    }
+
+    .facts .row {
+      display: flex;
+      margin-bottom: 8px;
+      align-items: baseline;
+    }
+    .facts .row:last-child { margin-bottom: 0; }
+
+    .facts .label {
+      flex: 0 0 70px;
+      font-weight: 600;
+      color: #475569; /* Slate 600 */
+    }
+
+    .facts a {
+      word-break: break-all;
+    }
+
+    /* Quote Style */
+    blockquote {
+      margin: 0;
+      padding-left: 12px;
+      border-left: 3px solid var(--accent);
+      color: var(--text-muted);
+      font-style: italic;
+      background: #fff; /* Ensure contrast inside grey box */
+      padding: 4px 8px;
+      border-radius: 0 4px 4px 0;
+    }
+
+    code {
+      font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+      background: #e2e8f0; /* Darker bg for contrast */
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #334155; /* Dark text */
+    }
+
+    /* --- Footer --- */
+    .footer {
+      margin-top: 60px;
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+    .footer hr { display: none; }
+
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    
+    <header class="topbar">
+      <div class="title">
+        <h1>週刊 生成AIニュースまとめ</h1>
+        <p class="subtitle">対象期間：2026/01/26〜02/01｜指定4トピック</p>
+      </div>
+      <div class="pill" aria-label="theme">
+        <span class="dot"></span>
+        <span>Light Tech Theme</span>
+      </div>
+    </header>
+
+    <nav class="nav" aria-label="section links">
+      <a href="#cowork">↓ Cowork</a>
+      <a href="#softbank">↓ SoftBank</a>
+      <a href="#gemini">↓ Gemini API</a>
+      <a href="#nvidia">↓ NVIDIA</a>
+    </nav>
+
+    <main class="grid">
+      <!-- Cowork -->
+      <article class="card" id="cowork">
+        <div class="cardhead">
+          <p class="kicker">Product Update</p>
+          <h2>Cowork：Claude Code の実行力を「非エンジニア業務」へ拡張</h2>
+        </div>
+
+        <div class="body">
+          <p>Anthropicは、Claude Code で得た“実行型”の体験を、開発以外の仕事に広げる「Cowork」を研究プレビューとして公開しました。Claude（macOSアプリ）にローカルフォルダのアクセスを与えることで、ファイルの読み取り・編集・作成を含むタスクをエージェント的に進められる点が特徴です。発表後、提供対象がProやTeam/Enterpriseへ段階的に拡大した旨も追記されています。</p>
+        </div>
+
+        <div class="facts">
+          <div class="row"><div class="label">Date</div><div>2026-01-12（発表）</div></div>
+          <div class="row"><div class="label">Source</div><div><a href="https://claude.com/blog/cowork-research-preview" target="_blank" rel="noopener">claude.com/blog/cowork...</a></div></div>
+          <div class="row"><div class="label">Quote</div>
+            <div style="flex:1;">
+              <blockquote cite="https://claude.com/blog/cowork-research-preview">
+                “This prompted us to build Cowork: a simpler way for anyone—not just developers...”
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- SoftBank -->
+      <article class="card" id="softbank">
+        <div class="cardhead">
+          <p class="kicker">Business</p>
+          <h2>ソフトバンクグループ、OpenAIに最大300億ドル追加出資を協議（報道）</h2>
+        </div>
+
+        <div class="body">
+          <p>ロイターは、ソフトバンクグループがOpenAIに対し、最大300億ドルの追加出資を協議していると報じました。報道によれば、追加投資は最大1000億ドル規模の資金調達ラウンドの一部となり、OpenAIの評価額は約8300億ドルに達する可能性があるとされています。巨額の計算資源・運用コストを背景に、基盤モデル開発の“資金力勝負”が一段と強まる構図です。</p>
+        </div>
+
+        <div class="facts">
+          <div class="row"><div class="label">Date</div><div>2026-01-28（Reuters）</div></div>
+          <div class="row"><div class="label">Source</div><div><a href="https://www.reuters.com/business/media-telecom/softbank-talks-invest-up-30-billion-more-openai-wsj-reports-2026-01-28/" target="_blank" rel="noopener">reuters.com/business...</a></div></div>
+          <div class="row"><div class="label">Quote</div>
+            <div style="flex:1;">
+              <blockquote cite="https://www.reuters.com/business/media-telecom/softbank-talks-invest-up-30-billion-more-openai-wsj-reports-2026-01-28/">
+                “SoftBank Group Corp is in talks to invest as much as an additional $30 billion...”
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Gemini API -->
+      <article class="card" id="gemini">
+        <div class="cardhead">
+          <p class="kicker">Tech Release</p>
+          <h2>Gemini API：Computer Use ツールが Gemini 3 preview で利用可能に</h2>
+        </div>
+
+        <div class="body">
+          <p>GoogleはGemini APIのリリースノートで、Computer Useツールが <code>gemini-3-pro-preview</code> と <code>gemini-3-flash-preview</code> で利用可能になったと記載しました。Computer Useはスクリーンショット等を入力に、クリックやキーボード入力などのUI操作をモデルが指示（ツール呼び出し）し、クライアントが実行してループさせることで作業を自動化する仕組みです。</p>
+        </div>
+
+        <div class="facts">
+          <div class="row"><div class="label">Date</div><div>2026-01-29</div></div>
+          <div class="row"><div class="label">Source</div><div><a href="https://ai.google.dev/gemini-api/docs/changelog" target="_blank" rel="noopener">ai.google.dev/gemini-api...</a></div></div>
+          <div class="row"><div class="label">Quote</div>
+            <div style="flex:1;">
+              <blockquote cite="https://ai.google.dev/gemini-api/docs/changelog">
+                “Launched support for the Computer Use tool in <code>gemini-3-pro-preview</code>...”
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- NVIDIA Earth-2 -->
+      <article class="card" id="nvidia">
+        <div class="cardhead">
+          <p class="kicker">Tech Release</p>
+          <h2>NVIDIA：Earth-2 の「オープンモデル群」でAI気象予測スタックを公開</h2>
+        </div>
+
+        <div class="body">
+          <p>NVIDIAは、気象・気候向けAIスタック「Earth-2」ファミリーとして、オープンモデル／ライブラリ／フレームワークを発表しました。衛星・レーダーデータで学習した生成AIを用いるNowcastingモデルなどを含み、観測データの処理から予報生成（最長15日規模）までを加速することを狙っています。</p>
+        </div>
+
+        <div class="facts">
+          <div class="row"><div class="label">Date</div><div>2026-01-26</div></div>
+          <div class="row"><div class="label">Source</div><div><a href="https://blogs.nvidia.com/blog/nvidia-earth-2-open-models/" target="_blank" rel="noopener">blogs.nvidia.com/blog...</a></div></div>
+          <div class="row"><div class="label">Quote</div>
+            <div style="flex:1;">
+              <blockquote cite="https://blogs.nvidia.com/blog/nvidia-earth-2-open-models/">
+                “NVIDIA today unveiled a new NVIDIA Earth-2 family of open models...”
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <footer class="footer">
+      <div>Weekly Generative AI News Digest | 2026</div>
+    </footer>
+  </div>
+</body>
+</html>
