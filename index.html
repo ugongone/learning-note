@@ -343,11 +343,11 @@
             // Folder header
             const header = document.createElement('div');
             header.className = 'folder-item flex items-center gap-2 px-2 py-2 rounded-lg';
-            header.style.paddingLeft = `${level * 12 + 8}px`;
+            header.style.paddingLeft = `${level * 16 + 8}px`;
 
             header.innerHTML = `
-                <i data-lucide="chevron-right" class="folder-icon w-4 h-4 text-gray-400"></i>
-                <i data-lucide="folder" class="w-4 h-4 text-violet-500"></i>
+                <i data-lucide="chevron-right" class="folder-icon w-4 h-4 text-gray-400 flex-shrink-0"></i>
+                <i data-lucide="folder" class="w-4 h-4 text-violet-500 flex-shrink-0"></i>
                 <span class="text-xs font-medium text-gray-700 truncate">${item.name}</span>
                 <span class="text-xs text-gray-400 ml-auto">${item.children?.length || 0}</span>
             `;
@@ -385,11 +385,11 @@
         function createFileElement(item, level) {
             const file = document.createElement('div');
             file.className = 'file-item flex items-center gap-2 px-2 py-2 rounded-lg';
-            file.style.paddingLeft = `${level * 12 + 8}px`;
+            file.style.paddingLeft = `${level * 16 + 8 + 24}px`;
             file.dataset.path = item.path;
 
             file.innerHTML = `
-                <i data-lucide="file-text" class="w-4 h-4 text-gray-400"></i>
+                <i data-lucide="file-text" class="w-4 h-4 text-gray-400 flex-shrink-0"></i>
                 <span class="text-xs text-gray-600 truncate" title="${item.name}">${item.name}</span>
             `;
 
