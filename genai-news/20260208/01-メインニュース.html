@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>生成AIニュース週間レポート（2026/02/02〜02/08）</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body {
+      font-family: 'Inter', 'Noto Sans JP', sans-serif;
+      background-color: #f8fafc;
+      color: #1e293b;
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-blue-500 selection:text-white">
+
+  <!-- Header -->
+  <header class="border-b border-gray-200 bg-white/80 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <i data-lucide="newspaper" class="w-6 h-6 text-blue-500"></i>
+        <span class="text-lg font-bold tracking-tight">GenAI Weekly <span class="text-gray-400 font-normal">| 2026/02/02〜02/08</span></span>
+      </div>
+      <nav class="hidden md:flex space-x-6 text-sm font-medium text-gray-400">
+        <a href="#top-news" class="hover:text-blue-600 transition">注目ニュース</a>
+        <a href="#others" class="hover:text-blue-600 transition">その他</a>
+        <a href="#summary" class="hover:text-blue-600 transition">まとめ</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="py-8 text-center border-b border-gray-200">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-600 text-xs font-medium mb-4">
+        <i data-lucide="sparkles" class="w-3 h-3 mr-2"></i>
+        Week of Feb 02 – Feb 08, 2026
+      </div>
+      <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+        <span class="gradient-text">生成AIニュース週間レポート</span>
+      </h1>
+      <p class="text-gray-500 text-sm md:text-base">Claude Opus 4.6 vs GPT-5.3-Codex 同日リリース、OpenAI Frontier始動 — エージェントAI競争が本格化した一週間</p>
+    </div>
+  </section>
+
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- ===== TOP NEWS ===== -->
+    <section id="top-news" class="py-10 border-t border-gray-200">
+      <h2 class="text-2xl font-bold mb-6 flex items-center">
+        <i data-lucide="flame" class="w-6 h-6 mr-3 text-blue-500"></i>今週の注目ニュース
+      </h2>
+
+      <div class="space-y-6">
+
+        <!-- 1. GPT-5.3-Codex -->
+        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+          <div class="p-4 bg-blue-50 border-b border-blue-100 flex justify-between items-center">
+            <h3 class="font-bold text-blue-700 flex items-center">
+              <i data-lucide="code" class="w-5 h-5 mr-2"></i>
+              OpenAI、GPT-5.3-Codexをリリース — 「自身の開発に貢献した」初のモデル
+            </h3>
+            <span class="text-xs bg-red-50 text-red-500 px-2 py-1 rounded font-medium">初の「High」サイバーリスク分類</span>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded font-medium">2026/02/05</span>
+            </div>
+            <p class="text-sm text-gray-600 mb-4">OpenAIが最新のエージェント型コーディングモデルGPT-5.3-Codexを発表。Codex+GPT-5のトレーニングスタックを統合し、自身のトレーニングのデバッグやデプロイ管理に貢献した初のモデル。SWE-Bench Proで56.8%、Terminal-Bench 2.0で77.3%と業界最高水準を達成。サイバーセキュリティ評価でOpenAI初の「High capability」に分類。25%高速化され、リアルタイムでの対話的な操縦が可能に。</p>
+            <a href="04-openai-gpt53-codex.html" class="inline-flex items-center text-sm font-semibold text-blue-600 hover:text-blue-800 mb-4">
+              <i data-lucide="file-text" class="w-4 h-4 mr-1"></i>詳細を読む →
+            </a>
+            <div class="bg-gray-50 rounded-lg p-4 text-sm text-gray-500 mb-4">
+              <span class="font-bold text-gray-700">引用:</span> 「GPT‑5.3‑Codex is our first model that was instrumental in creating itself. The Codex team used early versions to debug its own training, manage its own deployment, and diagnose test results and evaluations.」— OpenAI
+            </div>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <a href="https://openai.com/index/introducing-gpt-5-3-codex/" target="_blank" class="inline-flex items-center text-blue-600 hover:underline"><i data-lucide="external-link" class="w-3 h-3 mr-1"></i>Introducing GPT-5.3-Codex <span class="ml-1 bg-emerald-50 text-emerald-600 px-1.5 py-0.5 rounded">公式</span></a>
+              <a href="https://techcrunch.com/2026/02/05/openai-launches-a-way-for-enterprises-to-build-and-manage-ai-agents/" target="_blank" class="inline-flex items-center text-blue-600 hover:underline"><i data-lucide="external-link" class="w-3 h-3 mr-1"></i>TechCrunch <span class="ml-1 bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded">メディア報道</span></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Claude Opus 4.6 -->
+        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+          <div class="p-4 bg-blue-50 border-b border-blue-100 flex justify-between items-center">
+            <h3 class="font-bold text-blue-700 flex items-center">
+              <i data-lucide="brain" class="w-5 h-5 mr-2"></i>
+              Anthropic、Claude Opus 4.6をリリース — 1Mコンテキスト・Agent Teams搭載
+            </h3>
+            <span class="text-xs bg-amber-50 text-amber-600 px-2 py-1 rounded font-medium">GPT-5.3-Codexと同日発表</span>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded font-medium">2026/02/05</span>
+            </div>
+            <p class="text-sm text-gray-600 mb-4">Anthropicが最新フラッグシップモデル「Claude Opus 4.6」をリリース。Opus-class初の100万トークンコンテキストウィンドウ（ベータ）、128K出力トークン、複数エージェントが並行作業する「Agent Teams」、コンテキストを自動要約する「Context Compaction」を搭載。ARC-AGI-2で68.8%（前世代37.6%から大幅向上）、GDPval-AAで1,606 Elo（GPT-5.2を144ポイント上回る）を達成。脆弱性発見でも500以上のゼロデイを発見。</p>
+            <a href="02-anthropic-claude-opus-4-6.html" class="inline-flex items-center text-sm font-semibold text-blue-600 hover:text-blue-800 mb-4">
+              <i data-lucide="file-text" class="w-4 h-4 mr-1"></i>詳細を読む →
+            </a>
+            <div class="bg-gray-50 rounded-lg p-4 text-sm text-gray-500 mb-4">
+              <span class="font-bold text-gray-700">引用:</span> 「Claude Opus 4.6 can find meaningful 0-day vulnerabilities in well-tested codebases, even without specialized scaffolding.」— Anthropic
+            </div>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <a href="https://www.anthropic.com/news/claude-opus-4-6" target="_blank" class="inline-flex items-center text-blue-600 hover:underline"><i data-lucide="external-link" class="w-3 h-3 mr-1"></i>Introducing Claude Opus 4.6 <span class="ml-1 bg-emerald-50 text-emerald-600 px-1.5 py-0.5 rounded">公式</span></a>
+              <a href="https://www.cnbc.com/2026/02/05/anthropic-claude-opus-4-6-vibe-working.html" target="_blank" class="inline-flex items-center text-blue-600 hover:underline"><i data-lucide="external-link" class="w-3 h-3 mr-1"></i>CNBC <span class="ml-1 bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded">メディア報道</span></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. OpenAI Frontier -->
+        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+          <div class="p-4 bg-blue-50 border-b border-blue-100 flex justify-between items-center">
+            <h3 class="font-bold text-blue-700 flex items-center">
+              <i data-lucide="building-2" class="w-5 h-5 mr-2"></i>
+              OpenAI、エンタープライズAIエージェント管理基盤「Frontier」を発表
+            </h3>
+            <span class="text-xs bg-amber-50 text-amber-600 px-2 py-1 rounded font-medium">Claude Coworkへの対抗</span>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded font-medium">2026/02/05</span>
+            </div>
+            <p class="text-sm text-gray-600 mb-4">OpenAIがエンタープライズ向けAIエージェント構築・管理プラットフォーム「Frontier」を発表。共有ビジネスコンテキスト、エージェント実行環境、評価・ガバナンスダッシュボードを統合。人間の従業員管理と同様のアプローチでエージェントをオンボーディング・フィードバック管理。HP、Oracle、State Farm、Uber等がローンチ顧客。AnthropicのClaude CoworkやMicrosoftのAgent 365への対抗と位置づけられる。</p>
+            <a href="03-openai-frontier.html" class="inline-flex items-center text-sm font-semibold text-blue-600 hover:text-blue-800 mb-4">
+              <i data-lucide="file-text" class="w-4 h-4 mr-1"></i>詳細を読む →
+            </a>
+            <div class="bg-gray-50 rounded-lg p-4 text-sm text-gray-500 mb-4">
+              <span class="font-bold text-gray-700">引用:</span> 「Frontier gives agents the same skills people need to succeed at work: shared context, onboarding, hands-on learning with feedback, and clear permissions and boundaries.」— OpenAI
+            </div>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <a href="https://openai.com/index/introducing-openai-frontier/" target="_blank" class="inline-flex items-center text-blue-600 hover:underline"><i data-lucide="external-link" class="w-3 h-3 mr-1"></i>Introducing OpenAI Frontier <span class="ml-1 bg-emerald-50 text-emerald-600 px-1.5 py-0.5 rounded">公式</span></a>
+              <a href="https://www.theverge.com/ai-artificial-intelligence/874258/openai-frontier-ai-agent-platform-management" target="_blank" class="inline-flex items-center text-blue-600 hover:underline"><i data-lucide="external-link" class="w-3 h-3 mr-1"></i>The Verge <span class="ml-1 bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded">メディア報道</span></a>
+              <a href="https://venturebeat.com/orchestration/openai-launches-centralized-agent-platform-as-enterprises-push-for-multi" target="_blank" class="inline-flex items-center text-blue-600 hover:underline"><i data-lucide="external-link" class="w-3 h-3 mr-1"></i>VentureBeat <span class="ml-1 bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded">メディア報道</span></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== OTHER NEWS ===== -->
+    <section id="others" class="py-10 border-t border-gray-200">
+      <h2 class="text-2xl font-bold mb-6 flex items-center">
+        <i data-lucide="list" class="w-6 h-6 mr-3 text-blue-500"></i>その他のニュース
+      </h2>
+
+      <div class="grid md:grid-cols-1 gap-6">
+
+        <!-- 4. Step 3.5 Flash -->
+        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+          <div class="p-4 bg-blue-50 border-b border-blue-100 flex justify-between items-center">
+            <h3 class="font-bold text-blue-700 flex items-center">
+              <i data-lucide="cpu" class="w-5 h-5 mr-2"></i>
+              StepFun、Step 3.5 Flashをオープンソース公開 — 196Bパラメータ・11Bアクティブの高効率MoE
+            </h3>
+            <span class="text-xs bg-emerald-50 text-emerald-600 px-2 py-1 rounded font-medium">Apache 2.0</span>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded font-medium">2026/02/02</span>
+            </div>
+            <p class="text-sm text-gray-600 mb-4">中国のStepFunが196Bパラメータ（アクティブ11B）のMoEモデル「Step 3.5 Flash」をApache 2.0ライセンスで公開。256Kコンテキストウィンドウ、MTP-3（Multi-Token Prediction）による最大350 tok/sの推論速度を実現。AIME 2025でほぼ満点、SWE-bench Verifiedで74.4%とフロンティア級の性能を達成。エージェントタスクに最適化された設計。</p>
+            <div class="bg-gray-50 rounded-lg p-4 text-sm text-gray-500 mb-4">
+              <span class="font-bold text-gray-700">引用:</span> 「Step 3.5 Flash is our most capable open-source foundation model, engineered to deliver frontier reasoning and agentic capabilities with exceptional efficiency.」— StepFun
+            </div>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <a href="https://static.stepfun.com/blog/step-3.5-flash/" target="_blank" class="inline-flex items-center text-blue-600 hover:underline"><i data-lucide="external-link" class="w-3 h-3 mr-1"></i>Step 3.5 Flash <span class="ml-1 bg-emerald-50 text-emerald-600 px-1.5 py-0.5 rounded">公式</span></a>
+              <a href="https://www.scmp.com/tech/article/3342222/punches-above-its-weight-compact-ai-model-chinas-stepfun-outshines-larger-rivals" target="_blank" class="inline-flex items-center text-blue-600 hover:underline"><i data-lucide="external-link" class="w-3 h-3 mr-1"></i>South China Morning Post <span class="ml-1 bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded">メディア報道</span></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. SpaceX × xAI -->
+        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+          <div class="p-4 bg-blue-50 border-b border-blue-100 flex justify-between items-center">
+            <h3 class="font-bold text-blue-700 flex items-center">
+              <i data-lucide="rocket" class="w-5 h-5 mr-2"></i>
+              SpaceXとxAIが合併 — 評価額1.25兆ドルの巨大テック企業誕生
+            </h3>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded font-medium">2026/02/02</span>
+            </div>
+            <p class="text-sm text-gray-600 mb-4">Elon MuskがSpaceXとxAIの合併を発表。新会社の評価額は1.25兆ドル。xAIの「Grok」モデルをSpaceXの宇宙事業に組み込み、自律型宇宙船や火星コロニーの開発を加速。年間100GWのAI計算能力追加を目標に掲げる。</p>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <a href="https://www.crescendo.ai/news/latest-ai-news-and-updates" target="_blank" class="inline-flex items-center text-blue-600 hover:underline"><i data-lucide="external-link" class="w-3 h-3 mr-1"></i>The Guardian <span class="ml-1 bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded">メディア報道</span></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. GPT-4o Retirement -->
+        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+          <div class="p-4 bg-blue-50 border-b border-blue-100 flex justify-between items-center">
+            <h3 class="font-bold text-blue-700 flex items-center">
+              <i data-lucide="archive" class="w-5 h-5 mr-2"></i>
+              OpenAI、GPT-4oシリーズの引退を発表 — 2/13にChatGPTから削除
+            </h3>
+            <span class="text-xs bg-red-50 text-red-500 px-2 py-1 rounded font-medium">ユーザー反発</span>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded font-medium">2026/01/29発表 → 02/13実施</span>
+            </div>
+            <p class="text-sm text-gray-600 mb-4">OpenAIがGPT-4o、GPT-4.1、GPT-4.1 mini、o4-miniを2月13日にChatGPTから引退させると発表。利用者の99.9%がGPT-5.2に移行済みとするが、2週間の短い告知期間とSam Altmanの過去の「サンセット予定なし」発言との矛盾にRedditコミュニティで大きな反発。API側は当面変更なし。</p>
+            <div class="bg-gray-50 rounded-lg p-4 text-sm text-gray-500 mb-4">
+              <span class="font-bold text-gray-700">引用:</span> 「On February 13, 2026, alongside the previously announced retirement of GPT‑5 (Instant and Thinking), we will retire GPT‑4o, GPT‑4.1, GPT‑4.1 mini, and OpenAI o4-mini from ChatGPT.」— OpenAI
+            </div>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <a href="https://help.openai.com/en/articles/9624314-model-release-notes" target="_blank" class="inline-flex items-center text-blue-600 hover:underline"><i data-lucide="external-link" class="w-3 h-3 mr-1"></i>Model Release Notes <span class="ml-1 bg-emerald-50 text-emerald-600 px-1.5 py-0.5 rounded">公式</span></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== SUMMARY ===== -->
+    <section id="summary" class="py-10 border-t border-gray-200">
+      <h2 class="text-2xl font-bold mb-6 flex items-center">
+        <i data-lucide="bar-chart-3" class="w-6 h-6 mr-3 text-blue-500"></i>まとめ
+      </h2>
+
+      <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+        <p class="text-sm text-gray-600 leading-relaxed">2026年2月第1週は、AnthropicとOpenAIが同日にフラッグシップモデルを投入する「AI覇権決戦」が最大のハイライトとなった。Claude Opus 4.6はAgent Teamsと100万トークンコンテキストでエージェント時代を本格化させ、OpenAIはGPT-5.3-Codex・Codexアプリ・Frontierの三本柱でエンタープライズプラットフォーム企業への転換を鮮明にした。StepFunのStep 3.5 Flashのような高効率オープンソースモデルの台頭も、AI競争の多層化を象徴している。</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="py-10 bg-white border-t border-gray-200 text-center text-gray-400 text-sm">
+    <p>GenAI Weekly - 生成AIニュース週間レポート</p>
+    <p class="mt-1 text-xs text-gray-300">2026/02/02〜02/08</p>
+  </footer>
+
+  <script>lucide.createIcons();</script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Claude Opus 4.6 深掘り — GenAI Weekly</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background-color: #f8fafc; color: #1e293b; }
+    .gradient-text { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  </style>
+</head>
+<body class="antialiased selection:bg-blue-500 selection:text-white">
+
+  <!-- Header -->
+  <header class="border-b border-gray-200 bg-white/80 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <i data-lucide="newspaper" class="w-6 h-6 text-blue-500"></i>
+        <span class="text-lg font-bold tracking-tight">GenAI Weekly <span class="text-gray-400 font-normal">| Deep Dive</span></span>
+      </div>
+      <a href="01-メインニュース.html" class="text-sm text-blue-600 hover:text-blue-800 font-medium flex items-center">
+        <i data-lucide="arrow-left" class="w-4 h-4 mr-1"></i>週間レポートに戻る
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="py-8 text-center border-b border-gray-200">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-600 text-xs font-medium mb-4">
+        <i data-lucide="brain" class="w-3 h-3 mr-2"></i>
+        2026/02/05 — Anthropic
+      </div>
+      <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+        <span class="gradient-text">Claude Opus 4.6</span>
+      </h1>
+      <p class="text-gray-500 text-sm md:text-base">1Mコンテキスト・Agent Teams・500超のゼロデイ発見 — 「ヴァイブワーキング」時代の到来</p>
+    </div>
+  </section>
+
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- 概要 -->
+    <section class="py-10 border-t border-gray-200">
+      <h2 class="text-2xl font-bold mb-6 flex items-center">
+        <i data-lucide="info" class="w-6 h-6 mr-3 text-blue-500"></i>概要
+      </h2>
+      <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+        <p class="text-sm text-gray-600 leading-relaxed mb-4">2026年2月5日、AnthropicはClaude Opus 4.6を発表した。GPT-5.3-Codexと同日のリリースとなり、AI業界で大きな話題を呼んだ。Opus 4.5（2025年11月）からわずか約3ヶ月でのメジャーアップデートであり、コーディング特化から「知識労働全般のフルコラボレーター」への進化を打ち出している。</p>
+        <p class="text-sm text-gray-600 leading-relaxed mb-4">Anthropicのエンタープライズ製品担当Scott Whiteは「我々は今、ヴァイブワーキング（vibe working）の時代に移行しつつある」と述べ、AIが単なるアシスタントから本格的な協働パートナーになりつつあることを強調した。エンタープライズ顧客はAnthropicの事業の約80%を占めている。</p>
+        <div class="bg-gray-50 rounded-lg p-4 text-sm text-gray-500">
+          <span class="font-bold text-gray-700">引用:</span> 「I think that we are now transitioning almost into vibe working.」— Scott White, Head of Product for Enterprise, Anthropic（CNBC）
+        </div>
+      </div>
+    </section>
+
+    <!-- 主な新機能 -->
+    <section class="py-10 border-t border-gray-200">
+      <h2 class="text-2xl font-bold mb-6 flex items-center">
+        <i data-lucide="zap" class="w-6 h-6 mr-3 text-blue-500"></i>主な新機能
+      </h2>
+      <div class="space-y-6">
+
+        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+          <div class="p-4 bg-blue-50 border-b border-blue-100 flex justify-between items-center">
+            <h3 class="font-bold text-blue-700 flex items-center">
+              <i data-lucide="scan-text" class="w-5 h-5 mr-2"></i>
+              1Mトークン コンテキストウィンドウ（ベータ）
+            </h3>
+            <span class="text-xs bg-amber-50 text-amber-600 px-2 py-1 rounded font-medium">Opus-class初</span>
+          </div>
+          <div class="p-6">
+            <p class="text-sm text-gray-600">Opus-class初の100万トークンコンテキスト。200Kを超えるプロンプトにはプレミアム価格（$10/$37.50 per million input/output tokens）が適用される。大規模コードベースの一括処理や長大なドキュメント分析が可能に。MRCR v2（1M, 8-needle）で76%、（256K, 8-needle）で93%を達成。</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+          <div class="p-4 bg-blue-50 border-b border-blue-100 flex justify-between items-center">
+            <h3 class="font-bold text-blue-700 flex items-center">
+              <i data-lucide="users" class="w-5 h-5 mr-2"></i>
+              Agent Teams
+            </h3>
+            <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded font-medium">Research Preview</span>
+          </div>
+          <div class="p-6">
+            <p class="text-sm text-gray-600">複数のAIエージェントが並行して作業し、相互にコミュニケーションしながらプロジェクトを遂行する機能。人間チームの分業と同様の構造で、大規模タスクの分割・並行処理・統合を実現。APIユーザーおよびサブスクリプションユーザー向けにResearch Previewとして提供。</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+          <div class="p-4 bg-blue-50 border-b border-blue-100 flex justify-between items-center">
+            <h3 class="font-bold text-blue-700 flex items-center">
+              <i data-lucide="shrink" class="w-5 h-5 mr-2"></i>
+              Context Compaction（ベータ）
+            </h3>
+          </div>
+          <div class="p-6">
+            <p class="text-sm text-gray-600">長時間の会話やエージェントタスクでコンテキストウィンドウが限界に近づくと、古いコンテキストを自動的に要約・置換する機能。設定可能な閾値でトリガーされ、制限に達することなく長時間タスクを継続可能に。</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+          <div class="p-4 bg-blue-50 border-b border-blue-100 flex justify-between items-center">
+            <h3 class="font-bold text-blue-700 flex items-center">
+              <i data-lucide="presentation" class="w-5 h-5 mr-2"></i>
+              PowerPoint統合・エンタープライズワークフロー
+            </h3>
+          </div>
+          <div class="p-6">
+            <p class="text-sm text-gray-600">ClaudeをPowerPoint内のサイドパネルとして直接統合。以前はClaudeにデッキを作成させた後PowerPointに転送する必要があったが、PowerPoint内でClaudeと協調してプレゼンテーションを作成・編集できるように。Financial Agentベンチマークでもトップスコアを記録。</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ベンチマーク比較 -->
+    <section class="py-10 border-t border-gray-200">
+      <h2 class="text-2xl font-bold mb-6 flex items-center">
+        <i data-lucide="bar-chart-3" class="w-6 h-6 mr-3 text-blue-500"></i>最新モデルとのベンチマーク比較
+      </h2>
+      <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-gray-50 border-b border-gray-200">
+              <th class="text-left px-6 py-4 font-bold text-gray-600">ベンチマーク</th>
+              <th class="text-center px-4 py-4 font-bold text-gray-600">Opus 4.6</th>
+              <th class="text-center px-4 py-4 font-bold text-gray-600">Opus 4.5</th>
+              <th class="text-center px-4 py-4 font-bold text-gray-600">GPT-5.2</th>
+              <th class="text-center px-4 py-4 font-bold text-gray-600">Gemini 3 Pro</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            <tr>
+              <td class="px-6 py-3 text-gray-700 font-medium">Terminal-Bench 2.0</td>
+              <td class="px-4 py-3 text-center font-bold text-blue-600">65.4%</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+              <td class="px-4 py-3 text-center text-gray-500">64.7%</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-3 text-gray-700 font-medium">GDPval-AA</td>
+              <td class="px-4 py-3 text-center font-bold text-blue-600">1,606 Elo</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+              <td class="px-4 py-3 text-center text-gray-500">~1,462 Elo</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-3 text-gray-700 font-medium">HLE（with tools）</td>
+              <td class="px-4 py-3 text-center font-bold text-blue-600">53.1%</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+              <td class="px-4 py-3 text-center text-gray-500">~42%</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-3 text-gray-700 font-medium">BrowseComp</td>
+              <td class="px-4 py-3 text-center font-bold text-blue-600">84.0%</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+              <td class="px-4 py-3 text-center text-gray-500">Lower</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-3 text-gray-700 font-medium">ARC-AGI-2</td>
+              <td class="px-4 py-3 text-center font-bold text-blue-600">68.8%</td>
+              <td class="px-4 py-3 text-center text-gray-500">37.6%</td>
+              <td class="px-4 py-3 text-center text-gray-500">54.2%</td>
+              <td class="px-4 py-3 text-center text-gray-500">45.1%</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-3 text-gray-700 font-medium">SWE-Bench Verified</td>
+              <td class="px-4 py-3 text-center text-gray-700">80.8%</td>
+              <td class="px-4 py-3 text-center text-gray-500">80.9%</td>
+              <td class="px-4 py-3 text-center text-gray-500">80.0%</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-3 text-gray-700 font-medium">MCP Atlas</td>
+              <td class="px-4 py-3 text-center text-gray-500">59.5%</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+              <td class="px-4 py-3 text-center font-bold text-blue-600">60.6%</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-3 text-gray-700 font-medium">BigLaw Bench</td>
+              <td class="px-4 py-3 text-center font-bold text-blue-600">90.2%</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-3 text-gray-700 font-medium">Finance Agent</td>
+              <td class="px-4 py-3 text-center font-bold text-blue-600">60.7%</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-3 text-gray-700 font-medium">コンテキストウィンドウ</td>
+              <td class="px-4 py-3 text-center font-bold text-blue-600">1M（ベータ）</td>
+              <td class="px-4 py-3 text-center text-gray-500">200K</td>
+              <td class="px-4 py-3 text-center text-gray-500">200K</td>
+              <td class="px-4 py-3 text-center text-gray-500">1M</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="bg-gray-50 rounded-lg p-4 text-sm text-gray-500 mt-4">
+        <span class="font-bold text-gray-700">補足:</span> Opus 4.6はARC-AGI-2で前世代から83%の改善（37.6%→68.8%）を達成。これは「人間には簡単だがAIには難しい」問題への対処能力が大きく進歩したことを示す。GDPval-AAではGPT-5.2を144 Eloポイント上回り、実務タスクでの優位性を示している。一方、Gemini 3 Proは推論と大規模コンテキストで一部Opus 4.6を上回るが、コーディング能力ではOpus 4.6が優位。
+      </div>
+    </section>
+
+    <!-- ゼロデイ脆弱性発見 -->
+    <section class="py-10 border-t border-gray-200">
+      <h2 class="text-2xl font-bold mb-6 flex items-center">
+        <i data-lucide="shield-alert" class="w-6 h-6 mr-3 text-blue-500"></i>サイバーセキュリティ: 500超のゼロデイ発見
+      </h2>
+      <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+        <p class="text-sm text-gray-600 leading-relaxed mb-4">Anthropicのセキュリティチームは、Opus 4.6が十分にテストされたコードベースにおいても、専門的なスキャフォールディングなしで意味のあるゼロデイ脆弱性を発見できることを報告した。</p>
+        <div class="bg-gray-50 rounded-lg p-4 text-sm text-gray-500 mb-4">
+          <span class="font-bold text-gray-700">引用:</span> 「Opus 4.6 reads and reasons about code the way a human researcher would—looking at past fixes to find similar bugs that weren't addressed, spotting patterns that tend to produce vulnerabilities.」— Anthropic Red Team
+        </div>
+        <p class="text-sm text-gray-600 leading-relaxed mb-4">従来のファザーはランダムな入力を大量に投入してバグを見つけるアプローチだが、Opus 4.6はコードを「読んで推論する」ことで脆弱性を発見する。過去の修正パターンから未対処の類似バグを特定したり、脆弱性を生みやすいパターンを検出する。</p>
+        <p class="text-sm text-gray-600 leading-relaxed mb-4">同時にAnthropicは、サイバー悪用の検出を支援するため、モデル内部の活性化を測定する「プローブ」を導入。サイバーセキュリティ領域に特化した悪用検出レイヤーを新たに追加している。</p>
+        <div class="bg-amber-50 rounded-lg p-4 text-sm text-amber-700">
+          <span class="font-bold">Anthropicの見解:</span> 「Language models are already capable of identifying novel vulnerabilities, and may soon exceed the speed and scale of even expert human researchers.」— 防御側のAI活用を今加速すべきタイミングだとの立場を表明。
+        </div>
+      </div>
+    </section>
+
+    <!-- 情報ソース -->
+    <section class="py-10 border-t border-gray-200">
+      <h2 class="text-2xl font-bold mb-6 flex items-center">
+        <i data-lucide="link" class="w-6 h-6 mr-3 text-blue-500"></i>情報ソース
+      </h2>
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+        <ul class="text-sm text-gray-600 space-y-3">
+          <li class="flex items-start">
+            <span class="bg-emerald-50 text-emerald-600 px-1.5 py-0.5 rounded text-xs mr-2 mt-0.5 flex-shrink-0">公式</span>
+            <a href="https://www.anthropic.com/news/claude-opus-4-6" target="_blank" class="text-blue-600 hover:underline">Introducing Claude Opus 4.6 — Anthropic</a>
+          </li>
+          <li class="flex items-start">
+            <span class="bg-emerald-50 text-emerald-600 px-1.5 py-0.5 rounded text-xs mr-2 mt-0.5 flex-shrink-0">公式</span>
+            <a href="https://www.anthropic.com/claude-opus-4-6-system-card" target="_blank" class="text-blue-600 hover:underline">Claude Opus 4.6 System Card — Anthropic</a>
+          </li>
+          <li class="flex items-start">
+            <span class="bg-emerald-50 text-emerald-600 px-1.5 py-0.5 rounded text-xs mr-2 mt-0.5 flex-shrink-0">公式</span>
+            <a href="https://red.anthropic.com/2026/zero-days/" target="_blank" class="text-blue-600 hover:underline">0-Days — Anthropic Red Team</a>
+          </li>
+          <li class="flex items-start">
+            <span class="bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded text-xs mr-2 mt-0.5 flex-shrink-0">メディア</span>
+            <a href="https://www.cnbc.com/2026/02/05/anthropic-claude-opus-4-6-vibe-working.html" target="_blank" class="text-blue-600 hover:underline">Anthropic launches Claude Opus 4.6 as AI moves toward 'vibe working' — CNBC</a>
+          </li>
+          <li class="flex items-start">
+            <span class="bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded text-xs mr-2 mt-0.5 flex-shrink-0">メディア</span>
+            <a href="https://techcrunch.com/2026/02/05/anthropic-releases-opus-4-6-with-new-agent-teams/" target="_blank" class="text-blue-600 hover:underline">Anthropic releases Opus 4.6 with new 'agent teams' — TechCrunch</a>
+          </li>
+          <li class="flex items-start">
+            <span class="bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded text-xs mr-2 mt-0.5 flex-shrink-0">メディア</span>
+            <a href="https://thenewstack.io/anthropics-opus-4-6-is-a-step-change-for-the-enterprise/" target="_blank" class="text-blue-600 hover:underline">Anthropic debuts Opus 4.6 with standout scores — The New Stack</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="py-10 bg-white border-t border-gray-200 text-center text-gray-400 text-sm">
+    <a href="01-メインニュース.html" class="text-blue-600 hover:text-blue-800 font-medium">← 週間レポートに戻る</a>
+    <p class="mt-2">GenAI Weekly - 生成AIニュース週間レポート</p>
+    <p class="mt-1 text-xs text-gray-300">2026/02/02〜02/08</p>
+  </footer>
+
+  <script>lucide.createIcons();</script>
+</body>
+</html>

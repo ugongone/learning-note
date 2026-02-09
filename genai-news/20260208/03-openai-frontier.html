@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OpenAI Frontier 深掘り — GenAI Weekly</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background-color: #f8fafc; color: #1e293b; }
+    .gradient-text { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  </style>
+</head>
+<body class="antialiased selection:bg-blue-500 selection:text-white">
+
+  <!-- Header -->
+  <header class="border-b border-gray-200 bg-white/80 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <i data-lucide="newspaper" class="w-6 h-6 text-blue-500"></i>
+        <span class="text-lg font-bold tracking-tight">GenAI Weekly <span class="text-gray-400 font-normal">| Deep Dive</span></span>
+      </div>
+      <a href="01-メインニュース.html" class="text-sm text-blue-600 hover:text-blue-800 font-medium flex items-center">
+        <i data-lucide="arrow-left" class="w-4 h-4 mr-1"></i>週間レポートに戻る
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="py-8 text-center border-b border-gray-200">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-600 text-xs font-medium mb-4">
+        <i data-lucide="building-2" class="w-3 h-3 mr-2"></i>
+        2026/02/05 — OpenAI
+      </div>
+      <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+        <span class="gradient-text">OpenAI Frontier</span>
+      </h1>
+      <p class="text-gray-500 text-sm md:text-base">エンタープライズAIエージェント管理基盤 — 「AIのためのHR」という新しいパラダイム</p>
+    </div>
+  </section>
+
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- 概要 -->
+    <section class="py-10 border-t border-gray-200">
+      <h2 class="text-2xl font-bold mb-6 flex items-center">
+        <i data-lucide="info" class="w-6 h-6 mr-3 text-blue-500"></i>Frontierとは何か
+      </h2>
+      <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+        <p class="text-sm text-gray-600 leading-relaxed mb-4">OpenAI Frontierは、エンタープライズがAIエージェントを構築・デプロイ・管理するためのエンドツーエンドプラットフォームだ。2月5日にGPT-5.3-Codexと同時に発表された。OpenAIのB2B担当ゼネラルマネージャーBarret Zophは「エージェントインターフェース」と表現し、断片化したツールやワークフロー、サイロ化されたデータの上に統合レイヤーとして機能すると説明した。</p>
+        <p class="text-sm text-gray-600 leading-relaxed mb-4">最大の特徴は、「企業が人間の従業員をスケールさせる方法」からインスピレーションを得たアプローチだ。エージェントに対して、人間と同様のオンボーディング、共有コンテキスト、フィードバックループ、権限管理を提供する。</p>
+        <div class="bg-gray-50 rounded-lg p-4 text-sm text-gray-500">
+          <span class="font-bold text-gray-700">引用:</span> 「Frontier gives agents the same skills people need to succeed at work: shared context, onboarding, hands-on learning with feedback, and clear permissions and boundaries. That's how teams move beyond isolated use cases to AI co-workers that work across the business.」— OpenAI
+        </div>
+      </div>
+    </section>
+
+    <!-- 3つの柱 -->
+    <section class="py-10 border-t border-gray-200">
+      <h2 class="text-2xl font-bold mb-6 flex items-center">
+        <i data-lucide="layers" class="w-6 h-6 mr-3 text-blue-500"></i>Frontierの3つの柱
+      </h2>
+      <div class="space-y-6">
+
+        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+          <div class="p-4 bg-blue-50 border-b border-blue-100 flex justify-between items-center">
+            <h3 class="font-bold text-blue-700 flex items-center">
+              <i data-lucide="database" class="w-5 h-5 mr-2"></i>
+              1. ビジネスコンテキスト（セマンティックレイヤー）
+            </h3>
+          </div>
+          <div class="p-6">
+            <p class="text-sm text-gray-600 mb-3">企業のデータソース、CRMツール、その他の社内アプリケーションをFrontierに接続し、セマンティックレイヤーを構築。権限とデータ取得ロジックを正規化し、すべてのエージェントが同じコンテキストにアクセスできるようにする。人間の従業員もエージェントも同じプラットフォーム上で同じデータ・ツール・アクセス制御を共有する。</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+          <div class="p-4 bg-blue-50 border-b border-blue-100 flex justify-between items-center">
+            <h3 class="font-bold text-blue-700 flex items-center">
+              <i data-lucide="play" class="w-5 h-5 mr-2"></i>
+              2. エージェント実行環境
+            </h3>
+          </div>
+          <div class="p-6">
+            <p class="text-sm text-gray-600 mb-3">AIエージェントが実際のワークフロー上で動作する環境を提供。ローカル環境、クラウドインフラ、またはOpenAIホスト型ランタイムで実行可能。エージェントは並列動作し、複数ステップ・複数ツール・承認プロセスを横断するタスクを遂行できる。テキスト生成にとどまらず、統合システム上でのアクション実行が可能。</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+          <div class="p-4 bg-blue-50 border-b border-blue-100 flex justify-between items-center">
+            <h3 class="font-bold text-blue-700 flex items-center">
+              <i data-lucide="shield-check" class="w-5 h-5 mr-2"></i>
+              3. 評価・ガバナンスダッシュボード
+            </h3>
+          </div>
+          <div class="p-6">
+            <p class="text-sm text-gray-600 mb-3">エージェントの振る舞いとパフォーマンスを監視・評価するためのビルトインツール。成功率、精度、レイテンシーを可視化し、組織全体のAIガバナンスを実現。エンタープライズグレードのデータセキュリティレイヤーを組み込み、データ保管場所の選択も可能。</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- オープンプラットフォーム -->
+    <section class="py-10 border-t border-gray-200">
+      <h2 class="text-2xl font-bold mb-6 flex items-center">
+        <i data-lucide="globe" class="w-6 h-6 mr-3 text-blue-500"></i>オープンプラットフォーム戦略
+      </h2>
+      <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+        <p class="text-sm text-gray-600 leading-relaxed mb-4">OpenAIのCROであるSarah Simoは「すべてを自分たちで作るわけではないという認識」と述べ、Frontierがオープンスタンダードを使用し、OpenAI・顧客企業・他のAI企業が構築したエージェントをすべて管理できることを強調した。</p>
+        <p class="text-sm text-gray-600 leading-relaxed mb-4">ローンチ顧客にはHP、Intuit、Oracle、State Farm、Thermo Fisher、Uberなどが名を連ねる。また、Clay、Abridge、Harvey、Decagon、Ambience、Sierraなどのパートナー企業がFrontier内でソリューションを設計している。</p>
+        <p class="text-sm text-gray-600 leading-relaxed">既存のAgents SDK、AgentKit、APIスイートを置き換えるものではなく、これらの上に統合レイヤーとして機能する。価格は未公表。</p>
+      </div>
+    </section>
+
+    <!-- Frontier vs Claude Cowork -->
+    <section class="py-10 border-t border-gray-200">
+      <h2 class="text-2xl font-bold mb-6 flex items-center">
+        <i data-lucide="git-compare" class="w-6 h-6 mr-3 text-blue-500"></i>OpenAI Frontier vs Claude Cowork
+      </h2>
+      <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden mb-6">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-gray-50 border-b border-gray-200">
+              <th class="text-left px-6 py-4 font-bold text-gray-600">比較項目</th>
+              <th class="text-center px-4 py-4 font-bold text-gray-600">OpenAI Frontier</th>
+              <th class="text-center px-4 py-4 font-bold text-gray-600">Claude Cowork</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            <tr>
+              <td class="px-6 py-3 text-gray-700 font-medium">設計思想</td>
+              <td class="px-4 py-3 text-center text-gray-500">エンタープライズ全体のエージェント<br>オーケストレーター</td>
+              <td class="px-4 py-3 text-center text-gray-500">個人の生産性を高める<br>AIコラボレーター</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-3 text-gray-700 font-medium">ターゲット</td>
+              <td class="px-4 py-3 text-center text-gray-500">CTO / IT部門 / 全社的AI導入</td>
+              <td class="px-4 py-3 text-center text-gray-500">個人のナレッジワーカー / チーム</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-3 text-gray-700 font-medium">スケール</td>
+              <td class="px-4 py-3 text-center text-gray-500">数千のエージェントを組織横断で管理</td>
+              <td class="px-4 py-3 text-center text-gray-500">個人〜小チーム単位での利用</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-3 text-gray-700 font-medium">エージェント管理</td>
+              <td class="px-4 py-3 text-center text-gray-500">中央集権的。共有状態・<br>ポリシー・エージェント間認識</td>
+              <td class="px-4 py-3 text-center text-gray-500">分散型。各インスタンスが独立動作。<br>共有状態なし</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-3 text-gray-700 font-medium">データ接続</td>
+              <td class="px-4 py-3 text-center text-gray-500">CRM・HR・チケット・DB等<br>全社システムに接続</td>
+              <td class="px-4 py-3 text-center text-gray-500">ローカルフォルダ + コネクタ<br>（Asana, Notion等）</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-3 text-gray-700 font-medium">カスタマイズ</td>
+              <td class="px-4 py-3 text-center text-gray-500">オープンスタンダード。<br>他社エージェントも管理可能</td>
+              <td class="px-4 py-3 text-center text-gray-500">プラグインで役割・ツール・<br>ワークフローを特化。オープンソース</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-3 text-gray-700 font-medium">ガバナンス</td>
+              <td class="px-4 py-3 text-center text-gray-500">ビルトイン。IAM・監視・<br>監査ダッシュボード</td>
+              <td class="px-4 py-3 text-center text-gray-500">現時点では限定的。<br>組織共有機能は開発中</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-3 text-gray-700 font-medium">利用開始</td>
+              <td class="px-4 py-3 text-center text-gray-500">限定顧客向け。<br>価格未公表</td>
+              <td class="px-4 py-3 text-center text-gray-500">Pro / Max / Team / Enterprise<br>プランで利用可能</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-3 text-gray-700 font-medium">発表日</td>
+              <td class="px-4 py-3 text-center text-gray-500">2026/02/05</td>
+              <td class="px-4 py-3 text-center text-gray-500">2026/01/12（プラグイン: 01/30）</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+        <h3 class="font-bold text-gray-800 mb-4 flex items-center">
+          <i data-lucide="lightbulb" class="w-5 h-5 mr-2 text-amber-500"></i>
+          競合ではなく補完関係
+        </h3>
+        <p class="text-sm text-gray-600 leading-relaxed mb-4">Greyhound Researchのチーフアナリスト Sanchit Vir Gogiaは、両プラットフォームを「根本的に異なるプロダクト」と評価している。</p>
+        <div class="bg-gray-50 rounded-lg p-4 text-sm text-gray-500 mb-4">
+          <span class="font-bold text-gray-700">引用:</span> 「Cowork handles task-level automation. Frontier handles coordination, governance, and scale. Deploying them together is where the real power lies.」— Sanchit Vir Gogia, Greyhound Research（Computerworld）
+        </div>
+        <p class="text-sm text-gray-600 leading-relaxed mb-4">Claude Coworkは「高スキルなジュニアチームメンバー」のように、個人レベルでのエンドツーエンド作業を得意とする。ローカルで動作し、プラグインで役割特化の知識を持ち、自己完結的に作業を完了できる。一方で、共有状態・中央ポリシー・エージェント間の連携がないため、組織規模でのスケーリングには課題がある。</p>
+        <p class="text-sm text-gray-600 leading-relaxed">Frontierは「マネージャー」の役割を果たし、数千のエージェントの調整・ガバナンス・スケーリングを担う。大企業がFrontierで組織全体のAI戦略を管理しつつ、個々の従業員がCoworkのような特化ツールを使うという組み合わせが現実的な導入パターンとなりうる。</p>
+      </div>
+    </section>
+
+    <!-- 市場への影響 -->
+    <section class="py-10 border-t border-gray-200">
+      <h2 class="text-2xl font-bold mb-6 flex items-center">
+        <i data-lucide="trending-up" class="w-6 h-6 mr-3 text-blue-500"></i>市場への影響と今後の展望
+      </h2>
+      <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+        <p class="text-sm text-gray-600 leading-relaxed mb-4">FrontierはMicrosoft Agent 365やSalesforceのAgentforceと直接競合する領域に踏み込んでおり、エンタープライズSaaS市場に大きな波紋を広げている。Frontier発表と同日のOpus 4.6リリースにより、従来型ソフトウェア企業の株価が急落した。</p>
+        <p class="text-sm text-gray-600 leading-relaxed mb-4">Info-Tech Research GroupのThomas Randallは「Frontierは論理的な次のステップだが、市場をリードしているとは言えず、OpenAIはファーストムーバーアドバンテージを失いつつある」と指摘。Anthropicのエージェント型自動化でのプロアクティブな取り組みに注目している。</p>
+        <p class="text-sm text-gray-600 leading-relaxed">OpenAIの哲学的転換も注目に値する。2023年のChatGPT Enterprise発表時は「人間の従業員のエンパワーメント」が主題だったが、Frontierは「AIシステムが業務上のアクターとして機能する」ビジョンを反映している。人間はループ内に残るが、その役割は実行から監督へとシフトしつつある。</p>
+      </div>
+    </section>
+
+    <!-- 情報ソース -->
+    <section class="py-10 border-t border-gray-200">
+      <h2 class="text-2xl font-bold mb-6 flex items-center">
+        <i data-lucide="link" class="w-6 h-6 mr-3 text-blue-500"></i>情報ソース
+      </h2>
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+        <ul class="text-sm text-gray-600 space-y-3">
+          <li class="flex items-start">
+            <span class="bg-emerald-50 text-emerald-600 px-1.5 py-0.5 rounded text-xs mr-2 mt-0.5 flex-shrink-0">公式</span>
+            <a href="https://openai.com/index/introducing-openai-frontier/" target="_blank" class="text-blue-600 hover:underline">Introducing OpenAI Frontier — OpenAI</a>
+          </li>
+          <li class="flex items-start">
+            <span class="bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded text-xs mr-2 mt-0.5 flex-shrink-0">メディア</span>
+            <a href="https://www.theverge.com/ai-artificial-intelligence/874258/openai-frontier-ai-agent-platform-management" target="_blank" class="text-blue-600 hover:underline">OpenAI Frontier is a single platform to control your AI agents — The Verge</a>
+          </li>
+          <li class="flex items-start">
+            <span class="bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded text-xs mr-2 mt-0.5 flex-shrink-0">メディア</span>
+            <a href="https://venturebeat.com/orchestration/openai-launches-centralized-agent-platform-as-enterprises-push-for-multi" target="_blank" class="text-blue-600 hover:underline">OpenAI launches centralized agent platform — VentureBeat</a>
+          </li>
+          <li class="flex items-start">
+            <span class="bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded text-xs mr-2 mt-0.5 flex-shrink-0">メディア</span>
+            <a href="https://www.computerworld.com/article/4128310/openai-responds-to-claude-cowork-with-its-own-platform-to-help-build-deploy-and-manage-ai-agents.html" target="_blank" class="text-blue-600 hover:underline">OpenAI responds to Claude Cowork with its own platform — Computerworld</a>
+          </li>
+          <li class="flex items-start">
+            <span class="bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded text-xs mr-2 mt-0.5 flex-shrink-0">メディア</span>
+            <a href="https://techcrunch.com/2026/02/05/openai-launches-a-way-for-enterprises-to-build-and-manage-ai-agents/" target="_blank" class="text-blue-600 hover:underline">OpenAI launches a way for enterprises to build and manage AI agents — TechCrunch</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="py-10 bg-white border-t border-gray-200 text-center text-gray-400 text-sm">
+    <a href="01-メインニュース.html" class="text-blue-600 hover:text-blue-800 font-medium">← 週間レポートに戻る</a>
+    <p class="mt-2">GenAI Weekly - 生成AIニュース週間レポート</p>
+    <p class="mt-1 text-xs text-gray-300">2026/02/02〜02/08</p>
+  </footer>
+
+  <script>lucide.createIcons();</script>
+</body>
+</html>

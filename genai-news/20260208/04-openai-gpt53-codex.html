@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GPT-5.3-Codex 深掘り — GenAI Weekly</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background-color: #f8fafc; color: #1e293b; }
+    .gradient-text { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  </style>
+</head>
+<body class="antialiased selection:bg-blue-500 selection:text-white">
+
+  <!-- Header -->
+  <header class="border-b border-gray-200 bg-white/80 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <i data-lucide="newspaper" class="w-6 h-6 text-blue-500"></i>
+        <span class="text-lg font-bold tracking-tight">GenAI Weekly <span class="text-gray-400 font-normal">| Deep Dive</span></span>
+      </div>
+      <a href="01-メインニュース.html" class="text-sm text-blue-600 hover:text-blue-800 font-medium flex items-center">
+        <i data-lucide="arrow-left" class="w-4 h-4 mr-1"></i>週間レポートに戻る
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="py-8 text-center border-b border-gray-200">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-600 text-xs font-medium mb-4">
+        <i data-lucide="code" class="w-3 h-3 mr-2"></i>
+        2026/02/05 — OpenAI
+      </div>
+      <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+        <span class="gradient-text">GPT-5.3-Codex</span>
+      </h1>
+      <p class="text-gray-500 text-sm md:text-base">「自身の開発に貢献した」初のモデル — コーディングエージェントから汎用ワークエージェントへ</p>
+    </div>
+  </section>
+
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- 概要 -->
+    <section class="py-10 border-t border-gray-200">
+      <h2 class="text-2xl font-bold mb-6 flex items-center">
+        <i data-lucide="info" class="w-6 h-6 mr-3 text-blue-500"></i>概要
+      </h2>
+      <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+        <p class="text-sm text-gray-600 leading-relaxed mb-4">2026年2月5日、OpenAIはGPT-5.3-Codexを発表した。Codex（コーディング特化）とGPT-5（汎用推論）のトレーニングスタックを初めて統合したモデルであり、「コード生成ツール」から「コンピュータ上のあらゆるプロフェッショナル作業を遂行する汎用エージェント」への転換を打ち出している。</p>
+        <p class="text-sm text-gray-600 leading-relaxed mb-4">最大の特徴は、開発プロセスそのものにモデルが関与した点だ。OpenAIによれば、GPT-5.3-Codexの初期バージョンが自身のトレーニングのデバッグ、デプロイ管理、テスト結果の診断を行い、開発を大幅に加速させた。</p>
+        <div class="bg-gray-50 rounded-lg p-4 text-sm text-gray-500">
+          <span class="font-bold text-gray-700">引用:</span> 「GPT‑5.3‑Codex is our first model that was instrumental in creating itself. The Codex team used early versions to debug its own training, manage its own deployment, and diagnose test results and evaluations—our team was blown away by how much Codex was able to accelerate its own development.」— OpenAI
+        </div>
+      </div>
+    </section>
+
+    <!-- 主な新機能 -->
+    <section class="py-10 border-t border-gray-200">
+      <h2 class="text-2xl font-bold mb-6 flex items-center">
+        <i data-lucide="zap" class="w-6 h-6 mr-3 text-blue-500"></i>主な新機能
+      </h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl hover:shadow-md transition">
+          <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-3">
+            <i data-lucide="git-merge" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-bold text-gray-800 mb-1">Codex + GPT-5 統合</h3>
+          <p class="text-xs text-gray-500">コード生成・推論・汎用知識を単一モデルに統合。コーディングだけでなくドキュメント作成やプロジェクト管理も実行可能</p>
+        </div>
+        <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl hover:shadow-md transition">
+          <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-3">
+            <i data-lucide="message-circle" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-bold text-gray-800 mb-1">インタラクティブ操縦</h3>
+          <p class="text-xs text-gray-500">作業中にリアルタイムで質問・フィードバック・方向転換が可能。Codexアプリで進捗を監視しながら協調作業</p>
+        </div>
+        <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl hover:shadow-md transition">
+          <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-3">
+            <i data-lucide="shield" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-bold text-gray-800 mb-1">サイバーセキュリティ「High」</h3>
+          <p class="text-xs text-gray-500">OpenAI Preparedness Frameworkで初の「High capability」分類。CTFチャレンジで77.6%を達成</p>
+        </div>
+        <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl hover:shadow-md transition">
+          <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-3">
+            <i data-lucide="gauge" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-bold text-gray-800 mb-1">25%高速化</h3>
+          <p class="text-xs text-gray-500">前世代比25%の速度向上。長時間タスクでもレスポンシブな対話を維持</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ベンチマーク比較 -->
+    <section class="py-10 border-t border-gray-200">
+      <h2 class="text-2xl font-bold mb-6 flex items-center">
+        <i data-lucide="bar-chart-3" class="w-6 h-6 mr-3 text-blue-500"></i>最新モデルとのベンチマーク比較
+      </h2>
+      <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-gray-50 border-b border-gray-200">
+              <th class="text-left px-6 py-4 font-bold text-gray-600">ベンチマーク</th>
+              <th class="text-center px-4 py-4 font-bold text-gray-600">GPT-5.3-Codex</th>
+              <th class="text-center px-4 py-4 font-bold text-gray-600">Claude Opus 4.6</th>
+              <th class="text-center px-4 py-4 font-bold text-gray-600">GPT-5.2</th>
+              <th class="text-center px-4 py-4 font-bold text-gray-600">Gemini 3 Pro</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            <tr>
+              <td class="px-6 py-3 text-gray-700 font-medium">SWE-Bench Pro</td>
+              <td class="px-4 py-3 text-center font-bold text-blue-600">56.8%</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+              <td class="px-4 py-3 text-center text-gray-500">55.6%</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-3 text-gray-700 font-medium">SWE-Bench Verified</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+              <td class="px-4 py-3 text-center font-bold text-blue-600">80.8%</td>
+              <td class="px-4 py-3 text-center text-gray-500">80.0%</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-3 text-gray-700 font-medium">Terminal-Bench 2.0</td>
+              <td class="px-4 py-3 text-center font-bold text-blue-600">77.3%</td>
+              <td class="px-4 py-3 text-center text-gray-500">65.4%</td>
+              <td class="px-4 py-3 text-center text-gray-500">62.2%</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-3 text-gray-700 font-medium">OSWorld-Verified</td>
+              <td class="px-4 py-3 text-center font-bold text-blue-600">64.7%</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+              <td class="px-4 py-3 text-center text-gray-500">37.9%</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-3 text-gray-700 font-medium">GDPval（実務タスク）</td>
+              <td class="px-4 py-3 text-center text-gray-500">70.9%勝率</td>
+              <td class="px-4 py-3 text-center font-bold text-blue-600">1,606 Elo</td>
+              <td class="px-4 py-3 text-center text-gray-500">~1,462 Elo</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-3 text-gray-700 font-medium">ARC-AGI-2</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+              <td class="px-4 py-3 text-center font-bold text-blue-600">68.8%</td>
+              <td class="px-4 py-3 text-center text-gray-500">54.2%</td>
+              <td class="px-4 py-3 text-center text-gray-500">45.1%</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-3 text-gray-700 font-medium">HLE（with tools）</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+              <td class="px-4 py-3 text-center font-bold text-blue-600">53.1%</td>
+              <td class="px-4 py-3 text-center text-gray-500">~42%</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-3 text-gray-700 font-medium">Cyber CTF</td>
+              <td class="px-4 py-3 text-center font-bold text-blue-600">77.6%</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+              <td class="px-4 py-3 text-center text-gray-500">67.7%</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-3 text-gray-700 font-medium">コンテキストウィンドウ</td>
+              <td class="px-4 py-3 text-center text-gray-500">400K</td>
+              <td class="px-4 py-3 text-center font-bold text-blue-600">1M（ベータ）</td>
+              <td class="px-4 py-3 text-center text-gray-500">200K</td>
+              <td class="px-4 py-3 text-center text-gray-500">1M</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-3 text-gray-700 font-medium">最大出力トークン</td>
+              <td class="px-4 py-3 text-center font-bold text-blue-600">128K</td>
+              <td class="px-4 py-3 text-center font-bold text-blue-600">128K</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+              <td class="px-4 py-3 text-center text-gray-500">—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="bg-gray-50 rounded-lg p-4 text-sm text-gray-500 mt-4">
+        <span class="font-bold text-gray-700">補足:</span> GPT-5.3-CodexとClaude Opus 4.6は同日発表だが、各社が公表するベンチマークが異なるため直接比較が難しい項目もある。GPT-5.3-CodexはTerminal-Bench・OSWorld・Cyber CTFで圧倒的な強さを示し、Opus 4.6はARC-AGI-2・HLE・GDPvalで優位に立っている。
+      </div>
+    </section>
+
+    <!-- 自己開発への関与 -->
+    <section class="py-10 border-t border-gray-200">
+      <h2 class="text-2xl font-bold mb-6 flex items-center">
+        <i data-lucide="refresh-cw" class="w-6 h-6 mr-3 text-blue-500"></i>「自身の開発に貢献」の意味と含意
+      </h2>
+      <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+        <p class="text-sm text-gray-600 leading-relaxed mb-4">GPT-5.3-Codexの最も注目すべき点は「自身の開発に関与した初のモデル」という主張だ。具体的には以下の工程にモデルが活用された。</p>
+        <ul class="text-sm text-gray-600 space-y-2 mb-4">
+          <li class="flex items-start"><span class="text-blue-400 mr-2 font-bold">1.</span>トレーニングパイプラインのデバッグ — 訓練中に発生するエラーの診断と修正提案</li>
+          <li class="flex items-start"><span class="text-blue-400 mr-2 font-bold">2.</span>デプロイ管理 — モデルのデプロイメントプロセスの自動化と監視</li>
+          <li class="flex items-start"><span class="text-blue-400 mr-2 font-bold">3.</span>テスト結果・評価の診断 — ベンチマーク結果の分析と改善点の特定</li>
+        </ul>
+        <p class="text-sm text-gray-600 leading-relaxed mb-4">これはAI開発における「自己改善ループ」の初期形態と見なせる。モデルが自身の後継バージョンの品質向上に直接寄与するサイクルが確立されたことで、今後のモデル開発速度が加速する可能性がある一方、人間による制御と監査の重要性がさらに増すことも意味する。</p>
+        <div class="bg-amber-50 rounded-lg p-4 text-sm text-amber-700">
+          <span class="font-bold">注意:</span> Redditでは「The models coordinated — They are already talking and we were not invited」といった半ば冗談の反応も見られたが、自己開発への関与がもたらすリスクについては、OpenAI自身もPreparedness Frameworkの下で慎重に評価している。
+        </div>
+      </div>
+    </section>
+
+    <!-- Codexアプリとの連携 -->
+    <section class="py-10 border-t border-gray-200">
+      <h2 class="text-2xl font-bold mb-6 flex items-center">
+        <i data-lucide="monitor" class="w-6 h-6 mr-3 text-blue-500"></i>Codexアプリとの連携
+      </h2>
+      <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+        <p class="text-sm text-gray-600 leading-relaxed mb-4">GPT-5.3-Codexは、2月2日に発表されたCodexアプリ（macOS向け）と組み合わせることで真価を発揮する。Codexアプリはエージェントの「コマンドセンター」として設計されており、以下の統合機能を提供する。</p>
+        <div class="grid md:grid-cols-3 gap-4 mb-4">
+          <div class="bg-gray-50 rounded-lg p-4 text-center">
+            <i data-lucide="figma" class="w-6 h-6 text-blue-500 mx-auto mb-2"></i>
+            <p class="text-xs text-gray-600 font-medium">Figmaからデザイン取得 → プロダクションUIコード生成</p>
+          </div>
+          <div class="bg-gray-50 rounded-lg p-4 text-center">
+            <i data-lucide="list-checks" class="w-6 h-6 text-blue-500 mx-auto mb-2"></i>
+            <p class="text-xs text-gray-600 font-medium">Linearでバグトリアージ・リリース管理・チーム負荷管理</p>
+          </div>
+          <div class="bg-gray-50 rounded-lg p-4 text-center">
+            <i data-lucide="cloud" class="w-6 h-6 text-blue-500 mx-auto mb-2"></i>
+            <p class="text-xs text-gray-600 font-medium">Cloudflare/Netlify/Vercelへの直接デプロイ</p>
+          </div>
+        </div>
+        <div class="bg-gray-50 rounded-lg p-4 text-sm text-gray-500">
+          <span class="font-bold text-gray-700">引用:</span> 「Codex is built on a simple premise: everything is controlled by code. The better an agent is at reasoning about and producing code, the more capable it becomes across all forms of technical and knowledge work.」— OpenAI
+        </div>
+      </div>
+    </section>
+
+    <!-- サイバーセキュリティ -->
+    <section class="py-10 border-t border-gray-200">
+      <h2 class="text-2xl font-bold mb-6 flex items-center">
+        <i data-lucide="shield-alert" class="w-6 h-6 mr-3 text-blue-500"></i>サイバーセキュリティへの影響
+      </h2>
+      <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+        <p class="text-sm text-gray-600 leading-relaxed mb-4">GPT-5.3-CodexはOpenAIのPreparedness Frameworkで初めて「High capability」に分類された。CTFチャレンジで77.6%（前世代67.7%）を達成し、脆弱性発見能力が大幅に向上している。</p>
+        <p class="text-sm text-gray-600 leading-relaxed mb-4">同日に発表されたClaude Opus 4.6もサイバーセキュリティ分野で顕著な成果を示しており、Anthropicは500以上のゼロデイ脆弱性をOpus 4.6で発見したと報告。両社ともに「防御側のAI活用を加速すべき」という立場を取りつつ、デュアルユースリスクへの対策も強化している。</p>
+        <p class="text-sm text-gray-600 leading-relaxed">OpenAIはTrusted Access for Cyberプログラムも同時に発表し、サイバーセキュリティ助成プログラムに1,000万ドルのAPIクレジットを提供。防御的なセキュリティ研究へのアクセスを拡大している。</p>
+      </div>
+    </section>
+
+    <!-- 情報ソース -->
+    <section class="py-10 border-t border-gray-200">
+      <h2 class="text-2xl font-bold mb-6 flex items-center">
+        <i data-lucide="link" class="w-6 h-6 mr-3 text-blue-500"></i>情報ソース
+      </h2>
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+        <ul class="text-sm text-gray-600 space-y-3">
+          <li class="flex items-start">
+            <span class="bg-emerald-50 text-emerald-600 px-1.5 py-0.5 rounded text-xs mr-2 mt-0.5 flex-shrink-0">公式</span>
+            <a href="https://openai.com/index/introducing-gpt-5-3-codex/" target="_blank" class="text-blue-600 hover:underline">Introducing GPT-5.3-Codex — OpenAI</a>
+          </li>
+          <li class="flex items-start">
+            <span class="bg-emerald-50 text-emerald-600 px-1.5 py-0.5 rounded text-xs mr-2 mt-0.5 flex-shrink-0">公式</span>
+            <a href="https://openai.com/index/introducing-the-codex-app/" target="_blank" class="text-blue-600 hover:underline">Introducing the Codex app — OpenAI</a>
+          </li>
+          <li class="flex items-start">
+            <span class="bg-emerald-50 text-emerald-600 px-1.5 py-0.5 rounded text-xs mr-2 mt-0.5 flex-shrink-0">公式</span>
+            <a href="https://openai.com/index/trusted-access-for-cyber/" target="_blank" class="text-blue-600 hover:underline">Introducing Trusted Access for Cyber — OpenAI</a>
+          </li>
+          <li class="flex items-start">
+            <span class="bg-emerald-50 text-emerald-600 px-1.5 py-0.5 rounded text-xs mr-2 mt-0.5 flex-shrink-0">公式</span>
+            <a href="https://help.openai.com/en/articles/9624314-model-release-notes" target="_blank" class="text-blue-600 hover:underline">Model Release Notes — OpenAI Help Center</a>
+          </li>
+          <li class="flex items-start">
+            <span class="bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded text-xs mr-2 mt-0.5 flex-shrink-0">メディア</span>
+            <a href="https://thenewstack.io/openais-gpt-5-3-codex-helped-build-itself/" target="_blank" class="text-blue-600 hover:underline">OpenAI's GPT-5.3-Codex helped build itself — The New Stack</a>
+          </li>
+          <li class="flex items-start">
+            <span class="bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded text-xs mr-2 mt-0.5 flex-shrink-0">メディア</span>
+            <a href="https://www.datacamp.com/blog/gpt-5-3-codex" target="_blank" class="text-blue-600 hover:underline">GPT-5.3 Codex: From Coding Assistant to General Work Agent — DataCamp</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="py-10 bg-white border-t border-gray-200 text-center text-gray-400 text-sm">
+    <a href="01-メインニュース.html" class="text-blue-600 hover:text-blue-800 font-medium">← 週間レポートに戻る</a>
+    <p class="mt-2">GenAI Weekly - 生成AIニュース週間レポート</p>
+    <p class="mt-1 text-xs text-gray-300">2026/02/02〜02/08</p>
+  </footer>
+
+  <script>lucide.createIcons();</script>
+</body>
+</html>
