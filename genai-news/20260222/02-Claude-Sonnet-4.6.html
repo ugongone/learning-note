@@ -66,59 +66,253 @@
             </div>
         </section>
 
-        <!-- ベンチマーク比較 -->
+        <!-- ベンチマーク比較（4モデル） -->
         <section class="py-10 border-t border-gray-200">
             <h2 class="text-2xl font-bold mb-6 flex items-center">
-                <i data-lucide="bar-chart-3" class="w-6 h-6 mr-3 text-blue-500"></i>ベンチマーク比較
+                <i data-lucide="bar-chart-3" class="w-6 h-6 mr-3 text-blue-500"></i>ベンチマーク比較 — 4モデル横断
             </h2>
 
+            <p class="text-sm text-gray-500 mb-4">Sonnet 4.6を、前世代のSonnet 4.5・Opus 4.5および現世代のOpus 4.6と比較する。各行の最高値を太字で表示。</p>
+
             <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden mb-6">
-                <table class="w-full text-sm">
-                    <thead>
-                        <tr class="bg-gray-50 border-b border-gray-200">
-                            <th class="text-left px-6 py-4 font-bold text-gray-600">ベンチマーク</th>
-                            <th class="text-left px-6 py-4 font-bold text-gray-600">Sonnet 4.6</th>
-                            <th class="text-left px-6 py-4 font-bold text-gray-600">Opus 4.6</th>
-                            <th class="text-left px-6 py-4 font-bold text-gray-600">差分</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-100">
-                        <tr>
-                            <td class="px-6 py-3 text-gray-700 font-medium">OSWorld-Verified（コンピュータ操作）</td>
-                            <td class="px-6 py-3 text-gray-600">72.5%</td>
-                            <td class="px-6 py-3 text-gray-600">72.7%</td>
-                            <td class="px-6 py-3"><span class="text-xs bg-emerald-50 text-emerald-600 px-2 py-1 rounded">-0.2pt</span></td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-3 text-gray-700 font-medium">SWE-bench Verified（コーディング）</td>
-                            <td class="px-6 py-3 text-gray-600">79.6%</td>
-                            <td class="px-6 py-3 text-gray-600">80.8%</td>
-                            <td class="px-6 py-3"><span class="text-xs bg-emerald-50 text-emerald-600 px-2 py-1 rounded">-1.2pt</span></td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-3 text-gray-700 font-medium">GDPval-AA（オフィス業務）</td>
-                            <td class="px-6 py-3 text-gray-600 font-bold">1633 Elo</td>
-                            <td class="px-6 py-3 text-gray-600">1633未満</td>
-                            <td class="px-6 py-3"><span class="text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded">Sonnet勝利</span></td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-3 text-gray-700 font-medium">Finance Agent（金融分析）</td>
-                            <td class="px-6 py-3 text-gray-600 font-bold">63.3%</td>
-                            <td class="px-6 py-3 text-gray-600">—</td>
-                            <td class="px-6 py-3"><span class="text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded">最高スコア</span></td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-3 text-gray-700 font-medium">MCP-Atlas（ツール使用）</td>
-                            <td class="px-6 py-3 text-gray-600 font-bold">61.3%</td>
-                            <td class="px-6 py-3 text-gray-600">60.3%</td>
-                            <td class="px-6 py-3"><span class="text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded">+1.0pt</span></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="bg-gray-50 border-b border-gray-200">
+                                <th class="text-left px-4 py-4 font-bold text-gray-600">ベンチマーク</th>
+                                <th class="text-left px-4 py-4 font-bold text-gray-400">Sonnet 4.5</th>
+                                <th class="text-left px-4 py-4 font-bold text-gray-400">Opus 4.5</th>
+                                <th class="text-left px-4 py-4 font-bold text-blue-600">Sonnet 4.6</th>
+                                <th class="text-left px-4 py-4 font-bold text-gray-600">Opus 4.6</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            <tr class="bg-gray-50/50">
+                                <td class="px-4 py-3 text-gray-500 font-medium text-xs" colspan="5">コーディング</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-gray-700 font-medium">SWE-bench Verified</td>
+                                <td class="px-4 py-3 text-gray-400">77.2%</td>
+                                <td class="px-4 py-3 text-gray-400 font-bold">80.9%</td>
+                                <td class="px-4 py-3 text-blue-600">79.6%</td>
+                                <td class="px-4 py-3 text-gray-600">80.8%</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-gray-700 font-medium">Terminal-Bench 2.0</td>
+                                <td class="px-4 py-3 text-gray-400">51.0%</td>
+                                <td class="px-4 py-3 text-gray-400">59.3%</td>
+                                <td class="px-4 py-3 text-blue-600">59.1%</td>
+                                <td class="px-4 py-3 text-gray-600 font-bold">62.7%</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-gray-700 font-medium">Vending-Bench Arena</td>
+                                <td class="px-4 py-3 text-gray-400">~$2,100</td>
+                                <td class="px-4 py-3 text-gray-400">~$4,967</td>
+                                <td class="px-4 py-3 text-blue-600">~$5,700</td>
+                                <td class="px-4 py-3 text-gray-600 font-bold">~$7,400</td>
+                            </tr>
+                            <tr class="bg-gray-50/50">
+                                <td class="px-4 py-3 text-gray-500 font-medium text-xs" colspan="5">コンピュータ操作 / エージェント</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-gray-700 font-medium">OSWorld-Verified</td>
+                                <td class="px-4 py-3 text-gray-400">61.4%</td>
+                                <td class="px-4 py-3 text-gray-400">66.3%</td>
+                                <td class="px-4 py-3 text-blue-600">72.5%</td>
+                                <td class="px-4 py-3 text-gray-600 font-bold">72.7%</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-gray-700 font-medium">τ²-bench Retail</td>
+                                <td class="px-4 py-3 text-gray-400">88.0%</td>
+                                <td class="px-4 py-3 text-gray-400">—</td>
+                                <td class="px-4 py-3 text-blue-600">91.7%</td>
+                                <td class="px-4 py-3 text-gray-600 font-bold">93.5%</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-gray-700 font-medium">MCP-Atlas（ツール使用）</td>
+                                <td class="px-4 py-3 text-gray-400">—</td>
+                                <td class="px-4 py-3 text-gray-400">—</td>
+                                <td class="px-4 py-3 text-blue-600 font-bold">61.3%</td>
+                                <td class="px-4 py-3 text-gray-600">60.3%</td>
+                            </tr>
+                            <tr class="bg-gray-50/50">
+                                <td class="px-4 py-3 text-gray-500 font-medium text-xs" colspan="5">業務 / 金融</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-gray-700 font-medium">GDPval-AA（Elo）</td>
+                                <td class="px-4 py-3 text-gray-400">1375</td>
+                                <td class="px-4 py-3 text-gray-400">~1416</td>
+                                <td class="px-4 py-3 text-blue-600 font-bold">1633</td>
+                                <td class="px-4 py-3 text-gray-600">1559</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-gray-700 font-medium">Finance Agent</td>
+                                <td class="px-4 py-3 text-gray-400">57.3%</td>
+                                <td class="px-4 py-3 text-gray-400">55.2%</td>
+                                <td class="px-4 py-3 text-blue-600 font-bold">63.3%</td>
+                                <td class="px-4 py-3 text-gray-600">62.0%</td>
+                            </tr>
+                            <tr class="bg-gray-50/50">
+                                <td class="px-4 py-3 text-gray-500 font-medium text-xs" colspan="5">推論 / 知識</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-gray-700 font-medium">ARC-AGI-2</td>
+                                <td class="px-4 py-3 text-gray-400">13.6%</td>
+                                <td class="px-4 py-3 text-gray-400">—</td>
+                                <td class="px-4 py-3 text-blue-600">58.3%</td>
+                                <td class="px-4 py-3 text-gray-600 font-bold">75.2%</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-gray-700 font-medium">GPQA Diamond</td>
+                                <td class="px-4 py-3 text-gray-400">65.0%</td>
+                                <td class="px-4 py-3 text-gray-400">—</td>
+                                <td class="px-4 py-3 text-blue-600">74.1%</td>
+                                <td class="px-4 py-3 text-gray-600 font-bold">74.5%</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-gray-700 font-medium">MMLU-Pro</td>
+                                <td class="px-4 py-3 text-gray-400">78.1%</td>
+                                <td class="px-4 py-3 text-gray-400">—</td>
+                                <td class="px-4 py-3 text-blue-600">79.1%</td>
+                                <td class="px-4 py-3 text-gray-600 font-bold">81.2%</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-gray-700 font-medium">MATH-500</td>
+                                <td class="px-4 py-3 text-gray-400">96.4%</td>
+                                <td class="px-4 py-3 text-gray-400">—</td>
+                                <td class="px-4 py-3 text-blue-600 font-bold">97.8%</td>
+                                <td class="px-4 py-3 text-gray-600">97.6%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
-            <div class="bg-gray-50 rounded-lg p-4 text-sm text-gray-500">
-                <span class="font-bold text-gray-700">注目ポイント:</span> コンピュータ操作とコーディングではOpusに僅差で及ばないものの、オフィス業務・金融分析・ツール使用といった実務系タスクではSonnet 4.6がOpus 4.6を上回っている。「高度な推論」よりも「実用的な作業の正確性」でSonnetが優位に立つ構図が見える。
+            <div class="bg-gray-50 rounded-lg p-4 text-sm text-gray-500 mb-6">
+                <span class="font-bold text-gray-700">注目ポイント:</span> Sonnet 4.6は、コーディング・推論ではOpus 4.6に僅差で及ばないものの、オフィス業務（GDPval-AA）・金融分析（Finance Agent）・ツール使用（MCP-Atlas）・数学（MATH-500）ではOpus 4.6を上回る。「高度な推論」ではOpusが優位だが、「実用的な作業」ではSonnetが逆転する構図。
+            </div>
+        </section>
+
+        <!-- 世代間進化の分析 -->
+        <section class="py-10 border-t border-gray-200">
+            <h2 class="text-2xl font-bold mb-6 flex items-center">
+                <i data-lucide="git-compare" class="w-6 h-6 mr-3 text-blue-500"></i>世代間の進化 — Sonnet 4.5 / Opus 4.5からの飛躍
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+                    <div class="p-4 bg-blue-50 border-b border-blue-100">
+                        <h3 class="font-bold text-blue-700 flex items-center">
+                            <i data-lucide="arrow-up-right" class="w-5 h-5 mr-2"></i>
+                            vs Sonnet 4.5（同ティア前世代）
+                        </h3>
+                    </div>
+                    <div class="p-6">
+                        <ul class="text-sm text-gray-600 space-y-2">
+                            <li class="flex items-start"><span class="text-emerald-400 mr-2">-</span><strong>OSWorld:</strong> 61.4% → 72.5%（<span class="text-emerald-600">+11.1pt</span>）</li>
+                            <li class="flex items-start"><span class="text-emerald-400 mr-2">-</span><strong>Terminal-Bench:</strong> 51.0% → 59.1%（<span class="text-emerald-600">+8.1pt</span>）</li>
+                            <li class="flex items-start"><span class="text-emerald-400 mr-2">-</span><strong>GDPval-AA:</strong> 1375 → 1633（<span class="text-emerald-600">+258 Elo</span>）</li>
+                            <li class="flex items-start"><span class="text-emerald-400 mr-2">-</span><strong>ARC-AGI-2:</strong> 13.6% → 58.3%（<span class="text-emerald-600">4.3倍</span>）</li>
+                            <li class="flex items-start"><span class="text-emerald-400 mr-2">-</span><strong>Vending-Bench:</strong> $2,100 → $5,700（<span class="text-emerald-600">2.7倍</span>）</li>
+                        </ul>
+                        <div class="mt-4 bg-emerald-50 border border-emerald-200 rounded-lg p-3 text-xs text-emerald-700">
+                            Claude Code利用者の70%がSonnet 4.5よりSonnet 4.6を好むと回答
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+                    <div class="p-4 bg-blue-50 border-b border-blue-100">
+                        <h3 class="font-bold text-blue-700 flex items-center">
+                            <i data-lucide="crown" class="w-5 h-5 mr-2"></i>
+                            vs Opus 4.5（前世代フラッグシップ）
+                        </h3>
+                    </div>
+                    <div class="p-6">
+                        <ul class="text-sm text-gray-600 space-y-2">
+                            <li class="flex items-start"><span class="text-emerald-400 mr-2">-</span><strong>OSWorld:</strong> 66.3% → 72.5%（<span class="text-emerald-600">+6.2pt</span>）</li>
+                            <li class="flex items-start"><span class="text-emerald-400 mr-2">-</span><strong>GDPval-AA:</strong> ~1416 → 1633（<span class="text-emerald-600">+217 Elo</span>）</li>
+                            <li class="flex items-start"><span class="text-emerald-400 mr-2">-</span><strong>Finance Agent:</strong> 55.2% → 63.3%（<span class="text-emerald-600">+8.1pt</span>）</li>
+                            <li class="flex items-start"><span class="text-emerald-400 mr-2">-</span><strong>Vending-Bench:</strong> $4,967 → $5,700（<span class="text-emerald-600">+15%</span>）</li>
+                            <li class="flex items-start"><span class="text-red-400 mr-2">-</span><strong>SWE-bench:</strong> 80.9% → 79.6%（<span class="text-red-500">-1.3pt</span>）</li>
+                        </ul>
+                        <div class="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-3 text-xs text-blue-700">
+                            Claude Code利用者の59%がOpus 4.5よりSonnet 4.6を好むと回答 — Sonnetが前世代Opusを上回った初のケース
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm mb-6">
+                <h3 class="font-bold text-gray-800 mb-3">ユーザー体験の質的変化</h3>
+                <p class="text-sm text-gray-600 leading-relaxed mb-3">
+                    Anthropicの公式発表によれば、Sonnet 4.6はOpus 4.5と比較して以下の点でユーザーから高い評価を得ている：
+                </p>
+                <ul class="text-sm text-gray-600 space-y-2">
+                    <li class="flex items-start"><span class="text-blue-400 mr-2">-</span><strong>過剰設計（overengineering）が大幅に減少</strong> — 必要最小限のコードを書く傾向が強化</li>
+                    <li class="flex items-start"><span class="text-blue-400 mr-2">-</span><strong>「怠惰さ（laziness）」が改善</strong> — タスクの途中で手を抜かず最後まで完遂</li>
+                    <li class="flex items-start"><span class="text-blue-400 mr-2">-</span><strong>指示追従性の向上</strong> — ユーザーの意図をより正確に反映</li>
+                    <li class="flex items-start"><span class="text-blue-400 mr-2">-</span><strong>虚偽の成功報告が減少</strong> — 実際に失敗した場合は正直に報告</li>
+                    <li class="flex items-start"><span class="text-blue-400 mr-2">-</span><strong>ハルシネーションの減少</strong> — 事実に基づかない応答が減った</li>
+                    <li class="flex items-start"><span class="text-blue-400 mr-2">-</span><strong>マルチステップタスクの一貫性向上</strong> — 長いセッションでも品質を維持</li>
+                </ul>
+            </div>
+
+            <!-- 価格比較 -->
+            <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+                <div class="p-4 bg-blue-50 border-b border-blue-100">
+                    <h3 class="font-bold text-blue-700 flex items-center">
+                        <i data-lucide="dollar-sign" class="w-5 h-5 mr-2"></i>
+                        価格比較 — 性能/$の革命
+                    </h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="bg-gray-50 border-b border-gray-200">
+                                <th class="text-left px-4 py-3 font-bold text-gray-600">モデル</th>
+                                <th class="text-left px-4 py-3 font-bold text-gray-600">入力</th>
+                                <th class="text-left px-4 py-3 font-bold text-gray-600">出力</th>
+                                <th class="text-left px-4 py-3 font-bold text-gray-600">コンテキスト</th>
+                                <th class="text-left px-4 py-3 font-bold text-gray-600">リリース</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            <tr>
+                                <td class="px-4 py-3 text-gray-400">Sonnet 4.5</td>
+                                <td class="px-4 py-3 text-gray-400">$3/M</td>
+                                <td class="px-4 py-3 text-gray-400">$15/M</td>
+                                <td class="px-4 py-3 text-gray-400">200K</td>
+                                <td class="px-4 py-3 text-gray-400">2025/09</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-gray-400">Opus 4.5</td>
+                                <td class="px-4 py-3 text-gray-400">$5/M</td>
+                                <td class="px-4 py-3 text-gray-400">$25/M</td>
+                                <td class="px-4 py-3 text-gray-400">200K</td>
+                                <td class="px-4 py-3 text-gray-400">2025/11</td>
+                            </tr>
+                            <tr class="bg-blue-50/50">
+                                <td class="px-4 py-3 text-blue-700 font-bold">Sonnet 4.6</td>
+                                <td class="px-4 py-3 text-blue-600 font-medium">$3/M</td>
+                                <td class="px-4 py-3 text-blue-600 font-medium">$15/M</td>
+                                <td class="px-4 py-3 text-blue-600 font-medium">1M (β)</td>
+                                <td class="px-4 py-3 text-blue-600 font-medium">2026/02</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-gray-700">Opus 4.6</td>
+                                <td class="px-4 py-3 text-gray-600">$5/M</td>
+                                <td class="px-4 py-3 text-gray-600">$25/M</td>
+                                <td class="px-4 py-3 text-gray-600">1M (β)</td>
+                                <td class="px-4 py-3 text-gray-600">2026/02</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-lg p-4 text-sm text-gray-500 mt-6">
+                <span class="font-bold text-gray-700">核心:</span> Sonnet 4.6は、Sonnet 4.5と同価格のまま前世代のフラッグシップOpus 4.5を多くの指標で上回った。さらにコンテキストウィンドウも200Kから1M（β）に拡大。「同じ料金で5ヶ月前のトップモデルを超える」という事実が、フロンティアAI民主化の速度を物語る。
             </div>
         </section>
 
