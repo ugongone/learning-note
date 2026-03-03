@@ -74,13 +74,23 @@
             </h2>
             <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
                 <p class="text-gray-600 text-sm leading-relaxed mb-4">
-                    業務効率化やテスト自動化の文脈で「画面操作の自動化」を検討する際、大きく2つのアプローチがあります。<strong>RPA（Robotic Process Automation）</strong>と<strong>ブラウザ自動化ツール</strong>です。
+                    業務の自動化を検討する際、大きく2つのアプローチがあります。<strong>RPA（Robotic Process Automation）</strong>と<strong>ブラウザ自動化ツール</strong>です。この2つは「画面操作を自動化する」という点では共通していますが、<strong>そもそも守備範囲が異なります。</strong>
                 </p>
+                <div class="grid md:grid-cols-2 gap-4 mb-4">
+                    <div class="bg-amber-50 rounded-lg p-4 border border-amber-100">
+                        <p class="font-bold text-amber-700 text-sm mb-1">RPA（例: Power Automate Desktop）</p>
+                        <p class="text-xs text-gray-600">Excel・SAP等の<strong>デスクトップアプリ + Webブラウザ</strong>を含む業務全体を自動化するツール</p>
+                    </div>
+                    <div class="bg-blue-50 rounded-lg p-4 border border-blue-100">
+                        <p class="font-bold text-blue-700 text-sm mb-1">ブラウザ自動化ツール（例: Playwright）</p>
+                        <p class="text-xs text-gray-600"><strong>Webブラウザの操作に特化</strong>したOSSライブラリ。デスクトップアプリは操作不可</p>
+                    </div>
+                </div>
                 <p class="text-gray-600 text-sm leading-relaxed mb-4">
-                    近年、AIエージェントがブラウザを操作する技術（Playwright MCP、Browser Use等）が急速に発展しており、技術選定の判断基準も変化しつつあります。本記事では、両アプローチを8つの観点から比較し、ユースケースに応じた選定指針を提供します。
+                    デスクトップアプリの自動化が必要な場合、ブラウザ自動化ツールは選択肢に入りません。一方、Webブラウザの操作においては両者の実力差が大きく開きます。本記事では、この違いを8つの観点から比較し、ユースケースに応じた選定指針を提供します。
                 </p>
                 <div class="bg-gray-50 rounded-lg p-4 text-sm text-gray-500">
-                    <span class="font-bold text-gray-700">対象読者:</span> 画面操作の自動化を検討しているエンジニア、業務改善担当者、プロジェクトマネージャー
+                    <span class="font-bold text-gray-700">対象読者:</span> 業務の自動化を検討していて、どのツールを使うべきか迷っている方（エンジニア・業務改善担当者・プロジェクトマネージャー）
                 </div>
             </div>
         </section>
@@ -258,7 +268,7 @@
                             <ul class="text-sm text-gray-600 space-y-2">
                                 <li class="flex items-start"><span class="text-red-400 mr-2">-</span>jQueryセレクターベース、動的IDで壊れやすい</li>
                                 <li class="flex items-start"><span class="text-red-400 mr-2">-</span>手動でCSSセレクター編集が必要</li>
-                                <li class="flex items-start"><span class="text-amber-400 mr-2">-</span>Shadow DOM対応は2025年GA（新しい）</li>
+                                <li class="flex items-start"><span class="text-amber-400 mr-2">-</span>Shadow DOM対応は2025年に正式対応（新機能）</li>
                                 <li class="flex items-start"><span class="text-amber-400 mr-2">-</span>クロスドメインiframeは回避策が必要</li>
                                 <li class="flex items-start"><span class="text-red-400 mr-2">-</span>UI変更時は手動でセレクター再設定</li>
                             </ul>
@@ -719,6 +729,9 @@
                     </p>
                     <p>
                         2025〜2026年のトレンドとして、AIエージェントがブラウザを操作する技術（Playwright MCP、Browser Use、Stagehand等）が急速に発展しています。<strong>AIエージェントとの統合を見据えるなら、ブラウザ自動化ツール（Playwright）を基盤にする</strong>のが現時点での最適解です。
+                    </p>
+                    <p>
+                        ただし、<strong>Webブラウザ以外の業務（Excel・SAPなどのデスクトップアプリ）を含む自動化が必要な場合、ブラウザ自動化ツールではその要件を満たせません。</strong>その場合はRPA一択、またはRPAとブラウザ自動化ツールの併用を検討してください。
                     </p>
                 </div>
 
