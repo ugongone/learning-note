@@ -468,17 +468,43 @@
                     </h3>
                 </div>
                 <div class="p-6">
+                    <div class="bg-gray-50 rounded-lg p-4 text-sm text-gray-500 mb-4">
+                        <span class="font-bold text-gray-700">補足:</span> 「AIエージェント」には大きく2つの形態があります。<strong>①M365/業務フロー型</strong>（Copilot Studioが会話・判断を行い、PADがGUI操作を実行）と、<strong>②Web直接操作型</strong>（LLMがPlaywright等を通じてブラウザを直接操作）です。形態によって評価が異なります。
+                    </div>
+
+                    <p class="font-bold text-sm text-gray-700 mb-3">① M365 / 業務フロー型エージェント</p>
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <p class="font-bold text-sm text-amber-600 mb-3">RPA <span class="text-xs bg-emerald-50 text-emerald-600 px-2 py-1 rounded ml-2">有利</span></p>
+                            <ul class="text-sm text-gray-600 space-y-2">
+                                <li class="flex items-start"><span class="text-emerald-400 mr-2">-</span>Copilot Studio + PAD のパイプラインがGA済み</li>
+                                <li class="flex items-start"><span class="text-emerald-400 mr-2">-</span>Teams上で自然言語指示 → PADが業務システムを操作</li>
+                                <li class="flex items-start"><span class="text-emerald-400 mr-2">-</span>Entra ID/SSO/MFA・Purview統合でガバナンス万全</li>
+                                <li class="flex items-start"><span class="text-emerald-400 mr-2">-</span>AI BuilderでOCR/文書理解も統合可能</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="font-bold text-sm text-blue-600 mb-3">ブラウザ自動化ツール</p>
+                            <ul class="text-sm text-gray-600 space-y-2">
+                                <li class="flex items-start"><span class="text-red-400 mr-2">-</span>M365エコシステムとの統合手段なし</li>
+                                <li class="flex items-start"><span class="text-red-400 mr-2">-</span>ガバナンス・監査機能は自前で構築が必要</li>
+                                <li class="flex items-start"><span class="text-amber-400 mr-2">-</span>LangChain等でワークフローは構築可能だが設計コスト大</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <p class="font-bold text-sm text-gray-700 mb-3">② Web直接操作型エージェント（Browser Use型）</p>
                     <div class="grid md:grid-cols-2 gap-6 mb-4">
                         <div>
                             <p class="font-bold text-sm text-amber-600 mb-3">RPA</p>
                             <ul class="text-sm text-gray-600 space-y-2">
-                                <li class="flex items-start"><span class="text-amber-400 mr-2">-</span>Copilot連携は限定的</li>
-                                <li class="flex items-start"><span class="text-emerald-400 mr-2">-</span>AI BuilderでOCR/文書理解は可能</li>
-                                <li class="flex items-start"><span class="text-red-400 mr-2">-</span>外部AIからの直接操作手段なし</li>
+                                <li class="flex items-start"><span class="text-amber-400 mr-2">-</span>Computer Use（CUA）機能はPreview段階（2026年3月時点）</li>
+                                <li class="flex items-start"><span class="text-red-400 mr-2">-</span>本番利用は非推奨、米国環境のみ</li>
+                                <li class="flex items-start"><span class="text-red-400 mr-2">-</span>外部AI（Claude等）からの直接操作手段なし</li>
                             </ul>
                         </div>
                         <div>
-                            <p class="font-bold text-sm text-blue-600 mb-3">ブラウザ自動化ツール <span class="text-xs bg-emerald-50 text-emerald-600 px-2 py-1 rounded ml-2">圧倒的有利</span></p>
+                            <p class="font-bold text-sm text-blue-600 mb-3">ブラウザ自動化ツール <span class="text-xs bg-emerald-50 text-emerald-600 px-2 py-1 rounded ml-2">有利</span></p>
                             <ul class="text-sm text-gray-600 space-y-2">
                                 <li class="flex items-start"><span class="text-emerald-400 mr-2">-</span>Playwright MCP（Microsoft公式、27.9K Stars）</li>
                                 <li class="flex items-start"><span class="text-emerald-400 mr-2">-</span>Browser Use（50K+ Stars）で自律ブラウジング</li>
@@ -522,7 +548,7 @@
                     </div>
 
                     <div class="bg-blue-50 rounded-lg p-4 text-sm text-blue-700 mt-4">
-                        <span class="font-bold">注目:</span> 2025〜2026年のAIエージェント × ブラウザ自動化の基盤は、ほぼすべてPlaywrightベースで構築されています。
+                        <span class="font-bold">注目:</span> Web直接操作型のAIエージェント基盤は、2025〜2026年時点でほぼすべてPlaywrightベースで構築されています。一方、M365エコシステム内での業務フロー型AIエージェントはCopilot Studio + PADが主流であり、異なる系譜で成熟しています。
                     </div>
                 </div>
             </div>
@@ -580,8 +606,13 @@
                             <td class="px-6 py-3 text-center"><span class="text-xs bg-emerald-50 text-emerald-600 px-2 py-1 rounded">◎ 即生成可能</span></td>
                         </tr>
                         <tr>
-                            <td class="px-6 py-3 font-medium text-gray-700">AIエージェント統合</td>
-                            <td class="px-6 py-3 text-center"><span class="text-xs bg-red-50 text-red-500 px-2 py-1 rounded">△ 限定的</span></td>
+                            <td class="px-6 py-3 font-medium text-gray-700">AIエージェント<br><span class="text-xs text-gray-400">（M365/業務フロー型）</span></td>
+                            <td class="px-6 py-3 text-center"><span class="text-xs bg-emerald-50 text-emerald-600 px-2 py-1 rounded">◎ Copilot Studio</span></td>
+                            <td class="px-6 py-3 text-center"><span class="text-xs bg-red-50 text-red-500 px-2 py-1 rounded">△ エコシステム外</span></td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-3 font-medium text-gray-700">AIエージェント<br><span class="text-xs text-gray-400">（Web直接操作型）</span></td>
+                            <td class="px-6 py-3 text-center"><span class="text-xs bg-red-50 text-red-500 px-2 py-1 rounded">△ Preview段階</span></td>
                             <td class="px-6 py-3 text-center"><span class="text-xs bg-emerald-50 text-emerald-600 px-2 py-1 rounded">◎ MCP等充実</span></td>
                         </tr>
                         <tr class="bg-gray-50">
@@ -707,7 +738,16 @@
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <div class="bg-gray-100 text-gray-600 px-4 py-2 rounded-lg text-sm font-medium">AIエージェント統合が必要？</div>
                         <i data-lucide="arrow-right" class="w-4 h-4 text-gray-400"></i>
-                        <div class="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg text-sm font-medium">Yes → ブラウザ自動化（一択）</div>
+                        <div class="bg-gray-100 text-gray-600 px-4 py-2 rounded-lg text-sm font-medium">Web直接操作型？</div>
+                        <i data-lucide="arrow-right" class="w-4 h-4 text-gray-400"></i>
+                        <div class="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg text-sm font-medium">Yes → ブラウザ自動化</div>
+                    </div>
+                    <div class="flex items-center justify-center gap-3 flex-wrap">
+                        <div class="bg-gray-100 text-gray-600 px-4 py-2 rounded-lg text-sm font-medium">AIエージェント統合が必要？</div>
+                        <i data-lucide="arrow-right" class="w-4 h-4 text-gray-400"></i>
+                        <div class="bg-gray-100 text-gray-600 px-4 py-2 rounded-lg text-sm font-medium">M365/業務フロー型？</div>
+                        <i data-lucide="arrow-right" class="w-4 h-4 text-gray-400"></i>
+                        <div class="bg-amber-100 text-amber-600 px-4 py-2 rounded-lg text-sm font-medium">Yes → Copilot Studio + Power Automate Desktop</div>
                     </div>
                 </div>
             </div>
