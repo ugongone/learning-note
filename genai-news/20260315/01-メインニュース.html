@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成AIウィークリーニュース 2026/03/09〜03/15</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-blue-500 selection:text-white">
+
+    <!-- ヘッダー -->
+    <header class="border-b border-gray-200 bg-white/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <i data-lucide="newspaper" class="w-6 h-6 text-blue-500"></i>
+                <span class="text-lg font-bold tracking-tight">GenAI Weekly <span class="text-gray-400 font-normal">| 2026/03/09〜03/15</span></span>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-sm font-medium text-gray-400">
+                <a href="#news" class="hover:text-blue-600 transition">注目ニュース</a>
+                <a href="#summary" class="hover:text-blue-600 transition">まとめ</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ヒーロー -->
+    <section class="py-8 text-center border-b border-gray-200">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-600 text-xs font-medium mb-4">
+                <i data-lucide="sparkles" class="w-3 h-3 mr-2"></i>
+                Weekly Report
+            </div>
+            <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+                <span class="gradient-text">生成AIウィークリーニュース</span>
+            </h1>
+            <p class="text-gray-500 text-sm md:text-base">2026年3月9日〜3月15日の注目ニュース6選</p>
+        </div>
+    </section>
+
+    <!-- 今週の注目ニュース -->
+    <section id="news" class="py-10">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl font-bold mb-6 flex items-center">
+                <i data-lucide="flame" class="w-6 h-6 mr-3 text-blue-500"></i>
+                今週の注目ニュース
+            </h2>
+
+            <!-- ニュース1: Anthropic vs 国防総省 -->
+            <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden mb-6">
+                <div class="p-4 bg-red-50 border-b border-red-100 flex justify-between items-center">
+                    <h3 class="font-bold text-red-700 flex items-center">
+                        <i data-lucide="scale" class="w-5 h-5 mr-2"></i>
+                        Anthropic、国防総省を提訴 ── 「サプライチェーンリスク」指定を巡る前例のない法的対決
+                    </h3>
+                    <span class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded font-medium whitespace-nowrap ml-2">政策・規制</span>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center text-xs text-gray-400 mb-3">
+                        <i data-lucide="calendar" class="w-3.5 h-3.5 mr-1.5"></i>
+                        2026/03/09
+                    </div>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">
+                        Anthropicが国防総省に対し2件の連邦訴訟を提起。AI安全性の立場を理由とした「サプライチェーンリスク」指定は違憲・違法であると主張。国防長官ピート・ヘグセスがAnthropicのCEOダリオ・アモデイに対し、自律型兵器と国内監視に関する制限の撤廃を要求したが拒否されたことが発端。この指定は通常、中国企業など海外の敵対的事業者に対して使われるもので、米国企業に適用されるのは史上初。Microsoftも仮差止命令を支持する法的文書を提出。
+                    </p>
+                    <div class="bg-gray-50 rounded-lg p-4 text-sm text-gray-500 mb-4">
+                        <span class="font-bold text-gray-700">引用:</span> 「連邦政府は、AI安全性と自社モデルの限界に関する保護された見解を表明したことを理由に、最先端のフロンティアAI開発企業に対して報復した」（Anthropic訴状より）
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <a href="https://www.npr.org/2026/03/09/nx-s1-5742548/anthropic-pentagon-lawsuit-amodai-hegseth" target="_blank" class="text-xs text-blue-600 hover:underline">NPR [メディア報道]</a>
+                        <span class="text-gray-300">|</span>
+                        <a href="https://www.wired.com/story/anthropic-claims-business-is-in-peril-due-to-supply-chain-risk-designation/" target="_blank" class="text-xs text-blue-600 hover:underline">WIRED [メディア報道]</a>
+                        <span class="text-gray-300">|</span>
+                        <a href="https://www.lawfaremedia.org/article/anthropic-sues-defense-department-over-supply-chain-risk-designation" target="_blank" class="text-xs text-blue-600 hover:underline">Lawfare [法律メディア]</a>
+                    </div>
+                    <a href="02-Anthropic対国防総省.html" class="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-800 transition">
+                        <i data-lucide="file-text" class="w-4 h-4 mr-1.5"></i>
+                        深掘り記事を読む
+                        <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- ニュース2: Perplexity Personal Computer -->
+            <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden mb-6">
+                <div class="p-4 bg-blue-50 border-b border-blue-100 flex justify-between items-center">
+                    <h3 class="font-bold text-blue-700 flex items-center">
+                        <i data-lucide="monitor" class="w-5 h-5 mr-2"></i>
+                        Perplexity、「Ask 2026」でPersonal Computerを発表 ── 24時間稼働のAIエージェント
+                    </h3>
+                    <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded font-medium whitespace-nowrap ml-2">プロダクト</span>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center text-xs text-gray-400 mb-3">
+                        <i data-lucide="calendar" class="w-3.5 h-3.5 mr-1.5"></i>
+                        2026/03/12
+                    </div>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">
+                        Perplexityが初の開発者会議「Ask 2026」で、Mac mini上で24時間稼働するAIエージェントソフトウェア「Personal Computer」を発表。19〜20種のAIモデル（Claude、Gemini、Grok等）を統合し、ローカルファイル・アプリへの常時アクセスを実現。月額200ドルのMaxサブスクリプション限定。企業向けにはセキュリティ管理・コンプライアンス機能を追加したエンタープライズ版も提供。
+                    </p>
+                    <div class="bg-gray-50 rounded-lg p-4 text-sm text-gray-500 mb-4">
+                        <span class="font-bold text-gray-700">引用:</span> 「従来のOSは命令を受け取る。AIオペレーティングシステムは目的を受け取る」（Perplexity公式）
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="https://www.digitaltrends.com/computing/perplexitys-personal-computer-what-is-it-what-can-it-do-and-what-does-it-cost/" target="_blank" class="text-xs text-blue-600 hover:underline">Digital Trends [メディア報道]</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ニュース3: McKinsey Lilli ハッキング -->
+            <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden mb-6">
+                <div class="p-4 bg-amber-50 border-b border-amber-100 flex justify-between items-center">
+                    <h3 class="font-bold text-amber-700 flex items-center">
+                        <i data-lucide="shield-alert" class="w-5 h-5 mr-2"></i>
+                        McKinseyのAI「Lilli」、AIエージェントにより2時間でハッキングされる
+                    </h3>
+                    <span class="text-xs bg-amber-100 text-amber-600 px-2 py-1 rounded font-medium whitespace-nowrap ml-2">セキュリティ</span>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center text-xs text-gray-400 mb-3">
+                        <i data-lucide="calendar" class="w-3.5 h-3.5 mr-1.5"></i>
+                        2026/03/13（報道日）
+                    </div>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">
+                        サイバーセキュリティ企業CodeWallが、自社のAIエージェントを使い、McKinseyの内部AIプラットフォーム「Lilli」に2時間で侵入。認証不要の22個のエンドポイントとSQLインジェクション脆弱性を連鎖させ、4,650万件のチャットログ、57,000ユーザーアカウント、72.8万件のファイル名にアクセス。読み書き可能なアクセスにより、Lilliのシステムプロンプトを改ざんしてAIの動作を操作することも理論上可能だった。McKinseyは数時間以内に脆弱性を修正。
+                    </p>
+                    <div class="bg-gray-50 rounded-lg p-4 text-sm text-gray-500 mb-4">
+                        <span class="font-bold text-gray-700">引用:</span> 「認証情報なし。内部情報なし。ヒューマン・イン・ザ・ループなし」（CodeWall）
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <a href="https://www.thestack.technology/mckinsey-ai-agent-hacked-lilli/" target="_blank" class="text-xs text-blue-600 hover:underline">The Stack [メディア報道]</a>
+                        <span class="text-gray-300">|</span>
+                        <a href="https://www.theregister.com/2026/03/09/mckinsey_ai_chatbot_hacked/" target="_blank" class="text-xs text-blue-600 hover:underline">The Register [メディア報道]</a>
+                    </div>
+                    <a href="03-McKinsey-Lilliハッキング.html" class="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-800 transition">
+                        <i data-lucide="file-text" class="w-4 h-4 mr-1.5"></i>
+                        深掘り記事を読む
+                        <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- ニュース4: Atlassian レイオフ -->
+            <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden mb-6">
+                <div class="p-4 bg-blue-50 border-b border-blue-100 flex justify-between items-center">
+                    <h3 class="font-bold text-blue-700 flex items-center">
+                        <i data-lucide="users" class="w-5 h-5 mr-2"></i>
+                        Atlassian、AI投資のため従業員1,600人（10%）をレイオフ
+                    </h3>
+                    <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded font-medium whitespace-nowrap ml-2">業界動向</span>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center text-xs text-gray-400 mb-3">
+                        <i data-lucide="calendar" class="w-3.5 h-3.5 mr-1.5"></i>
+                        2026/03/11
+                    </div>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">
+                        オーストラリアのソフトウェア企業Atlassianが全従業員の約10%にあたる1,600人を削減。AI機能開発とエンタープライズ営業への資源再配分が目的。再構築費用は2.25〜2.36億ドルを見込む。2月にBlock（Jack Dorsey率いる決済企業）が同様の理由で4,000人以上を削減したのに続く動き。複数のVCが「2026年はAIが労働市場に本格的な影響を与える年になる」と予測していた。
+                    </p>
+                    <div class="bg-gray-50 rounded-lg p-4 text-sm text-gray-500 mb-4">
+                        <span class="font-bold text-gray-700">引用:</span> 「ソフトウェア企業にとっての『優れている』の基準は ── 成長、収益性、スピード、価値創造のすべてにおいて ── 引き上げられた」（CEO マイク・キャノン＝ブルックス）
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="https://techcrunch.com/2026/03/12/atlassian-follows-blocks-footsteps-and-cuts-staff-in-the-name-of-ai/" target="_blank" class="text-xs text-blue-600 hover:underline">TechCrunch [メディア報道]</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ニュース5: NVIDIA Nemotron 3 Super -->
+            <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden mb-6">
+                <div class="p-4 bg-emerald-50 border-b border-emerald-100 flex justify-between items-center">
+                    <h3 class="font-bold text-emerald-700 flex items-center">
+                        <i data-lucide="cpu" class="w-5 h-5 mr-2"></i>
+                        NVIDIA、オープンソースモデル「Nemotron 3 Super」をリリース
+                    </h3>
+                    <span class="text-xs bg-emerald-100 text-emerald-600 px-2 py-1 rounded font-medium whitespace-nowrap ml-2">モデル</span>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center text-xs text-gray-400 mb-3">
+                        <i data-lucide="calendar" class="w-3.5 h-3.5 mr-1.5"></i>
+                        2026/03/11
+                    </div>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">
+                        NVIDIAがGTC 2026に先立ち、1,200億パラメータ（アクティブ120億）のオープンウェイトモデル「Nemotron 3 Super」を公開。ハイブリッドTransformer-Mambaアーキテクチャを採用し、エージェントAI向けに前世代比5倍のスループットを実現。100万トークンのコンテキストウィンドウ。NVFP4精度でBlackwell上で動作し、推論速度はHopper上FP8比で4倍。260億ドル規模のオープンモデル投資計画の一環。
+                    </p>
+                    <div class="bg-gray-50 rounded-lg p-4 text-sm text-gray-500 mb-4">
+                        <span class="font-bold text-gray-700">引用:</span> 「NVIDIAは、最先端のオープンモデル、学習データセット、強化学習環境とライブラリのコレクションを初めてリリースする」（NVIDIA公式）
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <a href="https://blogs.nvidia.com/blog/nemotron-3-super-agentic-ai/" target="_blank" class="text-xs text-blue-600 hover:underline">NVIDIA Blog [公式]</a>
+                        <span class="text-gray-300">|</span>
+                        <a href="https://decrypt.co/360929/nvidia-drops-nemotron-3-super-26-billion-open-model-ai-bet" target="_blank" class="text-xs text-blue-600 hover:underline">Decrypt [メディア報道]</a>
+                    </div>
+                    <a href="04-Nemotron3Super.html" class="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-800 transition">
+                        <i data-lucide="file-text" class="w-4 h-4 mr-1.5"></i>
+                        深掘り記事を読む
+                        <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- ニュース6: OpenAI Sora統合 -->
+            <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden mb-6">
+                <div class="p-4 bg-blue-50 border-b border-blue-100 flex justify-between items-center">
+                    <h3 class="font-bold text-blue-700 flex items-center">
+                        <i data-lucide="video" class="w-5 h-5 mr-2"></i>
+                        OpenAI、Sora動画生成をChatGPTに統合する計画が報道
+                    </h3>
+                    <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded font-medium whitespace-nowrap ml-2">プロダクト</span>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center text-xs text-gray-400 mb-3">
+                        <i data-lucide="calendar" class="w-3.5 h-3.5 mr-1.5"></i>
+                        2026/03/13
+                    </div>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">
+                        OpenAIがAI動画生成ツール「Sora」をChatGPTに直接統合する計画が報道された。2025年9月のSora 2ローンチ後、スタンドアロンアプリのダウンロード数は月間45%減少し、App Storeのトップ100からも脱落。ChatGPTの9億人のユーザーベースにSoraを統合することで利用の再活性化を狙う。ただし動画生成はテキスト生成よりもはるかに計算コストが高く、運用コスト増大の懸念も。
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="https://www.engadget.com/apps/openai-reportedly-plans-to-add-sora-video-generation-to-chatgpt-222611439.html" target="_blank" class="text-xs text-blue-600 hover:underline">Engadget [メディア報道]</a>
+                        <span class="text-gray-300">|</span>
+                        <a href="https://www.reuters.com/business/openai-plans-launch-its-sora-video-tool-chatgpt-information-reports-2026-03-11/" target="_blank" class="text-xs text-blue-600 hover:underline">Reuters [メディア報道]</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- まとめ -->
+    <section id="summary" class="py-10 border-t border-gray-200 bg-gray-50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl font-bold mb-6 flex items-center">
+                <i data-lucide="bookmark" class="w-6 h-6 mr-3 text-blue-500"></i>
+                まとめ
+            </h2>
+            <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+                <p class="text-sm text-gray-600 leading-relaxed">
+                    今週は、Anthropicと国防総省の法廷闘争がAI業界の政治的緊張を象徴する一方、McKinseyのAIハッキング事件がエンタープライズAIのセキュリティリスクを浮き彫りにした。NVIDIAのNemotron 3 Superリリースはオープンソースモデルの競争を加速させ、PerplexityのPersonal ComputerはAIエージェントの常駐化という新しいパラダイムを提示。Atlassianの大規模レイオフはAIが雇用に与える影響の現実化を示し、OpenAIのSora統合計画はマルチモーダルAIの消費者向け展開の次の一手を予感させる週となった。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer class="py-10 bg-white border-t border-gray-200 text-center text-gray-400 text-sm">
+        <p>GenAI Weekly - 生成AIウィークリーニュース</p>
+        <p class="mt-1 text-xs text-gray-300">2026/03/09〜03/15</p>
+    </footer>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>

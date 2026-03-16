@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NVIDIA Nemotron 3 Super ── オープンソースAIの新境地とプロプライエタリモデルとの違い</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-blue-500 selection:text-white">
+
+    <!-- ヘッダー -->
+    <header class="border-b border-gray-200 bg-white/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <i data-lucide="newspaper" class="w-6 h-6 text-blue-500"></i>
+                <span class="text-lg font-bold tracking-tight">GenAI Weekly <span class="text-gray-400 font-normal">| 深掘り</span></span>
+            </div>
+            <a href="01-メインニュース.html" class="text-sm text-gray-400 hover:text-blue-600 transition flex items-center">
+                <i data-lucide="arrow-left" class="w-4 h-4 mr-1"></i>
+                一覧に戻る
+            </a>
+        </div>
+    </header>
+
+    <!-- ヒーロー -->
+    <section class="py-8 text-center border-b border-gray-200">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="inline-flex items-center px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600 text-xs font-medium mb-4">
+                <i data-lucide="cpu" class="w-3 h-3 mr-2"></i>
+                モデルリリース
+            </div>
+            <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+                <span class="gradient-text">NVIDIA Nemotron 3 Super</span>
+            </h1>
+            <p class="text-gray-500 text-sm md:text-base">オープンソースAIの新境地 ── Claude/GPTとは何が違うのか</p>
+            <p class="text-gray-400 text-xs mt-2">2026/03/11</p>
+        </div>
+    </section>
+
+    <!-- Nemotron 3 Superとは -->
+    <section class="py-10">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl font-bold mb-6 flex items-center">
+                <i data-lucide="box" class="w-6 h-6 mr-3 text-blue-500"></i>
+                Nemotron 3 Superとは
+            </h2>
+            <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm mb-6">
+                <p class="text-sm text-gray-600 leading-relaxed mb-4">
+                    NVIDIA Nemotron 3 Superは、NVIDIAがGTC 2026に先立ちリリースした<strong>オープンウェイト</strong>のAIモデル。260億ドル（約5年間）のオープンモデル投資計画の一環であり、Nano・Super・Ultraの3サイズで構成されるNemotron 3ファミリーの中核モデルとなる。
+                </p>
+                <p class="text-sm text-gray-600 leading-relaxed">
+                    特筆すべきは、このモデルが<strong>エージェントAI（Agentic AI）</strong>に特化して設計されている点だ。多数のエージェントが協調して複雑なタスクをこなすシナリオに最適化されており、汎用的な会話AIとは異なるポジショニングを取っている。
+                </p>
+            </div>
+
+            <!-- スペック概要 -->
+            <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+                <div class="p-4 bg-emerald-50 border-b border-emerald-100">
+                    <h3 class="font-bold text-emerald-700 flex items-center">
+                        <i data-lucide="settings" class="w-5 h-5 mr-2"></i>
+                        主要スペック
+                    </h3>
+                </div>
+                <div class="p-0">
+                    <table class="w-full text-sm">
+                        <tbody class="divide-y divide-gray-100">
+                            <tr>
+                                <td class="px-6 py-3 font-medium text-gray-700 bg-gray-50 w-1/3">総パラメータ数</td>
+                                <td class="px-6 py-3 text-gray-600">1,200億（120B）</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-3 font-medium text-gray-700 bg-gray-50">アクティブパラメータ</td>
+                                <td class="px-6 py-3 text-gray-600">120億（12B） ── MoEアーキテクチャにより推論時は一部のみ稼働</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-3 font-medium text-gray-700 bg-gray-50">アーキテクチャ</td>
+                                <td class="px-6 py-3 text-gray-600">ハイブリッド Latent Mixture-of-Experts（Transformer + Mamba）</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-3 font-medium text-gray-700 bg-gray-50">コンテキストウィンドウ</td>
+                                <td class="px-6 py-3 text-gray-600">100万トークン</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-3 font-medium text-gray-700 bg-gray-50">精度</td>
+                                <td class="px-6 py-3 text-gray-600">NVFP4（ネイティブ4ビット浮動小数点）</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-3 font-medium text-gray-700 bg-gray-50">ライセンス</td>
+                                <td class="px-6 py-3 text-gray-600">オープンウェイト（パーミッシブライセンス）</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-3 font-medium text-gray-700 bg-gray-50">学習データ</td>
+                                <td class="px-6 py-3 text-gray-600">10兆トークン以上（合成データ中心） ── データセットも公開</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Claude/GPTとの根本的な違い -->
+    <section class="py-10 border-t border-gray-200 bg-gray-50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl font-bold mb-6 flex items-center">
+                <i data-lucide="git-compare" class="w-6 h-6 mr-3 text-blue-500"></i>
+                Claude/GPTとの根本的な違い
+            </h2>
+            <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm mb-6">
+                <p class="text-sm text-gray-600 leading-relaxed mb-4">
+                    Nemotron 3 SuperとClaude Opus 4.6やGPT-5.4は、「AIモデル」という同じカテゴリに属しながらも、根本的に異なる設計思想に基づいている。その違いは主に<strong>4つの軸</strong>で整理できる。
+                </p>
+            </div>
+
+            <!-- 比較テーブル -->
+            <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden mb-6">
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="bg-gray-50 border-b border-gray-200">
+                            <th class="text-left px-6 py-4 font-bold text-gray-600">比較軸</th>
+                            <th class="text-left px-6 py-4 font-bold text-emerald-600">Nemotron 3 Super</th>
+                            <th class="text-left px-6 py-4 font-bold text-blue-600">Claude / GPT</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr>
+                            <td class="px-6 py-3 font-medium text-gray-700">モデルの公開性</td>
+                            <td class="px-6 py-3 text-gray-600"><span class="text-xs bg-emerald-50 text-emerald-600 px-2 py-1 rounded">オープンウェイト</span> 重み・データ・学習レシピを公開</td>
+                            <td class="px-6 py-3 text-gray-600"><span class="text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded">プロプライエタリ</span> APIアクセスのみ</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-3 font-medium text-gray-700">主な用途</td>
+                            <td class="px-6 py-3 text-gray-600">マルチエージェント協調、ツール呼び出し、自律ワークフロー</td>
+                            <td class="px-6 py-3 text-gray-600">汎用会話、コーディング、推論、文書作成</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-3 font-medium text-gray-700">デプロイ方式</td>
+                            <td class="px-6 py-3 text-gray-600">自社インフラ、オンプレミス、クラウド自由選択</td>
+                            <td class="px-6 py-3 text-gray-600">ベンダーのクラウドAPI経由</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-3 font-medium text-gray-700">カスタマイズ</td>
+                            <td class="px-6 py-3 text-gray-600">ファインチューニング、重みの修正が自由</td>
+                            <td class="px-6 py-3 text-gray-600">プロンプトエンジニアリング、一部APIでのファインチューニング</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-3 font-medium text-gray-700">コスト構造</td>
+                            <td class="px-6 py-3 text-gray-600">GPU調達コスト（初期投資大、ランニングコスト低）</td>
+                            <td class="px-6 py-3 text-gray-600">トークン単価課金（初期投資小、使用量に比例）</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-3 font-medium text-gray-700">知能レベル</td>
+                            <td class="px-6 py-3 text-gray-600">同サイズモデル中トップクラスだが、フロンティアモデルには及ばない</td>
+                            <td class="px-6 py-3 text-gray-600">最高水準の推論能力（Opus 4.6: SWE-bench 80.9%等）</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-3 font-medium text-gray-700">マルチモーダル</td>
+                            <td class="px-6 py-3 text-gray-600"><span class="text-xs bg-amber-50 text-amber-600 px-2 py-1 rounded">テキストのみ</span> 画像入力非対応</td>
+                            <td class="px-6 py-3 text-gray-600"><span class="text-xs bg-emerald-50 text-emerald-600 px-2 py-1 rounded">マルチモーダル</span> 画像・音声対応</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 補足解説 -->
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+                    <div class="p-4 bg-emerald-50 border-b border-emerald-100">
+                        <h3 class="font-bold text-emerald-700 text-sm">Nemotronの強み：効率とオープン性</h3>
+                    </div>
+                    <div class="p-5">
+                        <p class="text-sm text-gray-600 leading-relaxed mb-3">
+                            Nemotron 3 Superの最大の特徴は<strong>「120Bパラメータでも12Bしか稼働させない」</strong>というMoE設計にある。これにより：
+                        </p>
+                        <ul class="text-sm text-gray-600 space-y-2">
+                            <li class="flex items-start"><span class="text-emerald-400 mr-2">-</span>推論スループットがOpenAI GPT-OSS 120Bの<strong>2.2倍</strong></li>
+                            <li class="flex items-start"><span class="text-emerald-400 mr-2">-</span>Alibaba Qwen3.5-122Bの<strong>7.5倍</strong>高速</li>
+                            <li class="flex items-start"><span class="text-emerald-400 mr-2">-</span>前世代Nemotron 2比で<strong>5倍</strong>のスループット向上</li>
+                            <li class="flex items-start"><span class="text-emerald-400 mr-2">-</span>推論トークン生成を最大60%削減し、コスト効率を大幅向上</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+                    <div class="p-4 bg-blue-50 border-b border-blue-100">
+                        <h3 class="font-bold text-blue-700 text-sm">Claude/GPTの強み：知能と汎用性</h3>
+                    </div>
+                    <div class="p-5">
+                        <p class="text-sm text-gray-600 leading-relaxed mb-3">
+                            プロプライエタリモデルは依然として<strong>純粋な知能レベル</strong>で優位を保つ：
+                        </p>
+                        <ul class="text-sm text-gray-600 space-y-2">
+                            <li class="flex items-start"><span class="text-blue-400 mr-2">-</span>Claude Opus 4.6: SWE-bench Verified <strong>80.9%</strong>（業界最高）</li>
+                            <li class="flex items-start"><span class="text-blue-400 mr-2">-</span>GPT-5.4: 複雑な推論・コーディング・エージェント機能を統合</li>
+                            <li class="flex items-start"><span class="text-blue-400 mr-2">-</span>画像・音声を含むマルチモーダル対応</li>
+                            <li class="flex items-start"><span class="text-blue-400 mr-2">-</span>APIを叩くだけで即座に利用可能（インフラ不要）</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NVIDIAの戦略的意図 -->
+    <section class="py-10 border-t border-gray-200">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl font-bold mb-6 flex items-center">
+                <i data-lucide="target" class="w-6 h-6 mr-3 text-blue-500"></i>
+                NVIDIAの戦略的意図：なぜGPUメーカーがモデルを作るのか
+            </h2>
+            <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm mb-6">
+                <p class="text-sm text-gray-600 leading-relaxed mb-4">
+                    NVIDIAは本業がGPU（ハードウェア）メーカーであり、OpenAIやAnthropicのようなモデルプロバイダーとは異なるビジネスモデルを持つ。ではなぜ260億ドルを投じてオープンモデルを開発するのか。
+                </p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-4 mb-6">
+                <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl text-center hover:shadow-md transition">
+                    <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i data-lucide="layers" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-800 mb-1 text-sm">エコシステム囲い込み</h3>
+                    <p class="text-xs text-gray-500">NVIDIAハードウェアに最適化されたモデルを無料提供し、開発者をNVIDIAエコシステムに囲い込む</p>
+                </div>
+                <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-xl text-center hover:shadow-md transition">
+                    <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i data-lucide="flag" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-800 mb-1 text-sm">中国OSS対抗</h3>
+                    <p class="text-xs text-gray-500">DeepSeek等の中国勢がオープンソース市場を支配しつつある中、西側陣営の代替モデルを提供</p>
+                </div>
+                <div class="bg-amber-50 border border-amber-100 p-4 rounded-xl text-center hover:shadow-md transition">
+                    <div class="w-10 h-10 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-800 mb-1 text-sm">GPU販売促進</h3>
+                    <p class="text-xs text-gray-500">優れたオープンモデルの存在が「自社でAIを動かしたい」需要を生み、GPU販売を後押し</p>
+                </div>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-4 text-sm text-gray-500">
+                <span class="font-bold text-gray-700">注目ポイント:</span> NVIDIAはモデルの重みだけでなく、10兆トークン以上の学習データセット、15の強化学習環境、評価レシピまで全て公開している。これは「モデルを使ってもらう」だけでなく「NVIDIAのツールチェーンで自分のモデルを作ってもらう」ことを狙った戦略であり、プロプライエタリモデルプロバイダーとは根本的に異なるアプローチ。
+            </div>
+        </div>
+    </section>
+
+    <!-- NVFP4：4ビット精度でなぜ精度が落ちないのか -->
+    <section class="py-10 border-t border-gray-200 bg-gray-50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl font-bold mb-6 flex items-center">
+                <i data-lucide="microscope" class="w-6 h-6 mr-3 text-blue-500"></i>
+                技術的ブレイクスルー：NVFP4ネイティブ学習
+            </h2>
+            <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm mb-6">
+                <p class="text-sm text-gray-600 leading-relaxed mb-4">
+                    通常、AIモデルは高精度（FP32やFP16）で学習してから低精度に「量子化」する。この過程で精度が劣化するのが一般的だ。Nemotron 3 Superは<strong>最初からNVFP4（4ビット浮動小数点）で学習</strong>することで、この問題を回避している。
+                </p>
+            </div>
+
+            <!-- フロー図 -->
+            <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm mb-6">
+                <h3 class="font-bold text-gray-800 mb-4 text-sm">従来のアプローチ vs Nemotronのアプローチ</h3>
+                <div class="space-y-4">
+                    <div>
+                        <p class="text-xs text-gray-400 mb-2">従来（Post-Training Quantization）</p>
+                        <div class="flex items-center justify-center gap-3 flex-wrap">
+                            <div class="bg-gray-100 text-gray-600 px-4 py-2 rounded-lg text-sm font-medium">FP32で学習</div>
+                            <i data-lucide="arrow-right" class="w-4 h-4 text-gray-400"></i>
+                            <div class="bg-amber-100 text-amber-600 px-4 py-2 rounded-lg text-sm font-medium">FP4に圧縮</div>
+                            <i data-lucide="arrow-right" class="w-4 h-4 text-gray-400"></i>
+                            <div class="bg-red-100 text-red-600 px-4 py-2 rounded-lg text-sm font-medium">精度劣化</div>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-400 mb-2">Nemotron 3 Super（Native FP4 Training）</p>
+                        <div class="flex items-center justify-center gap-3 flex-wrap">
+                            <div class="bg-emerald-100 text-emerald-600 px-4 py-2 rounded-lg text-sm font-medium">NVFP4で学習</div>
+                            <i data-lucide="arrow-right" class="w-4 h-4 text-gray-400"></i>
+                            <div class="bg-emerald-100 text-emerald-600 px-4 py-2 rounded-lg text-sm font-medium">NVFP4で推論</div>
+                            <i data-lucide="arrow-right" class="w-4 h-4 text-gray-400"></i>
+                            <div class="bg-emerald-100 text-emerald-600 px-4 py-2 rounded-lg text-sm font-medium">精度維持</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+                <p class="text-sm text-gray-600 leading-relaxed">
+                    これにより、Blackwell GPU上でHopper（FP8）比で<strong>最大4倍</strong>の推論速度を実現しつつ、精度の損失がない。メモリ要件も大幅に削減され、同じGPUでより大きなコンテキストを処理できるようになる。4K画像を1080pにリサイズするのとは異なり、最初から1080pの世界で最適に動くよう設計されているイメージだ。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 誰がNemotronを使うべきか -->
+    <section class="py-10 border-t border-gray-200">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl font-bold mb-6 flex items-center">
+                <i data-lucide="compass" class="w-6 h-6 mr-3 text-blue-500"></i>
+                使い分けガイド：誰がNemotronを選ぶべきか
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+                    <div class="p-4 bg-emerald-50 border-b border-emerald-100">
+                        <h3 class="font-bold text-emerald-700 text-sm">Nemotron 3 Superが適するケース</h3>
+                    </div>
+                    <div class="p-5">
+                        <ul class="text-sm text-gray-600 space-y-2">
+                            <li class="flex items-start"><span class="text-emerald-400 mr-2">-</span>マルチエージェントシステムを大規模に運用したい</li>
+                            <li class="flex items-start"><span class="text-emerald-400 mr-2">-</span>データを外部に出せない（規制・セキュリティ要件）</li>
+                            <li class="flex items-start"><span class="text-emerald-400 mr-2">-</span>モデルをファインチューニングして特化させたい</li>
+                            <li class="flex items-start"><span class="text-emerald-400 mr-2">-</span>NVIDIA GPUインフラを既に保有している</li>
+                            <li class="flex items-start"><span class="text-emerald-400 mr-2">-</span>大量のリクエストを低レイテンシで処理する必要がある</li>
+                            <li class="flex items-start"><span class="text-emerald-400 mr-2">-</span>ベンダーロックインを避けたい</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+                    <div class="p-4 bg-blue-50 border-b border-blue-100">
+                        <h3 class="font-bold text-blue-700 text-sm">Claude/GPTが適するケース</h3>
+                    </div>
+                    <div class="p-5">
+                        <ul class="text-sm text-gray-600 space-y-2">
+                            <li class="flex items-start"><span class="text-blue-400 mr-2">-</span>最高水準の推論・コーディング能力が必要</li>
+                            <li class="flex items-start"><span class="text-blue-400 mr-2">-</span>GPU調達・運用のインフラが不要の環境で使いたい</li>
+                            <li class="flex items-start"><span class="text-blue-400 mr-2">-</span>画像・音声を含むマルチモーダル処理が必要</li>
+                            <li class="flex items-start"><span class="text-blue-400 mr-2">-</span>プロトタイプを素早く作りたい</li>
+                            <li class="flex items-start"><span class="text-blue-400 mr-2">-</span>使用量に応じた従量課金が適している</li>
+                            <li class="flex items-start"><span class="text-blue-400 mr-2">-</span>開発者エクスペリエンスの良さを重視</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-4 text-sm text-gray-500 mt-6">
+                <span class="font-bold text-gray-700">現実的なトレンド:</span> 2026年の先進的な開発チームは「一つのモデルに固定する」のではなく、用途に応じてモデルを使い分けている。Nemotronでエージェントの大量並列処理を行い、複雑な判断が必要な場面ではClaude Opus 4.6にルーティングするといったマルチモデル構成が主流になりつつある。
+            </div>
+        </div>
+    </section>
+
+    <!-- 情報ソース -->
+    <section class="py-10 border-t border-gray-200 bg-gray-50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl font-bold mb-6 flex items-center">
+                <i data-lucide="link" class="w-6 h-6 mr-3 text-blue-500"></i>
+                情報ソース
+            </h2>
+            <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+                <ul class="text-sm text-gray-600 space-y-2">
+                    <li class="flex items-start"><span class="text-blue-400 mr-2">-</span><a href="https://blogs.nvidia.com/blog/nemotron-3-super-agentic-ai/" target="_blank" class="text-blue-600 hover:underline">NVIDIA Blog: New NVIDIA Nemotron 3 Super Delivers 5x Higher Throughput for Agentic AI</a> <span class="text-xs text-gray-400">[公式]</span></li>
+                    <li class="flex items-start"><span class="text-blue-400 mr-2">-</span><a href="https://nvidianews.nvidia.com/news/nvidia-debuts-nemotron-3-family-of-open-models" target="_blank" class="text-blue-600 hover:underline">NVIDIA News: NVIDIA Debuts Nemotron 3 Family of Open Models</a> <span class="text-xs text-gray-400">[公式]</span></li>
+                    <li class="flex items-start"><span class="text-blue-400 mr-2">-</span><a href="https://decrypt.co/360929/nvidia-drops-nemotron-3-super-26-billion-open-model-ai-bet" target="_blank" class="text-blue-600 hover:underline">Decrypt: Nvidia Drops Nemotron 3 Super Amid $26 Billion Open-Model AI Bet</a> <span class="text-xs text-gray-400">[メディア報道]</span></li>
+                    <li class="flex items-start"><span class="text-blue-400 mr-2">-</span><a href="https://artificialanalysis.ai/models/comparisons/nvidia-nemotron-3-super-120b-a12b-vs-claude-opus-4-5" target="_blank" class="text-blue-600 hover:underline">Artificial Analysis: Nemotron 3 Super vs Claude Opus 4.5 比較</a> <span class="text-xs text-gray-400">[ベンチマーク]</span></li>
+                    <li class="flex items-start"><span class="text-blue-400 mr-2">-</span><a href="https://www.qodo.ai/blog/nvidia-nemotron-3-super-is-closing-the-gap-for-open-source-models/" target="_blank" class="text-blue-600 hover:underline">Qodo: NVIDIA Nemotron 3 Super is Closing the Gap for Open-Source Models</a> <span class="text-xs text-gray-400">[メディア報道]</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 戻りリンク -->
+    <div class="py-6 text-center">
+        <a href="01-メインニュース.html" class="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-800 transition">
+            <i data-lucide="arrow-left" class="w-4 h-4 mr-1.5"></i>
+            メインニュース一覧に戻る
+        </a>
+    </div>
+
+    <!-- フッター -->
+    <footer class="py-10 bg-white border-t border-gray-200 text-center text-gray-400 text-sm">
+        <p>GenAI Weekly - 生成AIウィークリーニュース</p>
+        <p class="mt-1 text-xs text-gray-300">2026/03/09〜03/15</p>
+    </footer>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>
