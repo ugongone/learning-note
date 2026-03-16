@@ -249,8 +249,52 @@
                     <p class="text-xs text-gray-500">優れたオープンモデルの存在が「自社でAIを動かしたい」需要を生み、GPU販売を後押し</p>
                 </div>
             </div>
-            <div class="bg-gray-50 rounded-lg p-4 text-sm text-gray-500">
+            <div class="bg-gray-50 rounded-lg p-4 text-sm text-gray-500 mb-6">
                 <span class="font-bold text-gray-700">注目ポイント:</span> NVIDIAはモデルの重みだけでなく、10兆トークン以上の学習データセット、15の強化学習環境、評価レシピまで全て公開している。これは「モデルを使ってもらう」だけでなく「NVIDIAのツールチェーンで自分のモデルを作ってもらう」ことを狙った戦略であり、プロプライエタリモデルプロバイダーとは根本的に異なるアプローチ。
+            </div>
+
+            <!-- オープン性の実態と地政学 -->
+            <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden mb-6">
+                <div class="p-4 bg-amber-50 border-b border-amber-100">
+                    <h3 class="font-bold text-amber-700 flex items-center">
+                        <i data-lucide="lock" class="w-5 h-5 mr-2"></i>
+                        「オープン」の実態：NVIDIA GPUロックインと輸出規制の二層構造
+                    </h3>
+                </div>
+                <div class="p-6">
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">
+                        Nemotron 3 SuperはHugging Faceでオープン公開されており、ライセンス上は誰でもダウンロード・利用できる。しかし「オープン＝どこでも同じように動く」ではない。
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-4 mb-4">
+                        <div class="bg-amber-50 border border-amber-100 rounded-xl p-4">
+                            <h4 class="font-bold text-gray-800 text-sm mb-2 flex items-center">
+                                <i data-lucide="cpu" class="w-4 h-4 mr-2 text-amber-600"></i>
+                                ハードウェアロックイン
+                            </h4>
+                            <ul class="text-xs text-gray-600 space-y-1.5">
+                                <li class="flex items-start"><span class="text-amber-400 mr-2">-</span>NVFP4はNVIDIA独自の4ビット浮動小数点フォーマット</li>
+                                <li class="flex items-start"><span class="text-amber-400 mr-2">-</span>ハードウェアレベルでサポートするのはBlackwell GPUのみ</li>
+                                <li class="flex items-start"><span class="text-amber-400 mr-2">-</span>他社GPU（AMD等）ではFP16/FP8に変換が必要で性能が大幅に低下</li>
+                                <li class="flex items-start"><span class="text-amber-400 mr-2">-</span>「5倍のスループット」「4倍の推論速度」はNVIDIA GPU前提の数字</li>
+                            </ul>
+                        </div>
+                        <div class="bg-red-50 border border-red-100 rounded-xl p-4">
+                            <h4 class="font-bold text-gray-800 text-sm mb-2 flex items-center">
+                                <i data-lucide="globe" class="w-4 h-4 mr-2 text-red-500"></i>
+                                輸出規制との組み合わせ
+                            </h4>
+                            <ul class="text-xs text-gray-600 space-y-1.5">
+                                <li class="flex items-start"><span class="text-red-400 mr-2">-</span>米国BIS/EAR規制により高性能NVIDIA GPUの中国への輸出は大幅に制限</li>
+                                <li class="flex items-start"><span class="text-red-400 mr-2">-</span>モデルの重みはダウンロード可能だが、最適なハードウェアは入手困難</li>
+                                <li class="flex items-start"><span class="text-red-400 mr-2">-</span>Huawei Ascend等で動作は理論上可能だが、NVFP4最適化の恩恵は受けられない</li>
+                                <li class="flex items-start"><span class="text-red-400 mr-2">-</span>知識（モデル）は流出しても、インフラ（GPU）で制御する二層構造</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4 text-sm text-gray-500">
+                        <span class="font-bold text-gray-700">構造の本質:</span> NVIDIAにとって、モデルを無料で配っても最高性能を引き出すためにBlackwell GPUが必要になるなら、GPU販売で十分に回収できる。中国企業がモデルだけ使ってもNVIDIAのGPUを買えないなら売上損失は限定的であり、むしろ「NVIDIAなしではフル性能が出ない」という状況が輸出規制の実効性を補強する側面もある。オープンソースの形を取りながら、事実上のエコシステム制御を実現した巧みな戦略といえる。
+                    </div>
+                </div>
             </div>
         </div>
     </section>
