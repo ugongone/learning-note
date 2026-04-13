@@ -269,6 +269,48 @@
 
   <p class="sub">ローカルデプロイは vLLM / SGLang / KTransformers をサポート。Hugging Faceからウェイトをダウンロードしてセルフホスト可能。API利用は入力$1.00/出力$4.00（1Mトークン）、ピーク時（14:00-18:00 北京時間）は3倍消費だが4月末までオフピーク1倍のプロモーション中。</p>
 
+  <h2><span class="icon">⚡</span> 推論速度 — 他モデルとの比較</h2>
+
+  <p class="sub">GLM-5.1は精度重視の設計であり、推論速度は最速クラスではない。ただし「遅すぎて使えない」というレベルではなく、Opus 4.6と同程度の速度帯に位置する。</p>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-val orange">53</div><div class="stat-label">tok/s<br>出力速度（中央値）</div></div>
+    <div class="stat"><div class="stat-val green">1.7s</div><div class="stat-label">TTFT<br>最初の応答まで</div></div>
+    <div class="stat"><div class="stat-val accent">134</div><div class="stat-label">tok/s<br>最速プロバイダー（GMI）</div></div>
+  </div>
+
+  <div class="bench-wrap">
+    <div class="bench-title">主要モデル推論速度比較（Artificial Analysis, 2026年4月）</div>
+    <table>
+      <thead><tr><th>モデル</th><th>出力速度</th><th>TTFT</th><th>備考</th></tr></thead>
+      <tbody>
+        <tr><td>Gemini 3.1 Pro</td><td>127 tok/s</td><td>27.5s</td><td>出力速度は最速クラス</td></tr>
+        <tr><td>Llama 4 Maverick</td><td>113 tok/s</td><td>1.1s</td><td>速度・レイテンシのバランス最良</td></tr>
+        <tr><td>GLM-5（前世代）</td><td>89 tok/s</td><td>1.6s</td><td>5.1より高速</td></tr>
+        <tr><td>GPT-5.4 (xhigh)</td><td>84 tok/s</td><td>217s</td><td>推論モードでTTFT極長</td></tr>
+        <tr><td>Claude Sonnet 4.6 (max)</td><td>60 tok/s</td><td>147s</td><td>拡張思考モード</td></tr>
+        <tr class="row-hl"><td>GLM-5.1</td><td>53 tok/s</td><td>1.7s</td><td>精度とのトレードオフ</td></tr>
+        <tr><td>Claude Opus 4.6 (max)</td><td>42 tok/s</td><td>20.4s</td><td>品質重視</td></tr>
+        <tr><td>DeepSeek V3.2</td><td>42 tok/s</td><td>1.6s</td><td>TTFTは速い</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="reasons">
+    <div class="reason obstacle">
+      <h4>速度が遅い理由</h4>
+      <p>前世代GLM-5（89 tok/s）から約40%低下。長時間自律タスク（8時間・1,700ステップ）の精度を優先した設計であり、対話的なチャット速度よりも持久的な推論品質にリソースを配分している。</p>
+    </div>
+    <div class="reason breakthrough">
+      <h4>TTFTは優秀</h4>
+      <p>最初のトークンまでの時間（TTFT）は1.7秒で、GPT-5.4の推論モード（217秒）やClaude Sonnet 4.6 max（147秒）と比べると桁違いに速い。待たされる「体感」は出力速度だけでは測れない。</p>
+    </div>
+    <div class="reason breakthrough">
+      <h4>プロバイダー次第で高速化可能</h4>
+      <p>Z.ai公式では約44 tok/sだが、GMI Cloud（FP8量子化）では133.9 tok/s、FriendliAIでは122.5 tok/sを記録。オープンウェイトの強みとして、推論最適化が進めば大幅な高速化が見込める。</p>
+    </div>
+  </div>
+
   <h2><span class="icon">💡</span> 意味するもの</h2>
 
   <p>SWE-Bench Proでの0.7ポイント差は統計的議論の余地はある。汎用推論でもクローズドが優位。しかし<strong>「OSSはクローズドに追いつけない」という心理的な壁は確実に崩れた</strong>。</p>
