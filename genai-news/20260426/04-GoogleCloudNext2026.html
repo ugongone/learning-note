@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Cloud Next 2026 深掘り | 2026/04/22</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+    body {
+        font-family: 'Inter', 'Noto Sans JP', sans-serif;
+        background-color: #f8fafc;
+        color: #1e293b;
+    }
+    .gradient-text {
+        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .quote-box {
+        font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+        background-color: #f1f5f9;
+        border-left: 3px solid #3b82f6;
+    }
+</style>
+</head>
+<body class="antialiased selection:bg-blue-500 selection:text-white">
+
+<!-- Header -->
+<header class="border-b border-gray-200 bg-white/80 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+            <i data-lucide="cloud" class="w-6 h-6 text-blue-500"></i>
+            <span class="text-lg font-bold tracking-tight">Cloud Next 2026 <span class="text-gray-400 font-normal">| Google / 2026-04-22</span></span>
+        </div>
+        <nav class="hidden md:flex space-x-6 text-sm font-medium text-gray-400">
+            <a href="01-メインニュース.html" class="hover:text-blue-600 transition flex items-center"><i data-lucide="arrow-left" class="w-4 h-4 mr-1"></i>メインへ戻る</a>
+        </nav>
+    </div>
+</header>
+
+<!-- Hero -->
+<section class="py-8 text-center border-b border-gray-200">
+    <div class="max-w-4xl mx-auto px-4">
+        <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-600 text-xs font-medium mb-4">
+            <i data-lucide="sparkles" class="w-3 h-3 mr-2"></i>
+            260件超の発表 / エージェント全方位
+        </div>
+        <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+            <span class="gradient-text">Google Cloud Next 2026</span>
+        </h1>
+        <p class="text-gray-500 text-sm md:text-base">第8世代TPUからAgent Platformまで、エージェント時代のスタックを全方位で刷新</p>
+    </div>
+</section>
+
+<!-- 概要 -->
+<section class="py-10 border-b border-gray-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i data-lucide="info" class="w-6 h-6 mr-3 text-blue-500"></i>何が起きたか
+        </h2>
+        <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm space-y-4">
+            <p class="text-gray-700 leading-relaxed text-sm md:text-base">
+                2026年4月22日、ラスベガスで開催されたGoogle Cloud最大のカンファレンス「Cloud Next 2026」で、Sundar Pichai CEOらが<strong>260件超</strong>の発表を行った。打ち出された軸は明快で、ハードウェア層からアプリケーション層まで「<strong>エージェント時代に最適化されたスタック</strong>」を一気通貫で再構築するというものだ。
+            </p>
+            <p class="text-gray-700 leading-relaxed text-sm md:text-base">
+                Google Cloudの利用状況も急拡大している。顧客の約75%がAI製品を利用し、330社が月間1兆トークン以上を処理。API経由のトークン処理量は<strong>毎分160億</strong>に達し、前四半期から<strong>60%増</strong>と説明された。Cloud事業がインフラ提供者から「エージェント運用基盤の供給元」へと急速にシフトしている様子が、数字面でも裏付けられた格好だ。
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- 主要発表 -->
+<section class="py-10 bg-gray-50 border-b border-gray-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i data-lucide="layers" class="w-6 h-6 mr-3 text-blue-500"></i>主要発表
+        </h2>
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+                <div class="p-4 bg-blue-50 border-b border-blue-100 flex justify-between items-center">
+                    <h3 class="font-bold text-blue-700 flex items-center">
+                        <i data-lucide="cpu" class="w-5 h-5 mr-2"></i>第8世代TPU
+                    </h3>
+                    <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded font-medium">インフラ</span>
+                </div>
+                <div class="p-6 text-sm text-gray-600 leading-relaxed">
+                    トレーニング・推論それぞれに最適化された2つのチップを発表。エージェントワークロードに合わせた専用設計で、Ironwood比で大幅な処理性能/レイテンシー改善を謳う。
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+                <div class="p-4 bg-blue-50 border-b border-blue-100 flex justify-between items-center">
+                    <h3 class="font-bold text-blue-700 flex items-center">
+                        <i data-lucide="bot" class="w-5 h-5 mr-2"></i>Gemini Enterprise Agent Platform
+                    </h3>
+                    <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded font-medium">プラットフォーム</span>
+                </div>
+                <div class="p-6 text-sm text-gray-600 leading-relaxed">
+                    エージェント構築・スケール・ガバナンスを統合する基盤。Agent Designer、Inbox、長時間稼働エージェント、Skills、Projectsなどを内包。
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+                <div class="p-4 bg-blue-50 border-b border-blue-100 flex justify-between items-center">
+                    <h3 class="font-bold text-blue-700 flex items-center">
+                        <i data-lucide="briefcase" class="w-5 h-5 mr-2"></i>Workspace Intelligence
+                    </h3>
+                    <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded font-medium">アプリ</span>
+                </div>
+                <div class="p-6 text-sm text-gray-600 leading-relaxed">
+                    ドキュメント・メール・組織知識を横断したリアルタイム理解を提供。Sheets canvas、Skills自動化、Vidsの24言語アバター、Meetの自動議事録（前年比8.5倍成長）なども刷新。Microsoft 365からの移行は<strong>最大5倍高速化</strong>。
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+                <div class="p-4 bg-blue-50 border-b border-blue-100 flex justify-between items-center">
+                    <h3 class="font-bold text-blue-700 flex items-center">
+                        <i data-lucide="database" class="w-5 h-5 mr-2"></i>Agentic Data Cloud
+                    </h3>
+                    <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded font-medium">データ</span>
+                </div>
+                <div class="p-6 text-sm text-gray-600 leading-relaxed">
+                    クロスクラウドのLakehouseとKnowledge Catalogを束ね、エージェントが必要とする速度・スケールでデータ活用を可能にする。
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+                <div class="p-4 bg-blue-50 border-b border-blue-100 flex justify-between items-center">
+                    <h3 class="font-bold text-blue-700 flex items-center">
+                        <i data-lucide="shield-check" class="w-5 h-5 mr-2"></i>Agentic Defense
+                    </h3>
+                    <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded font-medium">セキュリティ</span>
+                </div>
+                <div class="p-6 text-sm text-gray-600 leading-relaxed">
+                    Threat Intelligence + Security Operations + Wiz の3点を統合し、クラウドおよびAIに対する脅威の予防・検知・対応を一体化。
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+                <div class="p-4 bg-blue-50 border-b border-blue-100 flex justify-between items-center">
+                    <h3 class="font-bold text-blue-700 flex items-center">
+                        <i data-lucide="network" class="w-5 h-5 mr-2"></i>Virgo Network
+                    </h3>
+                    <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded font-medium">ネットワーク</span>
+                </div>
+                <div class="p-6 text-sm text-gray-600 leading-relaxed">
+                    Arista Networksと共同開発した次世代AIデータセンターネットワーク。AIワークロードの巨大トラフィックに最適化した設計。
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 数値ハイライト -->
+<section class="py-10 border-b border-gray-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i data-lucide="bar-chart-2" class="w-6 h-6 mr-3 text-blue-500"></i>数値で見るインパクト
+        </h2>
+        <div class="grid md:grid-cols-4 gap-4">
+            <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl text-center">
+                <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i data-lucide="megaphone" class="w-5 h-5"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-1">260+</h3>
+                <p class="text-xs text-gray-500">発表総数</p>
+            </div>
+            <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl text-center">
+                <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i data-lucide="zap" class="w-5 h-5"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-1">160億 / 分</h3>
+                <p class="text-xs text-gray-500">API経由トークン処理（前Q比+60%）</p>
+            </div>
+            <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl text-center">
+                <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i data-lucide="building" class="w-5 h-5"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-1">330社</h3>
+                <p class="text-xs text-gray-500">月1兆トークン以上を処理</p>
+            </div>
+            <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl text-center">
+                <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i data-lucide="dollar-sign" class="w-5 h-5"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-1">$750M</h3>
+                <p class="text-xs text-gray-500">パートナー支援基金</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 引用 -->
+<section class="py-10 bg-gray-50 border-b border-gray-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i data-lucide="quote" class="w-6 h-6 mr-3 text-blue-500"></i>一次情報からの引用
+        </h2>
+        <div class="space-y-4">
+            <div class="quote-box rounded-lg p-5 text-sm text-gray-700 leading-relaxed">
+                Google Cloud customers' usage has grown to nearly 75% using AI products, with 330 organizations now processing more than one trillion tokens per month.
+                <div class="text-xs text-gray-500 mt-3">— Google公式ブログ（Sundar Pichai shares news from Google Cloud Next 2026）</div>
+            </div>
+            <div class="quote-box rounded-lg p-5 text-sm text-gray-700 leading-relaxed">
+                Workspace Intelligence delivers unified, real-time understanding to power agentic work.
+                <div class="text-xs text-gray-500 mt-3">— Google Workspace Blog</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 含意 -->
+<section class="py-10 border-b border-gray-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i data-lucide="lightbulb" class="w-6 h-6 mr-3 text-blue-500"></i>このイベントの含意
+        </h2>
+        <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm space-y-3">
+            <div class="flex items-start text-sm text-gray-600 bg-blue-50 rounded-lg p-3">
+                <i data-lucide="arrow-right" class="w-4 h-4 mr-2 text-blue-400 mt-0.5 flex-shrink-0"></i>
+                <span><strong>「エージェント前提でスタックを再設計」:</strong> TPUから業務アプリ層まで、ほぼ全レイヤーがエージェント前提に置き換わる構図。OpenAI/Microsoftとの主導権争いを「モデル単体」ではなく「総合プラットフォーム」勝負に持ち込む狙いが鮮明だ。</span>
+            </div>
+            <div class="flex items-start text-sm text-gray-600 bg-blue-50 rounded-lg p-3">
+                <i data-lucide="arrow-right" class="w-4 h-4 mr-2 text-blue-400 mt-0.5 flex-shrink-0"></i>
+                <span><strong>Microsoft 365からの移行:</strong> 「最大5倍高速化」と謳う移行ツールは、Workspaceへの乗り換え促進が事業戦略の中心であることを示す象徴的な機能。</span>
+            </div>
+            <div class="flex items-start text-sm text-gray-600 bg-blue-50 rounded-lg p-3">
+                <i data-lucide="arrow-right" class="w-4 h-4 mr-2 text-blue-400 mt-0.5 flex-shrink-0"></i>
+                <span><strong>パートナーエコシステム強化:</strong> 12万社のパートナーに$750Mを投じる姿勢は、Deloitte/Accenture/Merckとの大型提携と合わせ、エンタープライズ実装の現場をパートナー主導でスケールさせる戦略の現れ。</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 情報ソース -->
+<section class="py-10 bg-gray-50 border-b border-gray-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i data-lucide="link" class="w-6 h-6 mr-3 text-blue-500"></i>情報ソース
+        </h2>
+        <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm space-y-2 text-sm">
+            <div>・<a href="https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/next-2026/" target="_blank" rel="noopener" class="text-blue-600 hover:underline">Sundar Pichai shares news from Google Cloud Next 2026（Google公式ブログ）</a> <span class="text-emerald-600 text-xs">[公式]</span></div>
+            <div>・<a href="https://workspace.google.com/blog/product-announcements/10-more-announcements-workspace-at-next-2026" target="_blank" rel="noopener" class="text-blue-600 hover:underline">10 more announcements for Workspace at Google Cloud Next 2026（Google Workspace Blog）</a> <span class="text-emerald-600 text-xs">[公式]</span></div>
+            <div>・<a href="https://techcrunch.com/2026/04/22/google-maps-is-about-to-get-a-big-dose-of-ai/" target="_blank" rel="noopener" class="text-blue-600 hover:underline">Google Maps is about to get a big dose of AI（TechCrunch）</a> <span class="text-amber-600 text-xs">[メディア報道]</span></div>
+        </div>
+        <div class="mt-6">
+            <a href="01-メインニュース.html" class="inline-flex items-center text-sm bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition font-medium">
+                <i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i>メインニュースに戻る
+            </a>
+        </div>
+    </div>
+</section>
+
+<footer class="py-10 bg-white border-t border-gray-200 text-center text-gray-400 text-sm">
+    <p>Weekly GenAI News — Google Cloud Next 2026 深掘り記事</p>
+    <p class="mt-1 text-xs text-gray-300">対象期間: 2026/04/20 〜 2026/04/26</p>
+</footer>
+
+<script>lucide.createIcons();</script>
+</body>
+</html>

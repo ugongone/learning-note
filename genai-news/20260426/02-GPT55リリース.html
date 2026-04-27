@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenAI GPT-5.5（Spud）リリース深掘り | 2026/04/23</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+    body {
+        font-family: 'Inter', 'Noto Sans JP', sans-serif;
+        background-color: #f8fafc;
+        color: #1e293b;
+    }
+    .gradient-text {
+        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .quote-box {
+        font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+        background-color: #f1f5f9;
+        border-left: 3px solid #3b82f6;
+    }
+</style>
+</head>
+<body class="antialiased selection:bg-blue-500 selection:text-white">
+
+<!-- Header -->
+<header class="border-b border-gray-200 bg-white/80 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+            <i data-lucide="cpu" class="w-6 h-6 text-blue-500"></i>
+            <span class="text-lg font-bold tracking-tight">GPT-5.5 深掘り <span class="text-gray-400 font-normal">| OpenAI / 2026-04-23</span></span>
+        </div>
+        <nav class="hidden md:flex space-x-6 text-sm font-medium text-gray-400">
+            <a href="01-メインニュース.html" class="hover:text-blue-600 transition flex items-center"><i data-lucide="arrow-left" class="w-4 h-4 mr-1"></i>メインへ戻る</a>
+        </nav>
+    </div>
+</header>
+
+<!-- Hero -->
+<section class="py-8 text-center border-b border-gray-200">
+    <div class="max-w-4xl mx-auto px-4">
+        <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-600 text-xs font-medium mb-4">
+            <i data-lucide="sparkles" class="w-3 h-3 mr-2"></i>
+            フロンティアモデル / コードネーム "Spud"
+        </div>
+        <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+            <span class="gradient-text">GPT-5.5 リリース</span>
+        </h1>
+        <p class="text-gray-500 text-sm md:text-base">GPT-5.4からわずか6週間。OpenAIが描く"スーパーアプリ"へのもう一歩</p>
+    </div>
+</section>
+
+<!-- 概要 -->
+<section class="py-10 border-b border-gray-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i data-lucide="info" class="w-6 h-6 mr-3 text-blue-500"></i>何が起きたか
+        </h2>
+        <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm space-y-4">
+            <p class="text-gray-700 leading-relaxed text-sm md:text-base">
+                2026年4月23日、OpenAIは新しいフロンティアモデル <strong>GPT-5.5</strong>（コードネーム "Spud"）を公開した。前モデルのGPT-5.4からわずか<strong>6週間</strong>での投入であり、エージェント領域での激しい主導権争いの一端を象徴するリリースとなった。当初はChatGPTの<strong>Plus / Pro / Business / Enterprise</strong>プランへの展開で始まり、API公開は安全策の追加調整を理由に翌4月24日に解禁された。
+            </p>
+            <p class="text-gray-700 leading-relaxed text-sm md:text-base">
+                強化点はコーディング・コンピュータ操作・ディープリサーチといった「<strong>長尺タスクを自律的に進める力</strong>」に集中している。OpenAI幹部はこれを「より代理人的で直感的なコンピューティングへの大きな前進」と位置付けており、フロンティアラボが製品形態を「対話するAI」から「タスクを完遂するAI」へと急速にシフトさせていることが見て取れる。
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Key Spec Grid -->
+<section class="py-10 bg-gray-50 border-b border-gray-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i data-lucide="layers" class="w-6 h-6 mr-3 text-blue-500"></i>主要スペック / ポジション
+        </h2>
+        <div class="grid md:grid-cols-4 gap-4">
+            <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl text-center hover:shadow-md transition">
+                <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i data-lucide="calendar" class="w-5 h-5"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-1">リリース</h3>
+                <p class="text-xs text-gray-500">2026/04/23</p>
+            </div>
+            <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl text-center hover:shadow-md transition">
+                <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i data-lucide="terminal" class="w-5 h-5"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-1">Terminal-Bench 2.0</h3>
+                <p class="text-xs text-gray-500">82.7%</p>
+            </div>
+            <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl text-center hover:shadow-md transition">
+                <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i data-lucide="sigma" class="w-5 h-5"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-1">FrontierMath 1-3</h3>
+                <p class="text-xs text-gray-500">51.7%</p>
+            </div>
+            <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl text-center hover:shadow-md transition">
+                <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i data-lucide="users" class="w-5 h-5"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-1">対象</h3>
+                <p class="text-xs text-gray-500">Plus / Pro / Business / Enterprise</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 強化された能力 -->
+<section class="py-10 border-b border-gray-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i data-lucide="zap" class="w-6 h-6 mr-3 text-blue-500"></i>強化されたエージェント能力
+        </h2>
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+                <div class="p-4 bg-blue-50 border-b border-blue-100">
+                    <h3 class="font-bold text-blue-700 flex items-center">
+                        <i data-lucide="code-2" class="w-5 h-5 mr-2"></i>エージェント型コーディング
+                    </h3>
+                </div>
+                <div class="p-6 text-sm text-gray-600 leading-relaxed">
+                    コードの記述・デバッグ・ツール横断のタスク完遂を1サイクルでこなす。Codexと統合され、開発フローの大半をモデル側に肩代わりさせる方向性を強める。
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+                <div class="p-4 bg-blue-50 border-b border-blue-100">
+                    <h3 class="font-bold text-blue-700 flex items-center">
+                        <i data-lucide="monitor" class="w-5 h-5 mr-2"></i>コンピュータ操作
+                    </h3>
+                </div>
+                <div class="p-6 text-sm text-gray-600 leading-relaxed">
+                    ソフトウェアの操作とツール間の遷移を継続的に行えるよう、長尺ワークフローの自律性が強化された。
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+                <div class="p-4 bg-blue-50 border-b border-blue-100">
+                    <h3 class="font-bold text-blue-700 flex items-center">
+                        <i data-lucide="search" class="w-5 h-5 mr-2"></i>ディープリサーチ
+                    </h3>
+                </div>
+                <div class="p-6 text-sm text-gray-600 leading-relaxed">
+                    Web上のリサーチ、データ分析、ドキュメント・スプレッドシート生成までを一気通貫でこなすエージェントワークフローに対応。
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+                <div class="p-4 bg-blue-50 border-b border-blue-100">
+                    <h3 class="font-bold text-blue-700 flex items-center">
+                        <i data-lucide="check-circle" class="w-5 h-5 mr-2"></i>ファクト精度
+                    </h3>
+                </div>
+                <div class="p-6 text-sm text-gray-600 leading-relaxed">
+                    個別主張がGPT-5.4比で<strong>23%</strong>正確になり、応答に含まれる事実誤認は<strong>3%</strong>減少したとされる。
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 引用 -->
+<section class="py-10 bg-gray-50 border-b border-gray-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i data-lucide="quote" class="w-6 h-6 mr-3 text-blue-500"></i>一次・二次情報からの引用
+        </h2>
+        <div class="space-y-4">
+            <div class="quote-box rounded-lg p-5 text-sm text-gray-700 leading-relaxed">
+                GPT-5.5 is a faster, sharper thinker for fewer tokens compared to 5.4, and can handle multi-step workflows more autonomously with less user input.
+                <div class="text-xs text-gray-500 mt-3">— TechCrunch記事より</div>
+            </div>
+            <div class="quote-box rounded-lg p-5 text-sm text-gray-700 leading-relaxed">
+                GPT-5.5 Thinking and GPT-5.5 Pro were released on April 23, 2026, with neither being available to free-tier users.
+                <div class="text-xs text-gray-500 mt-3">— Wikipediaより</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 含意 -->
+<section class="py-10 border-b border-gray-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i data-lucide="lightbulb" class="w-6 h-6 mr-3 text-blue-500"></i>このリリースの含意
+        </h2>
+        <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm space-y-3">
+            <div class="flex items-start text-sm text-gray-600 bg-blue-50 rounded-lg p-3">
+                <i data-lucide="arrow-right" class="w-4 h-4 mr-2 text-blue-400 mt-0.5 flex-shrink-0"></i>
+                <span><strong>6週間サイクルの常態化:</strong> GPT-5.4 → GPT-5.5の投入間隔は、フロンティアモデルが「年に数回のメジャー版」から「インクリメンタルに磨き続ける継続デリバリー」へ完全に移行したことを示す。</span>
+            </div>
+            <div class="flex items-start text-sm text-gray-600 bg-blue-50 rounded-lg p-3">
+                <i data-lucide="arrow-right" class="w-4 h-4 mr-2 text-blue-400 mt-0.5 flex-shrink-0"></i>
+                <span><strong>"スーパーアプリ"志向:</strong> Codex統合・ファクト精度向上・操作自動化を束ねるアプローチは、ChatGPTを単なるチャットUIから「業務遂行プラットフォーム」へと再定義する流れに沿う。</span>
+            </div>
+            <div class="flex items-start text-sm text-gray-600 bg-blue-50 rounded-lg p-3">
+                <i data-lucide="arrow-right" class="w-4 h-4 mr-2 text-blue-400 mt-0.5 flex-shrink-0"></i>
+                <span><strong>API遅延リリースの含意:</strong> 「異なるセーフガードが必要」としてAPI公開を翌日に回した点は、エージェント能力の強化が安全性側の対策を要求するフェーズに入ったことを示す。</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 情報ソース -->
+<section class="py-10 bg-gray-50 border-b border-gray-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i data-lucide="link" class="w-6 h-6 mr-3 text-blue-500"></i>情報ソース
+        </h2>
+        <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm space-y-2 text-sm">
+            <div>・<a href="https://techcrunch.com/2026/04/23/openai-chatgpt-gpt-5-5-ai-model-superapp/" target="_blank" rel="noopener" class="text-blue-600 hover:underline">OpenAI releases GPT-5.5, bringing company one step closer to an AI 'super app'（TechCrunch）</a> <span class="text-amber-600 text-xs">[メディア報道]</span></div>
+            <div>・<a href="https://en.wikipedia.org/wiki/GPT-5.5" target="_blank" rel="noopener" class="text-blue-600 hover:underline">GPT-5.5（Wikipedia）</a> <span class="text-amber-600 text-xs">[メディア報道]</span></div>
+        </div>
+        <div class="mt-6">
+            <a href="01-メインニュース.html" class="inline-flex items-center text-sm bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition font-medium">
+                <i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i>メインニュースに戻る
+            </a>
+        </div>
+    </div>
+</section>
+
+<footer class="py-10 bg-white border-t border-gray-200 text-center text-gray-400 text-sm">
+    <p>Weekly GenAI News — GPT-5.5 深掘り記事</p>
+    <p class="mt-1 text-xs text-gray-300">対象期間: 2026/04/20 〜 2026/04/26</p>
+</footer>
+
+<script>lucide.createIcons();</script>
+</body>
+</html>

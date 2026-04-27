@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生成AIウィークリーニュース 2026/04/20〜04/26</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+    body {
+        font-family: 'Inter', 'Noto Sans JP', sans-serif;
+        background-color: #f8fafc;
+        color: #1e293b;
+    }
+    .gradient-text {
+        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .quote-box {
+        font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+        background-color: #f1f5f9;
+        border-left: 3px solid #3b82f6;
+    }
+</style>
+</head>
+<body class="antialiased selection:bg-blue-500 selection:text-white">
+
+<!-- Header -->
+<header class="border-b border-gray-200 bg-white/80 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+            <i data-lucide="newspaper" class="w-6 h-6 text-blue-500"></i>
+            <span class="text-lg font-bold tracking-tight">Weekly GenAI <span class="text-gray-400 font-normal">| 2026/04/20〜04/26</span></span>
+        </div>
+        <nav class="hidden md:flex space-x-6 text-sm font-medium text-gray-400">
+            <a href="#news-1" class="hover:text-blue-600 transition">GPT-5.5</a>
+            <a href="#news-2" class="hover:text-blue-600 transition">Deep Research</a>
+            <a href="#news-3" class="hover:text-blue-600 transition">Cloud Next</a>
+            <a href="#news-4" class="hover:text-blue-600 transition">Agent i</a>
+            <a href="#news-5" class="hover:text-blue-600 transition">Images 2.0</a>
+            <a href="#summary" class="hover:text-blue-600 transition">まとめ</a>
+        </nav>
+    </div>
+</header>
+
+<!-- Hero -->
+<section class="py-8 text-center border-b border-gray-200">
+    <div class="max-w-4xl mx-auto px-4">
+        <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-600 text-xs font-medium mb-4">
+            <i data-lucide="sparkles" class="w-3 h-3 mr-2"></i>
+            今週の注目トピック5本
+        </div>
+        <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+            <span class="gradient-text">生成AIウィークリーニュース</span>
+        </h1>
+        <p class="text-gray-500 text-sm md:text-base">2026/04/20 (月) 〜 2026/04/26 (日) の主要トピックを一次情報ベースで整理</p>
+    </div>
+</section>
+
+<!-- 一覧サマリー -->
+<section class="py-10 bg-gray-50 border-b border-gray-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i data-lucide="list" class="w-6 h-6 mr-3 text-blue-500"></i>今週のラインナップ
+        </h2>
+        <div class="grid md:grid-cols-5 gap-4">
+            <a href="#news-1" class="bg-blue-50 border border-blue-200 p-4 rounded-xl text-center hover:shadow-md transition">
+                <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i data-lucide="cpu" class="w-5 h-5"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-1 text-sm">GPT-5.5</h3>
+                <p class="text-xs text-gray-500">OpenAI / 04-23</p>
+            </a>
+            <a href="#news-2" class="bg-blue-50 border border-blue-200 p-4 rounded-xl text-center hover:shadow-md transition">
+                <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i data-lucide="search-code" class="w-5 h-5"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-1 text-sm">Deep Research</h3>
+                <p class="text-xs text-gray-500">Google / 04-21</p>
+            </a>
+            <a href="#news-3" class="bg-blue-50 border border-blue-200 p-4 rounded-xl text-center hover:shadow-md transition">
+                <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i data-lucide="cloud" class="w-5 h-5"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-1 text-sm">Cloud Next 2026</h3>
+                <p class="text-xs text-gray-500">Google / 04-22</p>
+            </a>
+            <a href="#news-4" class="bg-blue-50 border border-blue-200 p-4 rounded-xl text-center hover:shadow-md transition">
+                <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i data-lucide="bot" class="w-5 h-5"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-1 text-sm">Agent i</h3>
+                <p class="text-xs text-gray-500">LINEヤフー / 04-20</p>
+            </a>
+            <a href="#news-5" class="bg-blue-50 border border-blue-200 p-4 rounded-xl text-center hover:shadow-md transition">
+                <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i data-lucide="image" class="w-5 h-5"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-1 text-sm">Images 2.0</h3>
+                <p class="text-xs text-gray-500">OpenAI / 04-21</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- News 1: GPT-5.5 -->
+<section id="news-1" class="py-10 border-b border-gray-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i data-lucide="cpu" class="w-6 h-6 mr-3 text-blue-500"></i>1. OpenAI、GPT-5.5（コードネーム Spud）をリリース
+        </h2>
+        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+            <div class="p-4 bg-blue-50 border-b border-blue-100 flex justify-between items-center flex-wrap gap-2">
+                <h3 class="font-bold text-blue-700 flex items-center">
+                    <i data-lucide="calendar" class="w-5 h-5 mr-2"></i>
+                    2026/04/23
+                </h3>
+                <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded font-medium">フロンティアモデル</span>
+            </div>
+            <div class="p-6 space-y-4">
+                <p class="text-gray-700 leading-relaxed text-sm md:text-base">
+                    OpenAIがGPT-5.4のわずか6週間後にGPT-5.5を投入。コーディング、PC操作、ディープリサーチなどエージェント的タスクで性能を強化し、Terminal-Bench 2.0で82.7%、FrontierMath 1-3で51.7%を記録してClaude Opus 4.7やGemini 3.1 Proを上回ったとする。当初はChatGPTのPlus/Pro/Business/Enterpriseに展開され、API公開は4月24日に解禁された。
+                </p>
+                <div class="quote-box rounded-lg p-4 text-sm text-gray-700 leading-relaxed">
+                    <i data-lucide="quote" class="w-4 h-4 inline-block mr-1 text-blue-400"></i>
+                    GPT-5.5 is a faster, sharper thinker for fewer tokens compared to 5.4, and can handle multi-step workflows more autonomously with less user input.
+                </div>
+                <div class="flex flex-wrap gap-3 pt-2">
+                    <a href="02-GPT55リリース.html" class="inline-flex items-center text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition font-medium">
+                        <i data-lucide="book-open" class="w-4 h-4 mr-2"></i>深掘り記事を読む
+                    </a>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4 text-xs text-gray-500 space-y-1">
+                    <div class="font-bold text-gray-700 mb-2">情報ソース:</div>
+                    <div>・<a href="https://techcrunch.com/2026/04/23/openai-chatgpt-gpt-5-5-ai-model-superapp/" target="_blank" rel="noopener" class="text-blue-600 hover:underline">OpenAI releases GPT-5.5, bringing company one step closer to an AI 'super app'（TechCrunch）</a> <span class="text-amber-600">[メディア報道]</span></div>
+                    <div>・<a href="https://en.wikipedia.org/wiki/GPT-5.5" target="_blank" rel="noopener" class="text-blue-600 hover:underline">GPT-5.5（Wikipedia）</a> <span class="text-amber-600">[メディア報道]</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- News 2: Deep Research -->
+<section id="news-2" class="py-10 bg-gray-50 border-b border-gray-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i data-lucide="search-code" class="w-6 h-6 mr-3 text-blue-500"></i>2. Google、Deep Research / Deep Research Max を Gemini 3.1 Pro ベースで刷新
+        </h2>
+        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+            <div class="p-4 bg-blue-50 border-b border-blue-100 flex justify-between items-center flex-wrap gap-2">
+                <h3 class="font-bold text-blue-700 flex items-center">
+                    <i data-lucide="calendar" class="w-5 h-5 mr-2"></i>
+                    2026/04/21
+                </h3>
+                <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded font-medium">エージェント / リサーチ</span>
+            </div>
+            <div class="p-6 space-y-4">
+                <p class="text-gray-700 leading-relaxed text-sm md:text-base">
+                    GoogleがGemini 3.1 Proをベースとした自律研究エージェント「Deep Research」と上位版「Deep Research Max」を公開プレビュー。MCP対応で外部データ（FactSet、S&P Global、PitchBook等）と接続でき、ネイティブチャート/インフォグラフィックス生成にも対応。Gemini APIの有料ティアで利用可能。
+                </p>
+                <div class="quote-box rounded-lg p-4 text-sm text-gray-700 leading-relaxed">
+                    <i data-lucide="quote" class="w-4 h-4 inline-block mr-1 text-blue-400"></i>
+                    Both agents are available starting April 21, 2026, in public preview via paid tiers of the Gemini API.
+                </div>
+                <div class="flex flex-wrap gap-3 pt-2">
+                    <a href="03-DeepResearch刷新.html" class="inline-flex items-center text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition font-medium">
+                        <i data-lucide="book-open" class="w-4 h-4 mr-2"></i>深掘り記事を読む
+                    </a>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4 text-xs text-gray-500 space-y-1">
+                    <div class="font-bold text-gray-700 mb-2">情報ソース:</div>
+                    <div>・<a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/next-generation-gemini-deep-research/" target="_blank" rel="noopener" class="text-blue-600 hover:underline">Deep Research Max: a step change for autonomous research agents（Google公式ブログ）</a> <span class="text-emerald-600">[公式]</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- News 3: Cloud Next -->
+<section id="news-3" class="py-10 border-b border-gray-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i data-lucide="cloud" class="w-6 h-6 mr-3 text-blue-500"></i>3. Google Cloud Next 2026、260件超の発表でエージェント基盤を全方位刷新
+        </h2>
+        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+            <div class="p-4 bg-blue-50 border-b border-blue-100 flex justify-between items-center flex-wrap gap-2">
+                <h3 class="font-bold text-blue-700 flex items-center">
+                    <i data-lucide="calendar" class="w-5 h-5 mr-2"></i>
+                    2026/04/22
+                </h3>
+                <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded font-medium">クラウド / インフラ</span>
+            </div>
+            <div class="p-6 space-y-4">
+                <p class="text-gray-700 leading-relaxed text-sm md:text-base">
+                    ラスベガスで開催のGoogle Cloud Next 2026で、第8世代TPU、Gemini Enterprise Agent Platform、Workspace Intelligence、Agentic Data Cloud、Agentic Defense、Virgo Networkなど260件超を発表。パートナー支援に7億5千万ドル基金を新設、API経由のトークン処理量は毎分160億（前四半期比60%増）と急拡大している。
+                </p>
+                <div class="quote-box rounded-lg p-4 text-sm text-gray-700 leading-relaxed">
+                    <i data-lucide="quote" class="w-4 h-4 inline-block mr-1 text-blue-400"></i>
+                    Google Cloud customers' usage has grown to nearly 75% using AI products, with 330 organizations now processing more than one trillion tokens per month.
+                </div>
+                <div class="flex flex-wrap gap-3 pt-2">
+                    <a href="04-GoogleCloudNext2026.html" class="inline-flex items-center text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition font-medium">
+                        <i data-lucide="book-open" class="w-4 h-4 mr-2"></i>深掘り記事を読む
+                    </a>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4 text-xs text-gray-500 space-y-1">
+                    <div class="font-bold text-gray-700 mb-2">情報ソース:</div>
+                    <div>・<a href="https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/next-2026/" target="_blank" rel="noopener" class="text-blue-600 hover:underline">Sundar Pichai shares news from Google Cloud Next 2026（Google公式ブログ）</a> <span class="text-emerald-600">[公式]</span></div>
+                    <div>・<a href="https://workspace.google.com/blog/product-announcements/10-more-announcements-workspace-at-next-2026" target="_blank" rel="noopener" class="text-blue-600 hover:underline">10 more announcements for Workspace at Google Cloud Next 2026（Google Workspace Blog）</a> <span class="text-emerald-600">[公式]</span></div>
+                    <div>・<a href="https://techcrunch.com/2026/04/22/google-maps-is-about-to-get-a-big-dose-of-ai/" target="_blank" rel="noopener" class="text-blue-600 hover:underline">Google Maps is about to get a big dose of AI（TechCrunch）</a> <span class="text-amber-600">[メディア報道]</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- News 4: Agent i -->
+<section id="news-4" class="py-10 bg-gray-50 border-b border-gray-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i data-lucide="bot" class="w-6 h-6 mr-3 text-blue-500"></i>4. LINEヤフー、生活密着型AIエージェント「Agent i」を始動
+        </h2>
+        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+            <div class="p-4 bg-blue-50 border-b border-blue-100 flex justify-between items-center flex-wrap gap-2">
+                <h3 class="font-bold text-blue-700 flex items-center">
+                    <i data-lucide="calendar" class="w-5 h-5 mr-2"></i>
+                    2026/04/20
+                </h3>
+                <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded font-medium">日本 / コンシューマー</span>
+            </div>
+            <div class="p-6 space-y-4">
+                <p class="text-gray-700 leading-relaxed text-sm md:text-base">
+                    LINEヤフーが「答えるAIから実行するAIへ」を掲げ、新AIエージェントブランド「Agent i」を発表。約1億ユーザー規模のLINE/Yahoo! JAPAN上で、レシピ・ファイナンス・日程調整など7領域のエージェントを順次提供。100以上のサービスと100万社以上の店舗データを背景に、2026年上期中に20以上のエージェント展開を予定する。
+                </p>
+                <div class="quote-box rounded-lg p-4 text-sm text-gray-700 leading-relaxed">
+                    <i data-lucide="quote" class="w-4 h-4 inline-block mr-1 text-blue-400"></i>
+                    使いやすさ・正確な情報と最適な提案・実行力
+                </div>
+                <div class="flex flex-wrap gap-3 pt-2">
+                    <a href="05-Agenti始動.html" class="inline-flex items-center text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition font-medium">
+                        <i data-lucide="book-open" class="w-4 h-4 mr-2"></i>深掘り記事を読む
+                    </a>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4 text-xs text-gray-500 space-y-1">
+                    <div class="font-bold text-gray-700 mb-2">情報ソース:</div>
+                    <div>・<a href="https://www.lycorp.co.jp/ja/story/20260421/aiagent.html" target="_blank" rel="noopener" class="text-blue-600 hover:underline">「AIが代わりに動く」時代へ 新エージェント「Agent i」発表（LINEヤフー公式）</a> <span class="text-emerald-600">[公式]</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- News 5: Images 2.0 -->
+<section id="news-5" class="py-10 border-b border-gray-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i data-lucide="image" class="w-6 h-6 mr-3 text-blue-500"></i>5. OpenAI、ChatGPT Images 2.0 をローンチ
+        </h2>
+        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+            <div class="p-4 bg-blue-50 border-b border-blue-100 flex justify-between items-center flex-wrap gap-2">
+                <h3 class="font-bold text-blue-700 flex items-center">
+                    <i data-lucide="calendar" class="w-5 h-5 mr-2"></i>
+                    2026/04/21
+                </h3>
+                <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded font-medium">マルチモーダル</span>
+            </div>
+            <div class="p-6 space-y-4">
+                <p class="text-gray-700 leading-relaxed text-sm md:text-base">
+                    OpenAIがChatGPT内蔵の画像生成モデルを大幅刷新した「ChatGPT Images 2.0」を提供開始。マルチモーダルの幅を広げ、業務・クリエイティブ用途の双方を狙う一方、エンタープライズ採用では信頼性とハルシネーション管理が依然として最大の課題（55%が指摘）であることが浮き彫りに。
+                </p>
+                <div class="quote-box rounded-lg p-4 text-sm text-gray-700 leading-relaxed">
+                    <i data-lucide="quote" class="w-4 h-4 inline-block mr-1 text-blue-400"></i>
+                    55% of organizations cite AI agent reliability and hallucination management as the top adoption challenge.
+                </div>
+                <div class="flex flex-wrap gap-3 pt-2">
+                    <a href="06-ChatGPTImages20.html" class="inline-flex items-center text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition font-medium">
+                        <i data-lucide="book-open" class="w-4 h-4 mr-2"></i>深掘り記事を読む
+                    </a>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4 text-xs text-gray-500 space-y-1">
+                    <div class="font-bold text-gray-700 mb-2">情報ソース:</div>
+                    <div>・<a href="https://futurumgroup.com/insights/chatgpt-images-20-raises-the-stakes-in-enterprise-aibut-will-reliability-keep-pace/" target="_blank" rel="noopener" class="text-blue-600 hover:underline">ChatGPT Images 2.0 Raises the Stakes in Enterprise AI—But Will Reliability Keep Pace?（Futurum Group）</a> <span class="text-amber-600">[メディア報道]</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Summary -->
+<section id="summary" class="py-10 bg-gray-50 border-b border-gray-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i data-lucide="target" class="w-6 h-6 mr-3 text-blue-500"></i>今週のまとめ
+        </h2>
+        <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+            <p class="text-gray-700 leading-relaxed text-sm md:text-base">
+                4月第4週は、OpenAI（GPT-5.5）、Google（Deep Research刷新＋Cloud Next 260件発表）の2強が同時に<strong class="text-blue-600">エージェント時代の主導権争い</strong>を加速させた週となった。日本ではLINEヤフーが約1億ユーザー基盤を活かして「Agent i」を立ち上げ、生活密着型エージェントの本命候補が登場。一方でChatGPT Images 2.0の文脈に見られるように、エンタープライズ採用の鍵は依然<strong class="text-blue-600">「信頼性」</strong>であり、各社の競争は能力面だけでなく運用面でも本格化しつつある。
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-10 bg-white border-t border-gray-200 text-center text-gray-400 text-sm">
+    <p>Weekly GenAI News — 一次情報ベースの生成AI週間ダイジェスト</p>
+    <p class="mt-1 text-xs text-gray-300">対象期間: 2026/04/20 〜 2026/04/26</p>
+</footer>
+
+<script>lucide.createIcons();</script>
+</body>
+</html>
