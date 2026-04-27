@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Design — 学習ノート</title>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+  /* ベースカラー: Anthropic ブランドにインスパイアされた温かみのあるトーン */
+  :root {
+    --bg: #faf9f5;
+    --bg-soft: #f3efe6;
+    --ink: #1f1e1c;
+    --ink-soft: #4a4843;
+    --ink-mute: #7a7770;
+    --accent: #cc785c;        /* Claude オレンジ */
+    --accent-deep: #a8543d;
+    --accent-soft: #f5e6df;
+    --line: #e5e1d6;
+    --card: #ffffff;
+    --shadow: 0 1px 2px rgba(31,30,28,.04), 0 8px 24px rgba(31,30,28,.06);
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 56px 28px 96px;
+  }
+
+  /* ヘッダー */
+  .hero {
+    margin-bottom: 56px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--line);
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--accent-deep);
+    background: var(--accent-soft);
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-weight: 600;
+    letter-spacing: .02em;
+    margin-bottom: 20px;
+  }
+  .eyebrow .lucide {
+    width: 14px;
+    height: 14px;
+    stroke-width: 2.4;
+  }
+  h1 {
+    font-size: 44px;
+    line-height: 1.2;
+    margin: 0 0 16px;
+    letter-spacing: -.01em;
+    font-weight: 700;
+  }
+  .lede {
+    font-size: 17px;
+    color: var(--ink-soft);
+    max-width: 640px;
+    margin: 0;
+  }
+
+  /* セクション見出し */
+  section { margin-top: 56px; }
+  h2 {
+    font-size: 26px;
+    margin: 0 0 24px;
+    letter-spacing: -.005em;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  h2 .h2-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: var(--accent);
+    color: #fff;
+  }
+  h2 .h2-icon .lucide {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2.2;
+  }
+  h3 {
+    font-size: 17px;
+    margin: 0 0 10px;
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* 概要カード */
+  .overview {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--shadow);
+  }
+  .overview p {
+    margin: 0 0 20px;
+    font-size: 15.5px;
+    color: var(--ink-soft);
+  }
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 8px;
+  }
+  .meta {
+    background: var(--bg-soft);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .meta-label {
+    font-size: 12px;
+    color: var(--ink-mute);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  .meta-value {
+    font-size: 14.5px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+  }
+  .pill {
+    display: inline-block;
+    background: #fff;
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    font-size: 12.5px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-weight: 500;
+  }
+
+  /* 強みカード（縦並び） */
+  .strengths {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 26px;
+    box-shadow: var(--shadow);
+  }
+  .card-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: var(--accent-soft);
+    color: var(--accent-deep);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  .card-icon .lucide {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2;
+  }
+  .card h3 { margin-bottom: 8px; }
+  .card p {
+    margin: 0 0 14px;
+    color: var(--ink-soft);
+    font-size: 14.5px;
+  }
+  .card ul {
+    margin: 0;
+    padding-left: 18px;
+    color: var(--ink-soft);
+    font-size: 14px;
+  }
+  .card ul li { margin-bottom: 4px; }
+
+  /* 忠実度ラダー */
+  .fidelity {
+    margin-top: 20px;
+    background: var(--bg-soft);
+    border-radius: 10px;
+    padding: 18px;
+  }
+  .fidelity-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .fidelity-title .lucide {
+    width: 14px;
+    height: 14px;
+    color: var(--accent);
+    stroke-width: 2.2;
+  }
+  .ladder {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    align-items: stretch;
+  }
+  .step {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    position: relative;
+  }
+  .step-tag {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent-deep);
+    letter-spacing: .05em;
+    margin-bottom: 4px;
+  }
+  .step-name {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+  .step-desc {
+    font-size: 12px;
+    color: var(--ink-mute);
+    line-height: 1.4;
+  }
+  .ladder-arrow {
+    text-align: center;
+    color: var(--accent);
+    font-size: 12px;
+    margin-top: 10px;
+    letter-spacing: .1em;
+  }
+
+  .feature-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .feature {
+    background: var(--bg-soft);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .feature-name {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--accent-deep);
+    margin-bottom: 4px;
+  }
+  .feature-desc {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+  .integration-note {
+    margin-top: 16px;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    background: var(--accent-soft);
+    border-left: 3px solid var(--accent);
+    padding: 12px 14px;
+    border-radius: 0 8px 8px 0;
+  }
+
+  /* メディア（画像・動画） */
+  .media {
+    margin-top: 18px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--bg-soft);
+    line-height: 0;
+  }
+  .media > video,
+  .media > img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  /* クリック可能なメディアの視覚フィードバック */
+  .media > img,
+  .media > video {
+    cursor: zoom-in;
+    transition: opacity .15s;
+  }
+  .media > img:hover,
+  .media > video:hover {
+    opacity: .92;
+  }
+  .media-caption {
+    line-height: 1.5;
+    font-size: 12.5px;
+    color: var(--ink-mute);
+    padding: 8px 12px;
+    background: #fff;
+    border-top: 1px solid var(--line);
+  }
+  /* 半分サイズ（縦長スクショなど） */
+  .media-half {
+    max-width: 50%;
+  }
+  @media (max-width: 640px) {
+    .media-half { max-width: 70%; }
+  }
+
+  /* 出典リンク */
+  .source-link {
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px dashed var(--line);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13.5px;
+  }
+  .source-link .label {
+    color: var(--ink-mute);
+    font-weight: 600;
+    letter-spacing: .04em;
+  }
+  .source-link a {
+    color: var(--accent-deep);
+    text-decoration: none;
+    word-break: break-all;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    border-bottom: 1px solid transparent;
+    transition: border-color .15s;
+  }
+  .source-link a:hover {
+    border-bottom-color: var(--accent-deep);
+  }
+  .source-link a .lucide {
+    width: 13px;
+    height: 13px;
+    stroke-width: 2.2;
+  }
+
+  /* ライトボックス（拡大表示モーダル） */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 18, 14, .88);
+    backdrop-filter: blur(4px);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    touch-action: none;
+  }
+  .lightbox.is-open {
+    display: flex;
+  }
+  .lightbox-stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .lightbox-content {
+    max-width: 92vw;
+    max-height: 88vh;
+    transform-origin: center center;
+    transition: transform .15s ease-out;
+    will-change: transform;
+    user-select: none;
+    -webkit-user-drag: none;
+    cursor: grab;
+  }
+  .lightbox-content.is-dragging {
+    transition: none;
+    cursor: grabbing;
+  }
+  .lightbox img.lightbox-content,
+  .lightbox video.lightbox-content {
+    display: block;
+    object-fit: contain;
+    background: #000;
+    border-radius: 6px;
+    box-shadow: 0 30px 60px rgba(0,0,0,.5);
+  }
+  .lightbox-toolbar {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 8px;
+    z-index: 2;
+  }
+  .lightbox-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,.18);
+    background: rgba(40,36,30,.7);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background .15s;
+    backdrop-filter: blur(8px);
+  }
+  .lightbox-btn:hover {
+    background: rgba(60,55,45,.85);
+  }
+  .lightbox-btn .lucide {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2;
+  }
+  .lightbox-zoom-level {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,.75);
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+    background: rgba(40,36,30,.6);
+    padding: 6px 12px;
+    border-radius: 999px;
+    backdrop-filter: blur(8px);
+    pointer-events: none;
+    z-index: 2;
+  }
+  .lightbox-hint {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: rgba(255,255,255,.6);
+    font-size: 12px;
+    background: rgba(40,36,30,.5);
+    padding: 6px 12px;
+    border-radius: 8px;
+    backdrop-filter: blur(8px);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* フッター */
+  footer {
+    margin-top: 72px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    color: var(--ink-mute);
+    font-size: 12.5px;
+    text-align: center;
+  }
+
+  /* レスポンシブ */
+  @media (max-width: 640px) {
+    h1 { font-size: 32px; }
+    .wrap { padding: 36px 20px 64px; }
+    .feature-pair { grid-template-columns: 1fr; }
+    .ladder { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header class="hero">
+      <span class="eyebrow"><i data-lucide="sparkles"></i>Anthropic Labs / 2026.04.17 発表</span>
+      <h1>Claude Design</h1>
+      <p class="lede">
+        自然言語による対話だけで、デザイン・プロトタイプ・スライド資料といった高品質なビジュアル成果物を生成できる、Anthropic の新しい AI ツール。
+      </p>
+    </header>
+
+    <!-- 1. 概要 -->
+    <section>
+      <h2><span class="h2-icon"><i data-lucide="info"></i></span>Claude Design とは？</h2>
+      <div class="overview">
+        <p>
+          チャット形式で「こんなものが作りたい」と伝えるだけで、デザインデータが生成される。デザインの専門知識がなくても、ハイレベルなアウトプットに到達できることを目指したツール。
+        </p>
+        <div class="meta-grid">
+          <div class="meta">
+            <div class="meta-label">発表日</div>
+            <div class="meta-value">2026年4月17日</div>
+          </div>
+          <div class="meta">
+            <div class="meta-label">提供元</div>
+            <div class="meta-value">Anthropic Labs</div>
+          </div>
+          <div class="meta">
+            <div class="meta-label">アクセス</div>
+            <div class="meta-value">claude.ai/design（ブラウザ）</div>
+          </div>
+          <div class="meta">
+            <div class="meta-label">対象プラン</div>
+            <div class="meta-value">
+              <div class="pill-row">
+                <span class="pill">Pro</span>
+                <span class="pill">Max</span>
+                <span class="pill">Team</span>
+                <span class="pill">Enterprise</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="source-link">
+          <span class="label">SOURCE</span>
+          <a href="https://www.anthropic.com/news/claude-design-anthropic-labs" target="_blank" rel="noopener noreferrer">
+            anthropic.com/news/claude-design-anthropic-labs
+            <i data-lucide="external-link"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. 強み -->
+    <section>
+      <h2><span class="h2-icon"><i data-lucide="zap"></i></span>Claude Design の強み</h2>
+      <p style="margin: -8px 0 24px; color: var(--ink-soft); font-size: 14.5px;">
+        Figma などの既存のデザインツールと何が違うのか？ ポイントは2つ。
+      </p>
+
+      <div class="strengths">
+        <!-- 強み1 -->
+        <div class="card">
+          <div class="card-icon"><i data-lucide="wand-sparkles"></i></div>
+          <h3>学習コスト 0、デザイン知識 0 でも作れる</h3>
+          <p>チャットから指示するだけで形になる。細かい調整は UI 上で選ぶだけ。</p>
+          <ul>
+            <li>会話ベースで生成・修正できる</li>
+            <li>細かなデザイン設定は UI 上で選択可能</li>
+            <li>アウトプットの<strong>忠実度（Fidelity）</strong>を選べる</li>
+          </ul>
+
+          <!-- 忠実度ラダー -->
+          <div class="fidelity">
+            <div class="fidelity-title"><i data-lucide="lightbulb"></i>用語メモ：忠実度（Fidelity）の3段階</div>
+            <div class="ladder">
+              <div class="step">
+                <div class="step-tag">LOW-FI</div>
+                <div class="step-name">手書き</div>
+                <div class="step-desc">ラフスケッチ／構想段階</div>
+              </div>
+              <div class="step">
+                <div class="step-tag">MID-FI</div>
+                <div class="step-name">ワイヤーフレーム</div>
+                <div class="step-desc">骨組み／構造設計</div>
+              </div>
+              <div class="step">
+                <div class="step-tag">HIGH-FI</div>
+                <div class="step-name">完成版</div>
+                <div class="step-desc">本番に近いビジュアル</div>
+              </div>
+            </div>
+            <div class="ladder-arrow">— 抽象 ▶ 具体 —</div>
+          </div>
+
+          <!-- 画像差し込み枠 -->
+          <figure class="media">
+            <video src="./img/claude-design-01.mov" controls muted playsinline preload="metadata"></video>
+            <figcaption class="media-caption">チャットから指示するだけで生成されるデモ</figcaption>
+          </figure>
+
+          <figure class="media">
+            <video src="./img/claude-design-06.mov" controls muted playsinline preload="metadata"></video>
+            <figcaption class="media-caption">チャットから指示するだけで生成されるデモ（その2）</figcaption>
+          </figure>
+
+          <figure class="media">
+            <img src="./img/claude-design-02.png" alt="忠実度の選択UI">
+            <figcaption class="media-caption">忠実度（手書き / ワイヤーフレーム / 完成版）を UI 上で選べる</figcaption>
+          </figure>
+        </div>
+
+        <!-- 強み2 -->
+        <div class="card">
+          <div class="card-icon"><i data-lucide="link"></i></div>
+          <h3>Claude Code との互換性</h3>
+          <p>デザインとコードを行き来できる。デザイン → 実装、実装 → デザインのどちらの方向にも持っていける。</p>
+
+          <div class="feature-pair">
+            <div class="feature">
+              <div class="feature-name">ハンドオフ機能</div>
+              <p class="feature-desc">Design 側の成果物を Code 側にスムーズに引き渡す。</p>
+            </div>
+            <div class="feature">
+              <div class="feature-name">import 機能</div>
+              <p class="feature-desc">Code 側の状態を Design に取り込んで反映できる。</p>
+            </div>
+          </div>
+
+          <div class="integration-note">
+            この2つを組み合わせることで、<strong>擬似的な双方向同期</strong>が成立する。
+          </div>
+
+          <!-- 画像差し込み枠 -->
+          <figure class="media media-half">
+            <img src="./img/claude-design-04.png" alt="Share メニューから Handoff to Claude Code を選択">
+            <figcaption class="media-caption">Share メニューから「Handoff to Claude Code…」を選択</figcaption>
+          </figure>
+
+          <figure class="media">
+            <img src="./img/claude-design-05.png" alt="Send to local coding agent — コマンドをコピーして Claude Code に渡す">
+            <figcaption class="media-caption">ローカルの Claude Code に渡すコマンドが生成される</figcaption>
+          </figure>
+
+          <figure class="media">
+            <img src="./img/claude-design-03.png" alt="Claude Code との連携イメージ">
+            <figcaption class="media-caption">Claude Code との連携イメージ</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      learning-note / ai-coding / claude-code / claude-design
+    </footer>
+
+  </div>
+
+  <!-- ライトボックス -->
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="拡大表示">
+    <div class="lightbox-stage" id="lightboxStage">
+      <div class="lightbox-hint">ホイール / ピンチ で拡大・縮小、ドラッグで移動</div>
+      <div class="lightbox-toolbar">
+        <button type="button" class="lightbox-btn" data-lb-action="zoom-out" aria-label="縮小"><i data-lucide="minus"></i></button>
+        <button type="button" class="lightbox-btn" data-lb-action="reset" aria-label="リセット"><i data-lucide="maximize"></i></button>
+        <button type="button" class="lightbox-btn" data-lb-action="zoom-in" aria-label="拡大"><i data-lucide="plus"></i></button>
+        <button type="button" class="lightbox-btn" data-lb-action="close" aria-label="閉じる"><i data-lucide="x"></i></button>
+      </div>
+      <div class="lightbox-zoom-level" id="lightboxZoom">100%</div>
+      <!-- 拡大対象がここに差し込まれる -->
+    </div>
+  </div>
+
+  <script>
+    // Lucide アイコンを描画
+    if (window.lucide) lucide.createIcons();
+
+    // ライトボックス制御
+    (function () {
+      const lightbox = document.getElementById('lightbox');
+      const stage = document.getElementById('lightboxStage');
+      const zoomLabel = document.getElementById('lightboxZoom');
+      let currentEl = null;
+      let scale = 1;
+      let translateX = 0;
+      let translateY = 0;
+      const MIN_SCALE = 0.5;
+      const MAX_SCALE = 6;
+
+      // ドラッグ用
+      let isDragging = false;
+      let dragStartX = 0;
+      let dragStartY = 0;
+      let dragOriginX = 0;
+      let dragOriginY = 0;
+      // ピンチ用
+      let pinchStartDist = 0;
+      let pinchStartScale = 1;
+
+      function applyTransform() {
+        if (!currentEl) return;
+        currentEl.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+        zoomLabel.textContent = Math.round(scale * 100) + '%';
+      }
+      function reset() {
+        scale = 1;
+        translateX = 0;
+        translateY = 0;
+        applyTransform();
+      }
+      function setScale(next, originX, originY) {
+        const clamped = Math.max(MIN_SCALE, Math.min(MAX_SCALE, next));
+        if (originX != null && originY != null && currentEl) {
+          // 指定座標を中心にズーム（ステージ中心からのオフセットを補正）
+          const rect = stage.getBoundingClientRect();
+          const cx = rect.left + rect.width / 2;
+          const cy = rect.top + rect.height / 2;
+          const dx = originX - cx;
+          const dy = originY - cy;
+          const ratio = clamped / scale;
+          translateX = dx - (dx - translateX) * ratio;
+          translateY = dy - (dy - translateY) * ratio;
+        }
+        scale = clamped;
+        applyTransform();
+      }
+      function open(srcEl) {
+        // 既存の拡大対象を撤去
+        if (currentEl) currentEl.remove();
+        const tag = srcEl.tagName.toLowerCase();
+        if (tag === 'img') {
+          currentEl = document.createElement('img');
+          currentEl.src = srcEl.src;
+          currentEl.alt = srcEl.alt || '';
+        } else if (tag === 'video') {
+          currentEl = document.createElement('video');
+          currentEl.src = srcEl.currentSrc || srcEl.src;
+          currentEl.controls = true;
+          currentEl.playsInline = true;
+        } else {
+          return;
+        }
+        currentEl.className = 'lightbox-content';
+        stage.appendChild(currentEl);
+        reset();
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+      function close() {
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        if (currentEl) {
+          if (currentEl.tagName.toLowerCase() === 'video') currentEl.pause();
+          currentEl.remove();
+          currentEl = null;
+        }
+      }
+
+      // メディアにクリックハンドラを付与
+      document.querySelectorAll('.media > img, .media > video').forEach(el => {
+        el.addEventListener('click', (e) => {
+          // video のネイティブ controls クリックは無視（再生/シーク操作を残すため、
+          // controls のない通常表示のときだけ拡大トリガに使う）
+          if (el.tagName.toLowerCase() === 'video' && el.controls) {
+            // controls 付きビデオはクリック領域が広いので、修飾キー or 長押しではなく
+            // ダブルクリックで開く方式にする
+            return;
+          }
+          open(el);
+        });
+        // video は dblclick で拡大
+        if (el.tagName.toLowerCase() === 'video') {
+          el.addEventListener('dblclick', (e) => {
+            e.preventDefault();
+            open(el);
+          });
+        }
+      });
+
+      // ツールバー操作
+      lightbox.querySelectorAll('[data-lb-action]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const action = btn.dataset.lbAction;
+          if (action === 'close') close();
+          else if (action === 'reset') reset();
+          else if (action === 'zoom-in') setScale(scale * 1.25);
+          else if (action === 'zoom-out') setScale(scale / 1.25);
+        });
+      });
+
+      // 背景クリックで閉じる（コンテンツ自身のクリックは無視）
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox || e.target === stage) close();
+      });
+
+      // Esc で閉じる、+ / - / 0 でズーム
+      document.addEventListener('keydown', (e) => {
+        if (!lightbox.classList.contains('is-open')) return;
+        if (e.key === 'Escape') close();
+        else if (e.key === '+' || e.key === '=') setScale(scale * 1.25);
+        else if (e.key === '-' || e.key === '_') setScale(scale / 1.25);
+        else if (e.key === '0') reset();
+      });
+
+      // ホイールでズーム
+      stage.addEventListener('wheel', (e) => {
+        if (!currentEl) return;
+        e.preventDefault();
+        const factor = e.deltaY < 0 ? 1.1 : 1 / 1.1;
+        setScale(scale * factor, e.clientX, e.clientY);
+      }, { passive: false });
+
+      // ドラッグでパン
+      stage.addEventListener('pointerdown', (e) => {
+        if (!currentEl) return;
+        if (e.target.closest('.lightbox-btn')) return;
+        // ピンチの場合は別途処理されるのでスキップ
+        if (e.pointerType === 'touch' && e.isPrimary === false) return;
+        isDragging = true;
+        dragStartX = e.clientX;
+        dragStartY = e.clientY;
+        dragOriginX = translateX;
+        dragOriginY = translateY;
+        currentEl.classList.add('is-dragging');
+        stage.setPointerCapture(e.pointerId);
+      });
+      stage.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        translateX = dragOriginX + (e.clientX - dragStartX);
+        translateY = dragOriginY + (e.clientY - dragStartY);
+        applyTransform();
+      });
+      function endDrag(e) {
+        if (!isDragging) return;
+        isDragging = false;
+        if (currentEl) currentEl.classList.remove('is-dragging');
+        try { stage.releasePointerCapture(e.pointerId); } catch (_) {}
+      }
+      stage.addEventListener('pointerup', endDrag);
+      stage.addEventListener('pointercancel', endDrag);
+
+      // タッチピンチズーム
+      const activeTouches = new Map();
+      stage.addEventListener('touchstart', (e) => {
+        for (const t of e.changedTouches) activeTouches.set(t.identifier, t);
+        if (activeTouches.size === 2) {
+          const [a, b] = [...activeTouches.values()];
+          pinchStartDist = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
+          pinchStartScale = scale;
+          isDragging = false;
+        }
+      }, { passive: true });
+      stage.addEventListener('touchmove', (e) => {
+        for (const t of e.changedTouches) activeTouches.set(t.identifier, t);
+        if (activeTouches.size === 2) {
+          e.preventDefault();
+          const [a, b] = [...activeTouches.values()];
+          const dist = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
+          const next = pinchStartScale * (dist / pinchStartDist);
+          const cx = (a.clientX + b.clientX) / 2;
+          const cy = (a.clientY + b.clientY) / 2;
+          setScale(next, cx, cy);
+        }
+      }, { passive: false });
+      stage.addEventListener('touchend', (e) => {
+        for (const t of e.changedTouches) activeTouches.delete(t.identifier);
+      });
+
+      // ダブルクリックで100%/200%トグル
+      stage.addEventListener('dblclick', (e) => {
+        if (!currentEl) return;
+        if (e.target.closest('.lightbox-btn')) return;
+        if (scale === 1) setScale(2, e.clientX, e.clientY);
+        else reset();
+      });
+
+      // 開いた後にツールバーアイコンも初期化
+      const observer = new MutationObserver(() => {
+        if (lightbox.classList.contains('is-open') && window.lucide) {
+          lucide.createIcons();
+        }
+      });
+      observer.observe(lightbox, { attributes: true, attributeFilter: ['class'] });
+    })();
+  </script>
+</body>
+</html>
