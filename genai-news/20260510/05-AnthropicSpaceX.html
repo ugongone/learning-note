@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>深掘り：Anthropic × SpaceX Colossus 1 提携</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background-color: #f8fafc; color: #1e293b; }
+  .gradient-text { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .quote { border-left: 3px solid #3b82f6; background: #eff6ff; }
+</style>
+</head>
+<body class="antialiased selection:bg-blue-500 selection:text-white">
+
+<header class="border-b border-gray-200 bg-white/80 backdrop-blur-md sticky top-0 z-50">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <div class="flex items-center space-x-3">
+      <i data-lucide="rocket" class="w-6 h-6 text-blue-500"></i>
+      <span class="text-lg font-bold tracking-tight">Anthropic × SpaceX <span class="text-gray-400 font-normal">| 深掘り解説</span></span>
+    </div>
+    <a href="01-メインニュース.html" class="text-sm font-medium text-gray-400 hover:text-blue-600 transition flex items-center">
+      <i data-lucide="arrow-left" class="w-4 h-4 mr-1"></i>週間サマリーへ
+    </a>
+  </div>
+</header>
+
+<section class="py-8 text-center border-b border-gray-200">
+  <div class="max-w-4xl mx-auto px-4">
+    <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-600 text-xs font-medium mb-4">
+      <i data-lucide="calendar" class="w-3 h-3 mr-2"></i>2026/05/06 発表
+    </div>
+    <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+      <span class="gradient-text">Colossus 1 を独占活用、Claude 上限を倍増</span>
+    </h1>
+    <p class="text-gray-500 text-sm md:text-base">300MW超／22万GPU超を1カ月以内に確保。Claude Code・Opus APIの利用上限を即時引き上げ</p>
+  </div>
+</section>
+
+<section class="py-10">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-bold mb-6 flex items-center"><i data-lucide="file-text" class="w-6 h-6 mr-3 text-blue-500"></i>概要</h2>
+    <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm mb-10">
+      <p class="text-gray-700 leading-relaxed">
+        Anthropicは2026年5月6日、SpaceXの「<strong>Colossus 1</strong>」データセンターの全容量を独占活用する計算契約を発表した。<strong>300MW超／NVIDIA GPU 22万基超</strong>の新規容量を1カ月以内に確保し、同時にClaude Codeの5時間レート上限を有料プランで倍増、Pro/Maxのピーク時間制限撤廃、Claude Opus APIのレート上限引き上げを即日反映した。
+      </p>
+    </div>
+    <h2 class="text-2xl font-bold mb-2 flex items-center"><i data-lucide="server" class="w-6 h-6 mr-3 text-blue-500"></i>Colossus 1 の規模</h2>
+    <p class="text-sm text-gray-500 mb-6">単一の追加契約としては異例の規模で、1カ月以内にオンライン化される。</p>
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl text-center">
+        <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3"><i data-lucide="zap" class="w-5 h-5"></i></div>
+        <h3 class="font-bold text-gray-800 mb-1">300MW+</h3>
+        <p class="text-xs text-gray-500">新規確保される計算容量</p>
+      </div>
+      <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl text-center">
+        <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3"><i data-lucide="cpu" class="w-5 h-5"></i></div>
+        <h3 class="font-bold text-gray-800 mb-1">220,000+ GPU</h3>
+        <p class="text-xs text-gray-500">NVIDIA GPU 数</p>
+      </div>
+      <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl text-center">
+        <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3"><i data-lucide="hourglass" class="w-5 h-5"></i></div>
+        <h3 class="font-bold text-gray-800 mb-1">1カ月以内</h3>
+        <p class="text-xs text-gray-500">利用可能化までの時間軸</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-10 bg-gray-50 border-t border-gray-200">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-bold mb-2 flex items-center"><i data-lucide="trending-up" class="w-6 h-6 mr-3 text-blue-500"></i>ユーザーへの即時影響</h2>
+    <p class="text-sm text-gray-500 mb-6">追加計算容量が利用上限の引き上げという形で、当日からエンドユーザーに還元された。</p>
+    <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-gray-50 border-b border-gray-200">
+            <th class="text-left px-6 py-4 font-bold text-gray-600">対象</th>
+            <th class="text-left px-6 py-4 font-bold text-gray-600">変更内容</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          <tr><td class="px-6 py-3 text-gray-700">Claude Code 5時間レート上限</td><td class="px-6 py-3 text-gray-500">Pro / Max / Team / Enterprise で <span class="font-bold text-emerald-600">2倍</span></td></tr>
+          <tr><td class="px-6 py-3 text-gray-700">Pro / Max のピーク時間制限</td><td class="px-6 py-3 text-gray-500"><span class="font-bold text-emerald-600">撤廃</span>（時間帯による減衰なし）</td></tr>
+          <tr><td class="px-6 py-3 text-gray-700">Claude Opus API レート上限</td><td class="px-6 py-3 text-gray-500">大幅引き上げ（公式の対応表に詳細）</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="py-10">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-bold mb-2 flex items-center"><i data-lucide="network" class="w-6 h-6 mr-3 text-blue-500"></i>Anthropic の計算インフラ・ポートフォリオ</h2>
+    <p class="text-sm text-gray-500 mb-6">AWS・Google・Microsoftの3大クラウドに、Fluidstack・SpaceXを加えた多層構成になっている。</p>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+        <h3 class="font-bold text-gray-800 mb-3 flex items-center"><i data-lucide="package" class="w-5 h-5 mr-2 text-blue-500"></i>Amazon</h3>
+        <p class="text-sm text-gray-600">最大 <strong>5GW</strong> の契約、2026年末までに約1GWの新規容量。</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+        <h3 class="font-bold text-gray-800 mb-3 flex items-center"><i data-lucide="package" class="w-5 h-5 mr-2 text-blue-500"></i>Google + Broadcom</h3>
+        <p class="text-sm text-gray-600"><strong>5GW</strong> 契約、2027年から稼働開始。</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+        <h3 class="font-bold text-gray-800 mb-3 flex items-center"><i data-lucide="package" class="w-5 h-5 mr-2 text-blue-500"></i>Microsoft + NVIDIA</h3>
+        <p class="text-sm text-gray-600">Azureの <strong>$30B</strong> 容量パートナーシップ。</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+        <h3 class="font-bold text-gray-800 mb-3 flex items-center"><i data-lucide="package" class="w-5 h-5 mr-2 text-blue-500"></i>Fluidstack</h3>
+        <p class="text-sm text-gray-600">米国AIインフラに <strong>$50B</strong> 投資。</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm md:col-span-2">
+        <h3 class="font-bold text-gray-800 mb-3 flex items-center"><i data-lucide="rocket" class="w-5 h-5 mr-2 text-blue-500"></i>SpaceX（New）</h3>
+        <p class="text-sm text-gray-600">Colossus 1 の300MW超を <strong>1カ月以内</strong> に確保。中長期では <strong>軌道上AI計算</strong> の構想にも言及。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-10 bg-gray-50 border-t border-gray-200">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-bold mb-2 flex items-center"><i data-lucide="users" class="w-6 h-6 mr-3 text-blue-500"></i>xAI / SpaceX 側の狙い</h2>
+    <p class="text-sm text-gray-500 mb-6">Anthropicと競合関係にあるxAIがなぜ自社の旗艦計算資源を貸し出すのか — 商業・資本市場・戦略の3つの動機が絡んでいる。</p>
+
+    <div class="grid md:grid-cols-2 gap-6 mb-8">
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+        <h3 class="font-bold text-gray-800 mb-3 flex items-center"><i data-lucide="server-cog" class="w-5 h-5 mr-2 text-blue-500"></i>① Colossus 1 を「埋められなかった」</h3>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          Colossus 1は2024年にGrokの訓練用として建設されたが、<strong>Grokの売上は年換算で10億ドル未満</strong>に対し、<strong>Anthropicは400億ドル超のラン</strong>レートに到達。xAIには余剰計算資源があり、Anthropicには需要があるという <strong>需給の非対称</strong> がそのままビジネスになった。
+        </p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+        <h3 class="font-bold text-gray-800 mb-3 flex items-center"><i data-lucide="trending-up" class="w-5 h-5 mr-2 text-blue-500"></i>② SpaceX IPO 直前の収益計上</h3>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          SpaceXは <strong>6月にIPOロードショー開始</strong> 予定。今回の契約は <strong>年間30〜40億ドルの売上</strong>、うち <strong>25億ドル超のキャッシュ利益</strong> を生むとされ、SpaceXに「巨大なAIクラウド顧客を持つインフラ事業者」というストーリーを与える。事実上、<strong>目論見書に書ける一行</strong>を確保するための取引。
+        </p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+        <h3 class="font-bold text-gray-800 mb-3 flex items-center"><i data-lucide="server" class="w-5 h-5 mr-2 text-blue-500"></i>③ Colossus 2 へ訓練を集約</h3>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          xAIは既に <strong>より大規模なColossus 2</strong> に自社訓練を移行済み。Colossus 1は実質「旧型インフラ」となっており、それを長期契約で外販することは <strong>固定費を回収しつつ自社競争力には影響しない</strong> 合理的な選択となる。
+        </p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+        <h3 class="font-bold text-gray-800 mb-3 flex items-center"><i data-lucide="satellite" class="w-5 h-5 mr-2 text-blue-500"></i>④ 「競合に売る」前例の正当化</h3>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          Muskは今回の判断を <strong>SpaceXが競合衛星事業者にも打ち上げサービスを売っている前例</strong> と並べて説明。さらに「AnthropicのAIが人類に害をなすと判断した場合は計算資源を <strong>没収する権利を留保</strong>」と発言し、政治的に違和感が出ない物語を整えた。
+        </p>
+      </div>
+    </div>
+
+    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 text-sm text-gray-700 mb-8">
+      <span class="font-bold text-blue-700">Musk本人のコメント:</span> 「Anthropicの幹部と一週間ほど一緒に過ごしたが、<strong>誰も私の悪人センサーに引っかからなかった</strong>。皆有能で、正しいことをしようとする姿勢が強かった」 — 3カ月前に同社を "evil" と呼んでいたところからの方針転換。
+    </div>
+
+    <h2 class="text-2xl font-bold mb-2 flex items-center"><i data-lucide="satellite" class="w-6 h-6 mr-3 text-blue-500"></i>（補足）「軌道上AI計算容量」とは何か</h2>
+    <p class="text-sm text-gray-500 mb-6">Anthropicが発表文で触れた構想。<strong>地球の周回軌道に衛星型データセンターを打ち上げて、宇宙空間でAIの計算をやらせる</strong>というアイデアで、現時点では研究・初期構想の段階にある。</p>
+
+    <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm mb-6">
+      <p class="text-sm text-gray-600 leading-relaxed">
+        地上のAIデータセンターは、<strong>電力・冷却水・土地許認可・送電ロス</strong>という4つの物理的壁にぶつかりつつある。米国では1GW級の新規データセンター用地確保に数年単位の時間がかかり、Colossus 1も周辺住民の健康被害が議論されている。宇宙空間は、これらの制約を一気に回避できる可能性を持つ「次の選択肢」として注目されている。
+      </p>
+    </div>
+
+    <!-- 補足: Colossus 1 健康被害 -->
+    <details class="bg-red-50 border border-red-100 rounded-2xl p-6 mb-6">
+      <summary class="cursor-pointer font-bold text-red-700 flex items-center"><i data-lucide="info" class="w-5 h-5 mr-2"></i>（補足）Colossus 1 周辺住民の健康被害とは具体的に何か</summary>
+      <div class="mt-4 space-y-4 text-sm text-gray-700 leading-relaxed">
+        <p>
+          Colossus 1は <strong>テネシー州メンフィスのサウス・メンフィス地区</strong>、特に <strong>Boxtown（ボックスタウン）</strong> という歴史的に黒人住民が多いコミュニティに隣接して建設された。元々この地域は産業施設に囲まれ、<strong>Boxtownのがんリスクは全米平均の4倍</strong> とされる「環境的不正義（environmental injustice）」が長年問題視されてきた地区である。
+        </p>
+        <p>
+          xAIはColossus 1の電力を確保するため、許可を取らずに <strong>メタンガスタービン発電機を35基設置・運用</strong>。「temporary（一時的）」と分類することで大気浄化法の規制を回避していたと指摘されている。
+        </p>
+
+        <h4 class="font-bold text-gray-800 mt-4">排出される具体的な物質と健康影響</h4>
+        <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+          <table class="w-full text-xs">
+            <thead>
+              <tr class="bg-gray-50 border-b border-gray-200">
+                <th class="text-left px-4 py-3 font-bold text-gray-600">排出物</th>
+                <th class="text-left px-4 py-3 font-bold text-gray-600">健康への影響</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+              <tr><td class="px-4 py-2 font-medium text-gray-700">窒素酸化物（NOx）</td><td class="px-4 py-2 text-gray-600">年間最大 <strong>2,508トン</strong> のスモッグ原因物質。喘息悪化・呼吸器疾患</td></tr>
+              <tr><td class="px-4 py-2 font-medium text-gray-700">オゾン前駆物質</td><td class="px-4 py-2 text-gray-600">Shelby郡はAmerican Lung Associationでオゾン <strong>F評価</strong></td></tr>
+              <tr><td class="px-4 py-2 font-medium text-gray-700">ホルムアルデヒド</td><td class="px-4 py-2 text-gray-600">発がん性物質。長期暴露で白血病・鼻咽頭がんのリスク</td></tr>
+              <tr><td class="px-4 py-2 font-medium text-gray-700">PM2.5（微粒子）</td><td class="px-4 py-2 text-gray-600">心臓発作・脳卒中・早産のリスク増</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4 class="font-bold text-gray-800 mt-4">統計的な事実</h4>
+        <ul class="space-y-1 text-gray-700">
+          <li class="flex items-start"><span class="text-red-400 mr-2">-</span>メンフィスは全米の <strong>"asthma capital"（喘息首都）</strong> に指定</li>
+          <li class="flex items-start"><span class="text-red-400 mr-2">-</span>喘息関連の救急受診件数は <strong>全米2位</strong>、喘息関連死は <strong>全米7位</strong></li>
+          <li class="flex items-start"><span class="text-red-400 mr-2">-</span>環境団体の試算で稼働継続による健康被害コストは <strong>年間 $30〜44百万ドル</strong>（早期死亡・新規/悪化喘息・心臓発作・入院・学校欠席を含む）</li>
+        </ul>
+
+        <h4 class="font-bold text-gray-800 mt-4">住民の証言（2025年4月の公聴会）</h4>
+        <div class="quote rounded-r-lg p-3 text-gray-700">
+          「家族は慢性的な呼吸器疾患に苦しんでいる。朝早く起きて窓を開けたいだけなのに」<br>
+          <span class="text-xs text-gray-500 mt-1 block">— Easter May Knox氏（xAI施設近隣住民）</span>
+        </div>
+        <div class="quote rounded-r-lg p-3 text-gray-700">
+          「私はxAI施設から3マイルのところに住んでいる。彼らが来る前から、この地域には十分すぎるほどの汚染物質があった」<br>
+          <span class="text-xs text-gray-500 mt-1 block">— Barbara Britton氏（Boxtown近隣協会会長）</span>
+        </div>
+
+        <h4 class="font-bold text-gray-800 mt-4">法的な動き</h4>
+        <ul class="space-y-1 text-gray-700">
+          <li class="flex items-start"><span class="text-blue-400 mr-2">•</span><strong>南部環境法律センター（SELC）</strong> が無許可ガスタービン使用について警告書を送付</li>
+          <li class="flex items-start"><span class="text-blue-400 mr-2">•</span><strong>NAACP（全米黒人地位向上協会）</strong> が原告となり、<strong>Earthjustice</strong> を通じて無許可大気汚染の差し止めを求める <strong>緊急申立て</strong> を実施</li>
+          <li class="flex items-start"><span class="text-blue-400 mr-2">•</span>環境的人種差別（environmental racism）の文脈で、AI業界全体への警鐘として注目</li>
+        </ul>
+
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 text-gray-700 mt-4">
+          <span class="font-bold text-blue-700">「軌道上AI計算」との関連:</span> このColossus 1の事例は、<strong>AIインフラを地上に建てることの社会的コスト</strong> を象徴的に示している。電力確保のための規制回避、しわ寄せが脆弱なコミュニティに集中、法廷闘争への発展。Anthropic/SpaceXが軌道上計算に関心を示す背景には、<strong>「地上のフロンティアAIインフラはもう既存社会に押し付けられる場所がなくなりつつある」</strong> という共通認識がある。
+        </div>
+
+        <div class="mt-4 space-y-2 text-xs">
+          <div class="flex items-start"><span class="text-amber-500 mr-2">▶</span><a href="https://insideclimatenews.org/news/17072025/elon-musk-xai-data-center-gas-turbines-memphis/" class="text-blue-600 hover:underline" target="_blank">In South Memphis, Colossus Operated Gas Turbines Without Appropriate Permits — Inside Climate News</a></div>
+          <div class="flex items-start"><span class="text-amber-500 mr-2">▶</span><a href="https://earthjustice.org/case/xai-illegal-gas-power-plant-data-center-colossus" class="text-blue-600 hover:underline" target="_blank">Illegal Pollution from Data Center Power Plants — Earthjustice</a></div>
+          <div class="flex items-start"><span class="text-amber-500 mr-2">▶</span><a href="https://naacp.org/articles/elon-musks-xai-threatened-lawsuit-over-air-pollution-memphis-data-center-filed-behalf" class="text-blue-600 hover:underline" target="_blank">Elon Musk's xAI threatened with lawsuit over air pollution — NAACP</a></div>
+          <div class="flex items-start"><span class="text-amber-500 mr-2">▶</span><a href="https://time.com/7308925/elon-musk-memphis-ai-data-center/" class="text-blue-600 hover:underline" target="_blank">Inside Memphis' Battle Against Elon Musk's xAI Data Center — TIME</a></div>
+        </div>
+      </div>
+    </details>
+
+    <h3 class="text-lg font-bold mt-8 mb-3 text-gray-800 flex items-center"><i data-lucide="check-circle" class="w-5 h-5 mr-2 text-emerald-500"></i>なぜ宇宙でやろうとするのか</h3>
+    <div class="grid md:grid-cols-2 gap-4">
+      <div class="bg-emerald-50 border border-emerald-200 p-5 rounded-xl">
+        <h4 class="font-bold text-gray-800 mb-2 flex items-center"><i data-lucide="sun" class="w-4 h-4 mr-2 text-emerald-600"></i>太陽光が24時間ほぼ無限</h4>
+        <p class="text-xs text-gray-600 leading-relaxed">軌道上は地球の影に入る時間が短く、地上の太陽光発電より <strong>3〜5倍効率が良い</strong>。雲も夜もない。</p>
+      </div>
+      <div class="bg-emerald-50 border border-emerald-200 p-5 rounded-xl">
+        <h4 class="font-bold text-gray-800 mb-2 flex items-center"><i data-lucide="snowflake" class="w-4 h-4 mr-2 text-emerald-600"></i>受動的な冷却</h4>
+        <p class="text-xs text-gray-600 leading-relaxed">宇宙の背景温度は <strong>マイナス270℃</strong>。放熱パネルを向ければ理論上は冷却水なしで熱を捨てられる。</p>
+      </div>
+      <div class="bg-emerald-50 border border-emerald-200 p-5 rounded-xl">
+        <h4 class="font-bold text-gray-800 mb-2 flex items-center"><i data-lucide="land-plot" class="w-4 h-4 mr-2 text-emerald-600"></i>土地・許認可が不要</h4>
+        <p class="text-xs text-gray-600 leading-relaxed">地上の用地買収や環境アセスメントの数年が必要ない。<strong>許可取得の速さ</strong>がそのまま競争優位になる。</p>
+      </div>
+      <div class="bg-emerald-50 border border-emerald-200 p-5 rounded-xl">
+        <h4 class="font-bold text-gray-800 mb-2 flex items-center"><i data-lucide="rocket" class="w-4 h-4 mr-2 text-emerald-600"></i>Starshipで打ち上げコストが急落</h4>
+        <p class="text-xs text-gray-600 leading-relaxed">SpaceXのStarshipが本格運用に入れば、<strong>100トン級のペイロード</strong>を低コストで軌道投入できる。「データセンターを打ち上げる」が現実味を帯びる。</p>
+      </div>
+    </div>
+
+    <h3 class="text-lg font-bold mt-8 mb-3 text-gray-800 flex items-center"><i data-lucide="target" class="w-5 h-5 mr-2 text-blue-500"></i>何に使われるのか（想定ユースケース）</h3>
+    <div class="grid md:grid-cols-2 gap-4">
+      <div class="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
+        <h4 class="font-bold text-gray-800 mb-2 flex items-center"><i data-lucide="brain-cog" class="w-4 h-4 mr-2 text-blue-500"></i>大規模AIの訓練</h4>
+        <p class="text-xs text-gray-600">数ヶ月かかる訓練はある程度のレイテンシを許容できるため、<strong>地上の巨大データセンターの代替</strong>として有望。</p>
+      </div>
+      <div class="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
+        <h4 class="font-bold text-gray-800 mb-2 flex items-center"><i data-lucide="satellite-dish" class="w-4 h-4 mr-2 text-blue-500"></i>衛星画像のリアルタイム解析</h4>
+        <p class="text-xs text-gray-600">観測衛星の画像を <strong>地上に降ろさず軌道上でAI推論</strong>。災害監視や偵察用途で帯域とレイテンシを削減。</p>
+      </div>
+      <div class="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
+        <h4 class="font-bold text-gray-800 mb-2 flex items-center"><i data-lucide="orbit" class="w-4 h-4 mr-2 text-blue-500"></i>宇宙船・ロケットの自律制御</h4>
+        <p class="text-xs text-gray-600">火星ミッションのように <strong>電波遅延が大きい場面</strong> では、現地計算が必須になる。長期的な宇宙開発の基盤。</p>
+      </div>
+      <div class="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
+        <h4 class="font-bold text-gray-800 mb-2 flex items-center"><i data-lucide="cloud" class="w-4 h-4 mr-2 text-blue-500"></i>「コンピュート版Starlink」</h4>
+        <p class="text-xs text-gray-600">Starlinkが通信を売るように、<strong>軌道上GPUクラスタを企業に貸し出す</strong>クラウド事業の構想。</p>
+      </div>
+    </div>
+
+    <h3 class="text-lg font-bold mt-8 mb-3 text-gray-800 flex items-center"><i data-lucide="alert-triangle" class="w-5 h-5 mr-2 text-amber-500"></i>現実的な壁</h3>
+    <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-gray-50 border-b border-gray-200">
+            <th class="text-left px-6 py-4 font-bold text-gray-600">問題</th>
+            <th class="text-left px-6 py-4 font-bold text-gray-600">内容</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          <tr><td class="px-6 py-3 text-gray-700 font-medium">放熱</td><td class="px-6 py-3 text-gray-500">真空中は対流冷却が効かず、数百MW級の熱を放射だけで捨てるには <strong>巨大な放熱パネル</strong> が必要</td></tr>
+          <tr><td class="px-6 py-3 text-gray-700 font-medium">放射線</td><td class="px-6 py-3 text-gray-500">宇宙線で半導体がビット反転・永久故障を起こす。地上GPUをそのままは使えず <strong>耐放射線設計</strong> が必要</td></tr>
+          <tr><td class="px-6 py-3 text-gray-700 font-medium">メンテナンス</td><td class="px-6 py-3 text-gray-500">故障GPUを <strong>軌道上で交換する手段</strong> がまだ確立されていない</td></tr>
+          <tr><td class="px-6 py-3 text-gray-700 font-medium">データ伝送</td><td class="px-6 py-3 text-gray-500">訓練データやモデルを <strong>地上↔軌道で動かす帯域</strong> がボトルネックになる</td></tr>
+          <tr><td class="px-6 py-3 text-gray-700 font-medium">政治・規制</td><td class="px-6 py-3 text-gray-500">軌道上に大型構造物を増やすことへの <strong>国際合意がまだ未整備</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4 text-sm text-gray-700">
+      <span class="font-bold text-blue-700">位置づけ:</span> Anthropicの発表文は <strong>「interested in developing（開発に関心がある）」</strong> という表現で、確定したプロジェクトではない。Starshipが本格運用に入る <strong>2020年代後半〜2030年代の長期ビジョン</strong> として温められているテーマであり、現時点では実装計画というよりは <strong>「地上の物理限界を超えに行く意思の戦略的シグナル」</strong> として読むのが妥当。
+    </div>
+
+    <h2 class="text-2xl font-bold mt-12 mb-2 flex items-center"><i data-lucide="lightbulb" class="w-6 h-6 mr-3 text-blue-500"></i>解釈</h2>
+    <p class="text-sm text-gray-500 mb-6">単なる調達ニュースではなく、計算資源の地政学的分散と将来構想までを射程に入れた発表である。</p>
+    <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm space-y-3 text-sm text-gray-600 leading-relaxed">
+      <p>
+        AnthropicはAWS・Google・Microsoftの3大クラウドに加えて、<strong>SpaceXという第4の計算源</strong> を確保した。Claude Codeの利用上限がしばしば話題になるなか、この提携はユーザーへ <strong>即日でレート緩和という形で還元</strong> された。
+      </p>
+      <p>
+        計算資源の <strong>地政学的・供給的なリスク分散</strong> は、フロンティアAI企業共通の課題。「軌道上AI計算」という将来構想に踏み込んだのは、単なる調達話に留まらない戦略的シグナルといえる。
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="py-10">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-bold mb-2 flex items-center"><i data-lucide="quote" class="w-6 h-6 mr-3 text-blue-500"></i>引用と情報ソース</h2>
+    <p class="text-sm text-gray-500 mb-6">Anthropic公式発表からの直接引用とリンクを掲載する。</p>
+    <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+      <div class="quote rounded-r-lg p-4 text-gray-700 mb-4">
+        「SpaceXとは、複数ギガワット規模の軌道上AI計算容量の開発にも関心を寄せている」<br>
+        <span class="text-xs text-gray-500 mt-2 block">— Anthropic「Higher usage limits for Claude and a compute deal with SpaceX」</span>
+      </div>
+      <div class="space-y-3 text-sm">
+        <div class="flex items-start"><span class="text-emerald-500 mr-2">▶</span><a href="https://www.anthropic.com/news/higher-limits-spacex" class="text-blue-600 hover:underline" target="_blank">Higher usage limits for Claude and a compute deal with SpaceX — Anthropic</a> <span class="ml-2 text-xs bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded">[公式]</span></div>
+        <div class="flex items-start"><span class="text-emerald-500 mr-2">▶</span><a href="https://x.ai/news/anthropic-compute-partnership" class="text-blue-600 hover:underline" target="_blank">New Compute Partnership with Anthropic — xAI</a> <span class="ml-2 text-xs bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded">[公式]</span></div>
+        <div class="flex items-start"><span class="text-amber-500 mr-2">▶</span><a href="https://fortune.com/2026/05/07/spacex-anthropic-deal-elon-musk-ai-landlord-evil/" class="text-blue-600 hover:underline" target="_blank">Musk called Anthropic 'evil' 3 months ago. Now he's taking $4B to become its landlord — Fortune</a> <span class="ml-2 text-xs bg-amber-50 text-amber-600 px-2 py-0.5 rounded">[メディア報道]</span></div>
+        <div class="flex items-start"><span class="text-amber-500 mr-2">▶</span><a href="https://simonwillison.net/2026/May/7/xai-anthropic/" class="text-blue-600 hover:underline" target="_blank">Notes on the xAI/Anthropic data center deal — Simon Willison</a> <span class="ml-2 text-xs bg-amber-50 text-amber-600 px-2 py-0.5 rounded">[解説]</span></div>
+      </div>
+    </div>
+    <div class="mt-8 text-center">
+      <a href="01-メインニュース.html" class="inline-flex items-center px-6 py-3 rounded-xl bg-blue-50 border border-blue-200 text-blue-600 hover:bg-blue-100 transition text-sm font-medium">
+        <i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i>週間サマリーへ戻る
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="py-10 bg-white border-t border-gray-200 text-center text-gray-400 text-sm">
+  <p>Weekly GenAI News — 2026/05/04〜05/10</p>
+</footer>
+
+<script>lucide.createIcons();</script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>深掘り：CAISI が Google・MS・xAI モデルを事前評価</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background-color: #f8fafc; color: #1e293b; }
+  .gradient-text { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .quote { border-left: 3px solid #3b82f6; background: #eff6ff; }
+</style>
+</head>
+<body class="antialiased selection:bg-blue-500 selection:text-white">
+
+<header class="border-b border-gray-200 bg-white/80 backdrop-blur-md sticky top-0 z-50">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <div class="flex items-center space-x-3">
+      <i data-lucide="shield-check" class="w-6 h-6 text-blue-500"></i>
+      <span class="text-lg font-bold tracking-tight">CAISI 事前評価合意 <span class="text-gray-400 font-normal">| 深掘り解説</span></span>
+    </div>
+    <a href="01-メインニュース.html" class="text-sm font-medium text-gray-400 hover:text-blue-600 transition flex items-center">
+      <i data-lucide="arrow-left" class="w-4 h-4 mr-1"></i>週間サマリーへ
+    </a>
+  </div>
+</header>
+
+<section class="py-8 text-center border-b border-gray-200">
+  <div class="max-w-4xl mx-auto px-4">
+    <div class="inline-flex items-center px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-700 text-xs font-medium mb-4">
+      <i data-lucide="calendar" class="w-3 h-3 mr-2"></i>2026/05/05 発表
+    </div>
+    <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+      <span class="gradient-text">米CAISI、フロンティアAIを公開前に評価へ</span>
+    </h1>
+    <p class="text-gray-500 text-sm md:text-base">Google DeepMind・Microsoft・xAI が機密環境での事前テストに合意</p>
+  </div>
+</section>
+
+<section class="py-10">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-bold mb-6 flex items-center"><i data-lucide="file-text" class="w-6 h-6 mr-3 text-blue-500"></i>概要</h2>
+    <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm mb-10">
+      <p class="text-gray-700 leading-relaxed">
+        2026年5月5日、米商務省NIST傘下の <strong>CAISI（Center for AI Standards and Innovation）</strong> がGoogle DeepMind、Microsoft、xAIの3社と新たな自主合意を締結したと発表した。各社のフロンティアAIモデルを公開前に <strong>機密環境で評価</strong> し、安全装置を解除した状態の能力（unmitigated capabilities）も含めて国家安全保障上のリスクを精査する。
+        既に2024年から合意を結んでいるOpenAI・Anthropicと合わせ、主要フロンティア5社すべてが事実上の事前審査の枠組みに組み込まれた形となり、トランプ政権の <em>AI Action Plan</em> を支える運用基盤が整った。
+      </p>
+    </div>
+    <h2 class="text-2xl font-bold mb-2 flex items-center"><i data-lucide="history" class="w-6 h-6 mr-3 text-blue-500"></i>背景：CAISIによるDeepSeek評価という前史</h2>
+    <p class="text-sm text-gray-500 mb-6">今回の合意は突然出てきた話ではない。CAISIが2025〜2026年にかけて中国DeepSeekモデルを公的に評価し、米国モデルの優位と中国モデルのリスクを数字で示してきた延長線上にある。</p>
+
+    <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm space-y-4 text-sm text-gray-600 leading-relaxed">
+      <p>
+        中国・杭州拠点のDeepSeekは2025年初頭に <strong>DeepSeek R1</strong> を公開し、米国フロンティアモデルに匹敵する性能を「桁違いに低いコスト」で実現したと主張。Hugging Face等でのダウンロードは <strong>2025年1月から約1,000%増加</strong> し、NVIDIA株が急落するほどの地政学的インパクトをもたらした。CAISI（NIST傘下）はこれを受け、対抗評価を2回公表している。
+      </p>
+    </div>
+
+    <h3 class="text-lg font-bold mt-8 mb-3 text-gray-800 flex items-center"><i data-lucide="file-search" class="w-5 h-5 mr-2 text-blue-500"></i>第1回（2025/09）: DeepSeek V3.1 / R1-0528 の評価</h3>
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="bg-blue-50 border border-blue-200 p-5 rounded-xl">
+        <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-3"><i data-lucide="target" class="w-5 h-5"></i></div>
+        <h4 class="font-bold text-gray-800 mb-2">精度</h4>
+        <p class="text-xs text-gray-600 leading-relaxed">
+          米国の最上位モデルがほぼ全ベンチで上回る。特に <strong>ソフトウェアエンジニアリング／サイバー系で20%超</strong> の差。「DeepSeekは安いだけ」というナラティブを否定。
+        </p>
+      </div>
+      <div class="bg-red-50 border border-red-100 p-5 rounded-xl">
+        <div class="w-10 h-10 bg-red-100 text-red-500 rounded-full flex items-center justify-center mb-3"><i data-lucide="shield-off" class="w-5 h-5"></i></div>
+        <h4 class="font-bold text-gray-800 mb-2">安全性</h4>
+        <p class="text-xs text-gray-600 leading-relaxed">
+          R1-0528ベースのエージェントは悪意ある指示で乗っ取られる確率が <strong>米国モデルの12倍</strong>。ジェイルブレイクで <strong>94%の悪意リクエストに応答</strong>（米国は8%）。フィッシング・マルウェア実行・認証情報窃取まで実行。
+        </p>
+      </div>
+      <div class="bg-amber-50 border border-amber-100 p-5 rounded-xl">
+        <div class="w-10 h-10 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center mb-3"><i data-lucide="dollar-sign" class="w-5 h-5"></i></div>
+        <h4 class="font-bold text-gray-800 mb-2">コスト</h4>
+        <p class="text-xs text-gray-600 leading-relaxed">
+          API単価では安く見えるが、同等性能を出すための実コストでは <strong>米国モデルが平均35%安い</strong>。DeepSeekは同問題により多くのトークンを使う傾向があると指摘。
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-4 bg-gray-50 rounded-lg p-4 text-sm text-gray-600">
+      <span class="font-bold text-gray-700">政治的バイアス:</span> DeepSeekモデルは <strong>中国共産党（CCP）ナラティブ</strong> を米国モデルの <strong>4倍</strong> 含む、という指摘も同レポートで提示された。
+    </div>
+
+    <h3 class="text-lg font-bold mt-8 mb-3 text-gray-800 flex items-center"><i data-lucide="file-search-2" class="w-5 h-5 mr-2 text-blue-500"></i>第2回（2026/05）: DeepSeek V4 Pro の評価</h3>
+    <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm space-y-3 text-sm text-gray-600 leading-relaxed">
+      <p>
+        新しいV4 Proについては、トーンが少し変わっている。<strong>性能のフロンティアからの遅れは「約8カ月」</strong> に縮まり、コスト効率も改善 — <strong>GPT-5.4 miniと比較すれば、7ベンチ中5ベンチでDeepSeek V4のほうが安い</strong>。一方で、安全性とCCPナラティブの問題は <strong>依然として構造的に解消されていない</strong>。
+      </p>
+      <p class="text-gray-500">
+        つまり「性能ギャップは急速に縮まっているが、安全性ギャップは残っている」というのがCAISIの最新ポジション。<strong>追いつかれつつある</strong>という認識が、今回の事前評価合意拡大の動機になっている。
+      </p>
+    </div>
+
+    <h3 class="text-lg font-bold mt-8 mb-3 text-gray-800 flex items-center"><i data-lucide="link-2" class="w-5 h-5 mr-2 text-blue-500"></i>今回の合意とのつながり</h3>
+    <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+      <ol class="space-y-3 text-sm text-gray-600">
+        <li class="flex items-start"><span class="font-bold text-blue-600 mr-2">①</span><span>DeepSeek評価で「米国モデルの優位は明確だが、永続的ではない」ことが数字で示された。</span></li>
+        <li class="flex items-start"><span class="font-bold text-blue-600 mr-2">②</span><span>その差を維持するには、<strong>米国側もフロンティアモデルを公開前に厳密に評価する</strong>仕組みが必要となる。</span></li>
+        <li class="flex items-start"><span class="font-bold text-blue-600 mr-2">③</span><span>既にOpenAI・Anthropicは合意済みだったが、<strong>今回Google/Microsoft/xAIまで揃って初めて主要5社が出揃う</strong>。</span></li>
+        <li class="flex items-start"><span class="font-bold text-blue-600 mr-2">④</span><span>これによりCAISIは「中国モデルを評価する物差し」と「米国モデルを規律する物差し」を <strong>同じ機関</strong> が握ることになり、国家戦略としての一貫性が成立する。</span></li>
+      </ol>
+      <p class="text-xs text-gray-500 mt-4">CAISIのDeepSeek評価は単なる技術レポートではなく、<strong>「中国製AIには性能・コスト・安全性のどれにも明確な弱点がある」という公的ナラティブを米政府が打ち出した出来事</strong>。今回の合意は、その流れの上に乗った政策パッケージの一部と位置づけられる。</p>
+    </div>
+
+    <h2 class="text-2xl font-bold mt-12 mb-2 flex items-center"><i data-lucide="info" class="w-6 h-6 mr-3 text-blue-500"></i>合意のポイント</h2>
+    <p class="text-sm text-gray-500 mb-6">主体・評価環境・タイミング・政策的位置づけの4観点で要点を整理する。</p>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+        <h3 class="font-bold text-gray-800 mb-3 flex items-center"><i data-lucide="building-2" class="w-5 h-5 mr-2 text-blue-500"></i>主体</h3>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          米商務省NIST傘下の <strong>CAISI（Center for AI Standards and Innovation）</strong>。今回新たに <strong>Google DeepMind / Microsoft / xAI</strong> と合意。OpenAI・Anthropicとは2024年の旧合意がある。
+        </p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+        <h3 class="font-bold text-gray-800 mb-3 flex items-center"><i data-lucide="lock" class="w-5 h-5 mr-2 text-blue-500"></i>評価環境</h3>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          モデルは <strong>機密環境（classified environment）</strong> でテストされ、安全装置を <strong>解除した状態</strong> での能力（unmitigated capabilities）も含めて国家安全保障上のリスクを評価する。
+        </p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+        <h3 class="font-bold text-gray-800 mb-3 flex items-center"><i data-lucide="clock" class="w-5 h-5 mr-2 text-blue-500"></i>タイミング</h3>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          <strong>事前デプロイメント評価</strong>（公開前審査）に加え、デプロイ後の継続評価も実施。CAISIは既に <strong>40以上</strong> のモデル評価を完了。
+        </p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+        <h3 class="font-bold text-gray-800 mb-3 flex items-center"><i data-lucide="flag" class="w-5 h-5 mr-2 text-blue-500"></i>政策的位置づけ</h3>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          トランプ政権の <strong>AI Action Plan</strong> を支える形で再交渉された自主合意。情報共有を促し、海外（特に中国）との比較評価にも使われる。直近では中国モデル <strong>DeepSeek</strong> の評価で精度・安全性・コストの問題点を指摘した。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-10 bg-gray-50 border-t border-gray-200">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-bold mb-2 flex items-center"><i data-lucide="map" class="w-6 h-6 mr-3 text-blue-500"></i>米国版「事前審査」の地図</h2>
+    <p class="text-sm text-gray-500 mb-6">2024年のOpenAI・Anthropicから、今回でフロンティア主要5社がすべて枠組みに加わった。</p>
+    <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+      <div class="flex items-center justify-center gap-3 flex-wrap">
+        <div class="bg-emerald-100 text-emerald-700 px-4 py-2 rounded-lg text-sm font-medium">2024年: OpenAI</div>
+        <i data-lucide="plus" class="w-4 h-4 text-gray-400"></i>
+        <div class="bg-emerald-100 text-emerald-700 px-4 py-2 rounded-lg text-sm font-medium">2024年: Anthropic</div>
+        <i data-lucide="arrow-right" class="w-4 h-4 text-gray-400"></i>
+        <div class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-sm font-medium">2026/05: Google DeepMind</div>
+        <div class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-sm font-medium">+ Microsoft</div>
+        <div class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-sm font-medium">+ xAI</div>
+      </div>
+      <p class="text-xs text-gray-500 mt-4 text-center">これで主要フロンティア5社（OpenAI/Anthropic/Google/Microsoft/xAI）が出揃い、事実上の業界横断スキームに</p>
+    </div>
+  </div>
+</section>
+
+<section class="py-10">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-bold mb-2 flex items-center"><i data-lucide="alert-triangle" class="w-6 h-6 mr-3 text-amber-500"></i>論点</h2>
+    <p class="text-sm text-gray-500 mb-6">自主合意ゆえの柔軟さと、unmitigated評価ゆえの不透明さがトレードオフとして残る。</p>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+        <h3 class="font-bold text-gray-800 mb-3">「自主」合意であること</h3>
+        <ul class="text-sm text-gray-600 space-y-2">
+          <li class="flex items-start"><span class="text-emerald-400 mr-2">+</span>EUのような事前認証義務とは異なり、迅速・柔軟に運用できる</li>
+          <li class="flex items-start"><span class="text-red-400 mr-2">-</span>非合意企業は対象外。政権交代や条件変更で枠組みが揺らぐ可能性</li>
+        </ul>
+      </div>
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+        <h3 class="font-bold text-gray-800 mb-3">「unmitigated」評価の意味</h3>
+        <ul class="text-sm text-gray-600 space-y-2">
+          <li class="flex items-start"><span class="text-emerald-400 mr-2">+</span>ガードレール除去後の真の能力を国家側が把握できる</li>
+          <li class="flex items-start"><span class="text-amber-400 mr-2">!</span>機密環境での評価結果が外部公開されにくく、第三者検証が難しい</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-10 bg-gray-50 border-t border-gray-200">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-bold mb-2 flex items-center"><i data-lucide="quote" class="w-6 h-6 mr-3 text-blue-500"></i>引用と情報ソース</h2>
+    <p class="text-sm text-gray-500 mb-6">CAISI所長の声明と、主要メディアによる二次情報を併記する。</p>
+    <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+      <div class="quote rounded-r-lg p-4 text-gray-700 mb-4">
+        「独立した厳密な計測科学は、フロンティアAIとその国家安全保障上の含意を理解するために不可欠である」<br>
+        <span class="text-xs text-gray-500 mt-2 block">— CAISI所長 Chris Fall（Nextgov/FCW報道より）</span>
+      </div>
+      <div class="space-y-3 text-sm">
+        <div class="flex items-start"><span class="text-amber-500 mr-2">▶</span><a href="https://www.hpcwire.com/off-the-wire/nists-caisi-announces-new-frontier-ai-testing-agreements-with-google-deepmind-microsoft-xai/" class="text-blue-600 hover:underline" target="_blank">NIST's CAISI Announces New Frontier AI Testing Agreements — HPCwire</a> <span class="ml-2 text-xs bg-amber-50 text-amber-600 px-2 py-0.5 rounded">[メディア報道]</span></div>
+        <div class="flex items-start"><span class="text-amber-500 mr-2">▶</span><a href="https://www.nextgov.com/artificial-intelligence/2026/05/commerce-ai-center-will-evaluate-google-deepmind-microsoft-and-xai-models/413349/" class="text-blue-600 hover:underline" target="_blank">Commerce AI center will evaluate Google Deepmind, Microsoft, xAI — Nextgov/FCW</a> <span class="ml-2 text-xs bg-amber-50 text-amber-600 px-2 py-0.5 rounded">[メディア報道]</span></div>
+        <div class="flex items-start"><span class="text-emerald-500 mr-2">▶</span><a href="https://www.nist.gov/news-events/news/2025/09/caisi-evaluation-deepseek-ai-models-finds-shortcomings-and-risks" class="text-blue-600 hover:underline" target="_blank">CAISI Evaluation of DeepSeek AI Models Finds Shortcomings and Risks — NIST（2025/09）</a> <span class="ml-2 text-xs bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded">[政府発表]</span></div>
+        <div class="flex items-start"><span class="text-emerald-500 mr-2">▶</span><a href="https://www.nist.gov/news-events/news/2026/05/caisi-evaluation-deepseek-v4-pro" class="text-blue-600 hover:underline" target="_blank">CAISI Evaluation of DeepSeek V4 Pro — NIST（2026/05）</a> <span class="ml-2 text-xs bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded">[政府発表]</span></div>
+        <div class="flex items-start"><span class="text-emerald-500 mr-2">▶</span><a href="https://www.nist.gov/system/files/documents/2025/09/30/CAISI_Evaluation_of_DeepSeek_AI_Models.pdf" class="text-blue-600 hover:underline" target="_blank">CAISI Evaluation of DeepSeek AI Models（PDF全文）— NIST</a> <span class="ml-2 text-xs bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded">[政府発表]</span></div>
+      </div>
+    </div>
+    <div class="mt-8 text-center">
+      <a href="01-メインニュース.html" class="inline-flex items-center px-6 py-3 rounded-xl bg-blue-50 border border-blue-200 text-blue-600 hover:bg-blue-100 transition text-sm font-medium">
+        <i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i>週間サマリーへ戻る
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="py-10 bg-white border-t border-gray-200 text-center text-gray-400 text-sm">
+  <p>Weekly GenAI News — 2026/05/04〜05/10</p>
+</footer>
+
+<script>lucide.createIcons();</script>
+</body>
+</html>

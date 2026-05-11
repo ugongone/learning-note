@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>深掘り：Gemini API File Search マルチモーダル化 + Webhooks</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background-color: #f8fafc; color: #1e293b; }
+  .gradient-text { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .quote { border-left: 3px solid #3b82f6; background: #eff6ff; }
+  .code-snippet { font-family: 'Menlo', 'Monaco', 'Courier New', monospace; background-color: #1e293b; border: 1px solid #334155; border-radius: 0.5rem; padding: 1rem; overflow-x: auto; color: #e2e8f0; font-size: 0.85rem; }
+  .keyword { color: #818cf8; }
+  .string { color: #f0abfc; }
+  .property { color: #67e8f9; }
+  .comment { color: #94a3b8; }
+</style>
+</head>
+<body class="antialiased selection:bg-blue-500 selection:text-white">
+
+<header class="border-b border-gray-200 bg-white/80 backdrop-blur-md sticky top-0 z-50">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <div class="flex items-center space-x-3">
+      <i data-lucide="search" class="w-6 h-6 text-blue-500"></i>
+      <span class="text-lg font-bold tracking-tight">Gemini API 拡張 <span class="text-gray-400 font-normal">| 深掘り解説</span></span>
+    </div>
+    <a href="01-メインニュース.html" class="text-sm font-medium text-gray-400 hover:text-blue-600 transition flex items-center">
+      <i data-lucide="arrow-left" class="w-4 h-4 mr-1"></i>週間サマリーへ
+    </a>
+  </div>
+</header>
+
+<section class="py-8 text-center border-b border-gray-200">
+  <div class="max-w-4xl mx-auto px-4">
+    <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-600 text-xs font-medium mb-4">
+      <i data-lucide="calendar" class="w-3 h-3 mr-2"></i>2026/05/04〜05/05 発表
+    </div>
+    <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+      <span class="gradient-text">RAGの土台が、画像とイベント駆動へ</span>
+    </h1>
+    <p class="text-gray-500 text-sm md:text-base">File Search のマルチモーダル化と、Gemini API へのイベント駆動Webhooks追加</p>
+  </div>
+</section>
+
+<section class="py-10">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-bold mb-6 flex items-center"><i data-lucide="file-text" class="w-6 h-6 mr-3 text-blue-500"></i>概要</h2>
+    <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm mb-10">
+      <p class="text-gray-700 leading-relaxed">
+        Googleは2026年5月4日〜5日にかけて、Gemini APIの開発者向け機能を2系統で大きく強化した。File Searchツールには <strong>Gemini Embedding 2</strong> による画像とテキストの統合埋め込み、カスタムメタデータによる絞り込み、ページ単位の引用という、本番RAGに必要な3点セットが追加された。
+        同時にバッチ・動画生成・非同期インタラクションの完了を <strong>署名付きJSONでpush通知</strong> するイベント駆動Webhooksも導入され、長時間ジョブのポーリングが不要となった。RAGとエージェント基盤を「Gemini API同梱」で一段引き上げる位置づけの更新だ。
+      </p>
+    </div>
+    <h2 class="text-2xl font-bold mb-2 flex items-center"><i data-lucide="image" class="w-6 h-6 mr-3 text-blue-500"></i>File Search 3つのアップデート</h2>
+    <p class="text-sm text-gray-500 mb-6">マルチモーダル化・メタデータ・ページ引用と、本番RAGに必須の3点が一度に追加された。</p>
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="bg-blue-50 border border-blue-200 p-5 rounded-xl">
+        <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-3"><i data-lucide="image" class="w-5 h-5"></i></div>
+        <h3 class="font-bold text-gray-800 mb-1">マルチモーダル対応</h3>
+        <p class="text-xs text-gray-600 leading-relaxed">
+          <strong>Gemini Embedding 2</strong> により画像とテキストを同一の埋め込み空間で扱える。スタイルや雰囲気で画像を検索する用途も。PNG / JPEG をサポート。
+        </p>
+      </div>
+      <div class="bg-blue-50 border border-blue-200 p-5 rounded-xl">
+        <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-3"><i data-lucide="tags" class="w-5 h-5"></i></div>
+        <h3 class="font-bold text-gray-800 mb-1">カスタムメタデータ</h3>
+        <p class="text-xs text-gray-600 leading-relaxed">
+          <code class="text-xs bg-white px-1 rounded">department: Legal</code> のようなkey-valueを付与し、フィルタクエリでノイズを削減。RAGの精度と速度を改善。
+        </p>
+      </div>
+      <div class="bg-blue-50 border border-blue-200 p-5 rounded-xl">
+        <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-3"><i data-lucide="bookmark" class="w-5 h-5"></i></div>
+        <h3 class="font-bold text-gray-800 mb-1">ページ単位の引用</h3>
+        <p class="text-xs text-gray-600 leading-relaxed">
+          ページ番号を保持し、回答から具体的なソース位置に誘導可能。<strong>検証可能なRAG</strong> を志向。
+        </p>
+      </div>
+    </div>
+    <div class="mt-6 bg-gray-50 rounded-lg p-4 text-sm text-gray-500">
+      <span class="font-bold text-gray-700">対応フォーマット:</span> PDF / Word / スプレッドシート / プレゼン / JSON / CSV / HTML / XML / Markdown / YAML / コード / ZIP / Jupyter Notebook、加えてマルチモーダルRAGでは PNG / JPEG。
+    </div>
+  </div>
+</section>
+
+<!-- システム構成比較 -->
+<section class="py-10 border-t border-gray-200">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-bold mb-2 flex items-center"><i data-lucide="git-compare-arrows" class="w-6 h-6 mr-3 text-blue-500"></i>システム構成イメージの比較</h2>
+    <p class="text-sm text-gray-500 mb-6">従来は複数のミドルウェアを自前で繋ぐ必要があったRAGが、Gemini API File Searchで <strong>1つの呼び出し</strong> に集約される。</p>
+
+    <div class="grid md:grid-cols-2 gap-6">
+
+      <!-- 従来 -->
+      <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+        <div class="p-4 bg-red-50 border-b border-red-100 flex items-center">
+          <i data-lucide="x-circle" class="w-5 h-5 mr-2 text-red-500"></i>
+          <h3 class="font-bold text-red-600">従来：自前RAGスタック</h3>
+        </div>
+        <div class="p-5">
+          <p class="text-xs text-gray-500 mb-4">複数のSaaS／OSSを連結してパイプラインを組む。各段にコード・運用・コストが発生。</p>
+
+          <!-- 構成図 -->
+          <div class="space-y-2">
+            <div class="bg-gray-50 border border-gray-200 rounded-lg p-3">
+              <div class="flex items-center text-xs text-gray-500 mb-1"><i data-lucide="file-text" class="w-3 h-3 mr-1"></i>1. ファイル投入</div>
+              <div class="text-sm font-medium text-gray-800">PDF / Word / 画像</div>
+            </div>
+            <div class="text-center text-gray-400"><i data-lucide="arrow-down" class="w-4 h-4 inline"></i></div>
+            <div class="bg-amber-50 border border-amber-200 rounded-lg p-3">
+              <div class="flex items-center text-xs text-amber-700 mb-1"><i data-lucide="scissors" class="w-3 h-3 mr-1"></i>2. パーサ / チャンカー</div>
+              <div class="text-sm text-gray-800">Unstructured / LlamaParse</div>
+              <div class="text-xs text-gray-500 mt-1">画像はOCR別経路</div>
+            </div>
+            <div class="text-center text-gray-400"><i data-lucide="arrow-down" class="w-4 h-4 inline"></i></div>
+            <div class="bg-amber-50 border border-amber-200 rounded-lg p-3">
+              <div class="flex items-center text-xs text-amber-700 mb-1"><i data-lucide="binary" class="w-3 h-3 mr-1"></i>3. Embedding API</div>
+              <div class="text-sm text-gray-800">text-embedding系を別途呼出</div>
+              <div class="text-xs text-gray-500 mt-1">画像用は別モデル</div>
+            </div>
+            <div class="text-center text-gray-400"><i data-lucide="arrow-down" class="w-4 h-4 inline"></i></div>
+            <div class="bg-amber-50 border border-amber-200 rounded-lg p-3">
+              <div class="flex items-center text-xs text-amber-700 mb-1"><i data-lucide="database" class="w-3 h-3 mr-1"></i>4. ベクトルDB</div>
+              <div class="text-sm text-gray-800">Pinecone / Weaviate / pgvector</div>
+              <div class="text-xs text-gray-500 mt-1">メタデータ設計を自前で</div>
+            </div>
+            <div class="text-center text-gray-400"><i data-lucide="arrow-down" class="w-4 h-4 inline"></i></div>
+            <div class="bg-amber-50 border border-amber-200 rounded-lg p-3">
+              <div class="flex items-center text-xs text-amber-700 mb-1"><i data-lucide="filter" class="w-3 h-3 mr-1"></i>5. 検索 / リランカー</div>
+              <div class="text-sm text-gray-800">ハイブリッド検索＋リランク</div>
+            </div>
+            <div class="text-center text-gray-400"><i data-lucide="arrow-down" class="w-4 h-4 inline"></i></div>
+            <div class="bg-amber-50 border border-amber-200 rounded-lg p-3">
+              <div class="flex items-center text-xs text-amber-700 mb-1"><i data-lucide="quote" class="w-3 h-3 mr-1"></i>6. 引用情報の整形</div>
+              <div class="text-sm text-gray-800">ページ番号は自前で保持</div>
+            </div>
+            <div class="text-center text-gray-400"><i data-lucide="arrow-down" class="w-4 h-4 inline"></i></div>
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
+              <div class="flex items-center text-xs text-blue-700 mb-1"><i data-lucide="bot" class="w-3 h-3 mr-1"></i>7. LLM 呼び出し</div>
+              <div class="text-sm text-gray-800">プロンプトにcontext注入</div>
+            </div>
+          </div>
+
+          <div class="mt-4 space-y-1 text-xs text-gray-600">
+            <div class="flex items-start"><span class="text-red-400 mr-2">-</span>画像は <strong>別経路</strong> でOCR/キャプション化が必要</div>
+            <div class="flex items-start"><span class="text-red-400 mr-2">-</span>メタデータフィルタの実装は <strong>ベクトルDB依存</strong></div>
+            <div class="flex items-start"><span class="text-red-400 mr-2">-</span>ページ番号引用は <strong>自前でチャンク保持</strong> する必要</div>
+            <div class="flex items-start"><span class="text-red-400 mr-2">-</span>運用するコンポーネントが <strong>5〜6個</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 新構成 -->
+      <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+        <div class="p-4 bg-emerald-50 border-b border-emerald-100 flex items-center">
+          <i data-lucide="check-circle-2" class="w-5 h-5 mr-2 text-emerald-500"></i>
+          <h3 class="font-bold text-emerald-600">新構成：Gemini API File Search 同梱</h3>
+        </div>
+        <div class="p-5">
+          <p class="text-xs text-gray-500 mb-4">パーサ・Embedding・ベクトルDB・引用整形が <strong>File Searchツール内</strong> に内包。アプリは2つのAPIを呼ぶだけ。</p>
+
+          <!-- 構成図 -->
+          <div class="space-y-2">
+            <div class="bg-gray-50 border border-gray-200 rounded-lg p-3">
+              <div class="flex items-center text-xs text-gray-500 mb-1"><i data-lucide="file-text" class="w-3 h-3 mr-1"></i>1. ファイル投入</div>
+              <div class="text-sm font-medium text-gray-800">PDF / Word / 画像 / コード等</div>
+            </div>
+            <div class="text-center text-gray-400"><i data-lucide="arrow-down" class="w-4 h-4 inline"></i></div>
+            <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
+              <div class="flex items-center text-xs text-emerald-700 mb-2"><i data-lucide="package" class="w-3 h-3 mr-1"></i>2. File Search ツール（マネージド）</div>
+              <ul class="text-xs text-gray-700 space-y-1 ml-2">
+                <li class="flex items-start"><span class="text-emerald-500 mr-1">✓</span>パース＋チャンキング</li>
+                <li class="flex items-start"><span class="text-emerald-500 mr-1">✓</span><strong>Gemini Embedding 2</strong>（テキスト＋画像を同一空間）</li>
+                <li class="flex items-start"><span class="text-emerald-500 mr-1">✓</span>ベクトルストア（メタデータ付き）</li>
+                <li class="flex items-start"><span class="text-emerald-500 mr-1">✓</span>カスタムメタデータフィルタ</li>
+                <li class="flex items-start"><span class="text-emerald-500 mr-1">✓</span>ページ単位の引用情報</li>
+              </ul>
+            </div>
+            <div class="text-center text-gray-400"><i data-lucide="arrow-down" class="w-4 h-4 inline"></i></div>
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
+              <div class="flex items-center text-xs text-blue-700 mb-1"><i data-lucide="bot" class="w-3 h-3 mr-1"></i>3. Gemini モデル呼び出し</div>
+              <div class="text-sm text-gray-800">tools指定でFile Searchを利用</div>
+              <div class="text-xs text-gray-500 mt-1">引用情報はレスポンスに同梱</div>
+            </div>
+          </div>
+
+          <div class="mt-4 space-y-1 text-xs text-gray-600">
+            <div class="flex items-start"><span class="text-emerald-500 mr-2">+</span>画像とテキストを <strong>同一の埋め込み空間</strong> で扱える</div>
+            <div class="flex items-start"><span class="text-emerald-500 mr-2">+</span><strong>key-valueメタデータ</strong> 付与とフィルタが標準機能</div>
+            <div class="flex items-start"><span class="text-emerald-500 mr-2">+</span>ページ番号引用が <strong>レスポンスに自動付与</strong></div>
+            <div class="flex items-start"><span class="text-emerald-500 mr-2">+</span>運用するコンポーネントが <strong>実質1個</strong>（ツール呼び出しのみ）</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 観点別の差分表 -->
+    <h3 class="text-lg font-bold mt-10 mb-3 text-gray-800 flex items-center"><i data-lucide="list-checks" class="w-5 h-5 mr-2 text-blue-500"></i>観点別の差分</h3>
+    <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-gray-50 border-b border-gray-200">
+            <th class="text-left px-6 py-4 font-bold text-gray-600">観点</th>
+            <th class="text-left px-6 py-4 font-bold text-gray-600">従来（自前スタック）</th>
+            <th class="text-left px-6 py-4 font-bold text-gray-600">新構成（File Search）</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          <tr>
+            <td class="px-6 py-3 text-gray-700 font-medium">画像対応</td>
+            <td class="px-6 py-3 text-gray-500">OCR / キャプション化を別経路で実装</td>
+            <td class="px-6 py-3 text-gray-700">Embedding 2 で <strong>テキストと統合</strong></td>
+          </tr>
+          <tr>
+            <td class="px-6 py-3 text-gray-700 font-medium">ベクトルDB</td>
+            <td class="px-6 py-3 text-gray-500">Pinecone / pgvector等の運用が必要</td>
+            <td class="px-6 py-3 text-gray-700"><strong>マネージドで内包</strong>（運用不要）</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-3 text-gray-700 font-medium">メタデータフィルタ</td>
+            <td class="px-6 py-3 text-gray-500">DB依存・スキーマ設計が必要</td>
+            <td class="px-6 py-3 text-gray-700"><strong>key-valueをそのまま付与</strong></td>
+          </tr>
+          <tr>
+            <td class="px-6 py-3 text-gray-700 font-medium">ページ単位引用</td>
+            <td class="px-6 py-3 text-gray-500">チャンクにページ番号を自前保持</td>
+            <td class="px-6 py-3 text-gray-700">レスポンスに <strong>自動付与</strong></td>
+          </tr>
+          <tr>
+            <td class="px-6 py-3 text-gray-700 font-medium">コンポーネント数</td>
+            <td class="px-6 py-3 text-gray-500">5〜6個（パーサ／Embedding／DB／検索／LLM）</td>
+            <td class="px-6 py-3 text-gray-700"><strong>実質1個</strong>（File Search ツール）</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-3 text-gray-700 font-medium">実装コスト</td>
+            <td class="px-6 py-3 text-gray-500">プロトタイプから本番に移すと急増</td>
+            <td class="px-6 py-3 text-gray-700">「<strong>週末プロトタイプ→本番</strong>」が連続</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-3 text-gray-700 font-medium">ロックイン</td>
+            <td class="px-6 py-3 text-gray-500">各コンポーネントを選択可能</td>
+            <td class="px-6 py-3 text-amber-600"><strong>Geminiエコシステム依存</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-6 bg-gray-50 rounded-lg p-4 text-sm text-gray-600">
+      <span class="font-bold text-gray-700">トレードオフ:</span> 自前スタックは <strong>各レイヤを差し替えられる柔軟性</strong> を残せる一方、運用負荷が高い。File Searchは <strong>立ち上げの圧倒的な速さ</strong> と引き換えに、Geminiエコシステムへの依存が強くなる。アプリの寿命と差別化要件で選び分けるのが妥当。
+    </div>
+
+    <!-- このAPIの使いどころ -->
+    <h3 class="text-lg font-bold mt-10 mb-3 text-gray-800 flex items-center"><i data-lucide="target" class="w-5 h-5 mr-2 text-blue-500"></i>このAPIの使いどころ</h3>
+    <p class="text-sm text-gray-500 mb-6">「マルチモーダルRAGを最初から作るならGemini File Search一択」ではない。<strong>RAGを簡単に作りたい場合</strong>に最も効くプロダクトとして位置づけるのが妥当。</p>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-6">
+        <h4 class="font-bold text-emerald-700 mb-3 flex items-center"><i data-lucide="check-circle" class="w-5 h-5 mr-2"></i>向いているケース</h4>
+        <ul class="text-sm text-gray-700 space-y-2">
+          <li class="flex items-start"><span class="text-emerald-500 mr-2">+</span><strong>RAGを最速で立ち上げたい</strong>新規プロジェクト。ストア作成→ファイル投入で本番品質に届く</li>
+          <li class="flex items-start"><span class="text-emerald-500 mr-2">+</span>メインLLMが <strong>すでにGemini</strong> で揃っている</li>
+          <li class="flex items-start"><span class="text-emerald-500 mr-2">+</span>エンジニアリングリソースが限られ、<strong>ベクトルDB運用やパイプライン設計</strong> を避けたい</li>
+          <li class="flex items-start"><span class="text-emerald-500 mr-2">+</span>「画像の雰囲気・スタイル」での <strong>類似検索</strong> が主用途</li>
+          <li class="flex items-start"><span class="text-emerald-500 mr-2">+</span>プロトタイプから中規模本番までを <strong>一気通貫</strong> で運ぶ</li>
+        </ul>
+      </div>
+
+      <div class="bg-amber-50 border border-amber-200 rounded-2xl p-6">
+        <h4 class="font-bold text-amber-700 mb-3 flex items-center"><i data-lucide="alert-circle" class="w-5 h-5 mr-2"></i>向かない（別の選択肢が良い）ケース</h4>
+        <ul class="text-sm text-gray-700 space-y-2">
+          <li class="flex items-start"><span class="text-amber-600 mr-2">!</span>既に <strong>Azure AI SearchやOpenAI Assistants API</strong> で動いている本番システム</li>
+          <li class="flex items-start"><span class="text-amber-600 mr-2">!</span>検索アルゴリズム（ハイブリッド検索・リランカー・スコアリング）を <strong>自前でチューニング</strong> したい</li>
+          <li class="flex items-start"><span class="text-amber-600 mr-2">!</span>Embeddingモデルを <strong>差し替えて比較</strong> したい</li>
+          <li class="flex items-start"><span class="text-amber-600 mr-2">!</span>データ主権・コンプライアンス要件で <strong>特定リージョン</strong> から出せない</li>
+          <li class="flex items-start"><span class="text-amber-600 mr-2">!</span>M365 / SharePoint等の <strong>既存業務データに自動接続</strong> したい（→ M365 Copilot / Copilot Studio）</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 類似プロダクトとの選び分け -->
+    <h4 class="text-base font-bold mt-8 mb-3 text-gray-800 flex items-center"><i data-lucide="git-fork" class="w-4 h-4 mr-2 text-blue-500"></i>類似プロダクトとの選び分け（参考）</h4>
+    <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-gray-50 border-b border-gray-200">
+            <th class="text-left px-6 py-4 font-bold text-gray-600">プロダクト</th>
+            <th class="text-left px-6 py-4 font-bold text-gray-600">立ち位置</th>
+            <th class="text-left px-6 py-4 font-bold text-gray-600">特に強い領域</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          <tr>
+            <td class="px-6 py-3 text-gray-700 font-medium">Gemini File Search</td>
+            <td class="px-6 py-3 text-gray-500">マネージドRAG（API-first）</td>
+            <td class="px-6 py-3 text-gray-700">最速の立ち上げ、画像/テキスト統合の埋め込み</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-3 text-gray-700 font-medium">OpenAI Assistants API + File Search</td>
+            <td class="px-6 py-3 text-gray-500">マネージドRAG（API-first）</td>
+            <td class="px-6 py-3 text-gray-700">OpenAIで揃えたい場合の同等選択肢（テキスト中心）</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-3 text-gray-700 font-medium">M365 Copilot</td>
+            <td class="px-6 py-3 text-gray-500">エンドユーザー向け統合Copilot</td>
+            <td class="px-6 py-3 text-gray-700">Microsoft Graphの業務データに自動接続</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-3 text-gray-700 font-medium">Copilot Studio</td>
+            <td class="px-6 py-3 text-gray-500">M365向けカスタムエージェント</td>
+            <td class="px-6 py-3 text-gray-700">SharePoint等のKnowledge Source連携</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-3 text-gray-700 font-medium">Azure AI Search</td>
+            <td class="px-6 py-3 text-gray-500">マネージド検索エンジン</td>
+            <td class="px-6 py-3 text-gray-700">CLIP/Vision/OpenAIから埋め込み選択可、チューニング自由度</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-3 text-gray-700 font-medium">Vertex AI Search</td>
+            <td class="px-6 py-3 text-gray-500">マネージド検索エンジン（GCP）</td>
+            <td class="px-6 py-3 text-gray-700">本格的な検索基盤を組みたい場合のGCP版</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-3 text-gray-700 font-medium">自前スタック（Pinecone等）</td>
+            <td class="px-6 py-3 text-gray-500">完全カスタム</td>
+            <td class="px-6 py-3 text-gray-700">独自検索ロジック・マルチクラウド要件</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4 text-sm text-gray-700">
+      <span class="font-bold text-blue-700">一行まとめ:</span> Gemini File Searchは <strong>「マルチモーダルRAGを最も簡単に作るためのAPI」</strong> として最適。本格的なチューニングや既存業務データ連携が要件になる規模では、Azure AI SearchやM365 Copilot系を併用・選択する。
+    </div>
+
+  </div>
+</section>
+
+<section class="py-10 bg-gray-50 border-t border-gray-200">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-bold mb-2 flex items-center"><i data-lucide="webhook" class="w-6 h-6 mr-3 text-blue-500"></i>イベント駆動Webhooks</h2>
+    <p class="text-sm text-gray-500 mb-6">長時間ジョブの結果取得が、ポーリングからpush通知方式へと刷新された。</p>
+    <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm space-y-4">
+      <p class="text-sm text-gray-600 leading-relaxed">
+        Gemini APIに <strong>署名付きJSON</strong> をプッシュ通知するWebhooksが追加された。バッチタスク・動画生成・非同期インタラクションなど、<strong>長時間ジョブのポーリング</strong> が不要になる。
+      </p>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div>
+          <h4 class="font-bold text-gray-700 text-sm mb-2 flex items-center"><i data-lucide="x-circle" class="w-4 h-4 mr-1 text-red-400"></i>従来（ポーリング）</h4>
+          <div class="bg-gray-900 rounded-lg overflow-hidden text-xs font-mono">
+            <div class="flex items-center gap-1.5 px-3 py-2 bg-gray-800 border-b border-gray-700">
+              <div class="w-2.5 h-2.5 rounded-full bg-red-400"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-yellow-400"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-green-400"></div>
+              <span class="ml-2 text-gray-400 text-[10px]">client.sh</span>
+            </div>
+            <div class="p-3 text-gray-300 leading-relaxed">
+              <span class="text-gray-500"># 数秒ごとにステータス確認</span><br>
+              while: GET /v1/operations/{id}<br>
+              &nbsp;&nbsp;sleep 5
+            </div>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-700 text-sm mb-2 flex items-center"><i data-lucide="check-circle-2" class="w-4 h-4 mr-1 text-emerald-500"></i>新方式（Webhook）</h4>
+          <div class="bg-gray-900 rounded-lg overflow-hidden text-xs font-mono">
+            <div class="flex items-center gap-1.5 px-3 py-2 bg-gray-800 border-b border-gray-700">
+              <div class="w-2.5 h-2.5 rounded-full bg-red-400"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-yellow-400"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-green-400"></div>
+              <span class="ml-2 text-gray-400 text-[10px]">server.ts</span>
+            </div>
+            <div class="p-3 text-gray-300 leading-relaxed">
+              <span class="text-gray-500"># 完了時にAPI側からpush</span><br>
+              POST /webhook<br>
+              &nbsp;&nbsp;<span class="text-cyan-300">x-gemini-signature</span>: ...<br>
+              &nbsp;&nbsp;{ status: "done", ... }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-10">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-bold mb-2 flex items-center"><i data-lucide="lightbulb" class="w-6 h-6 mr-3 text-blue-500"></i>開発者への意味</h2>
+    <p class="text-sm text-gray-500 mb-6">RAG基盤の標準化と、エージェントの非同期化という2つの実装トレンドが進む。</p>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+        <h3 class="font-bold text-gray-800 mb-3">RAG実装の標準が一段引き上がる</h3>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          画像の埋め込み、メタデータフィルタ、ページ単位引用は <strong>本番RAGに必要な3点セット</strong>。これらが「Gemini API同梱」になることで、ベクトルDB周りを自前で組まなくても基本要件を満たせる。
+        </p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+        <h3 class="font-bold text-gray-800 mb-3">エージェントの非同期化</h3>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          動画生成や巨大バッチ推論を含む <strong>長時間タスク</strong> をエージェントに任せる際、Webhookで完了を受け取れる。サーバーレス構成と相性が良く、ポーリング由来のコストとレイテンシを抑制。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-10 bg-gray-50 border-t border-gray-200">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-bold mb-2 flex items-center"><i data-lucide="quote" class="w-6 h-6 mr-3 text-blue-500"></i>引用と情報ソース</h2>
+    <p class="text-sm text-gray-500 mb-6">Google公式発表からの引用と、Webhooks側の補足記事を参照ソースとして掲載する。</p>
+    <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+      <div class="quote rounded-r-lg p-4 text-gray-700 mb-4">
+        「週末のプロトタイプから数千ユーザー規模の本番運用まで、RAGシステムはテキストと視覚データをネイティブに処理・整理できるようになった」<br>
+        <span class="text-xs text-gray-500 mt-2 block">— Google「Gemini API File Search is now multimodal」</span>
+      </div>
+      <div class="space-y-3 text-sm">
+        <div class="flex items-start"><span class="text-emerald-500 mr-2">▶</span><a href="https://blog.google/innovation-and-ai/technology/developers-tools/expanded-gemini-api-file-search-multimodal-rag/" class="text-blue-600 hover:underline" target="_blank">Gemini API File Search is now multimodal — Google</a> <span class="ml-2 text-xs bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded">[公式]</span></div>
+        <div class="flex items-start"><span class="text-amber-500 mr-2">▶</span><a href="https://www.marktechpost.com/2026/05/05/google-adds-event-driven-webhooks-to-the-gemini-api-eliminating-the-need-for-polling-in-long-running-ai-jobs/" class="text-blue-600 hover:underline" target="_blank">Google Adds Event-Driven Webhooks to the Gemini API — MarkTechPost</a> <span class="ml-2 text-xs bg-amber-50 text-amber-600 px-2 py-0.5 rounded">[メディア報道]</span></div>
+      </div>
+    </div>
+    <div class="mt-8 text-center">
+      <a href="01-メインニュース.html" class="inline-flex items-center px-6 py-3 rounded-xl bg-blue-50 border border-blue-200 text-blue-600 hover:bg-blue-100 transition text-sm font-medium">
+        <i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i>週間サマリーへ戻る
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="py-10 bg-white border-t border-gray-200 text-center text-gray-400 text-sm">
+  <p>Weekly GenAI News — 2026/05/04〜05/10</p>
+</footer>
+
+<script>lucide.createIcons();</script>
+</body>
+</html>

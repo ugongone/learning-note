@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>深掘り：GPT-5.5 ファミリー（Thinking / Pro / Instant）</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background-color: #f8fafc; color: #1e293b; }
+  .gradient-text { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .quote { border-left: 3px solid #3b82f6; background: #eff6ff; }
+</style>
+</head>
+<body class="antialiased selection:bg-blue-500 selection:text-white">
+
+<header class="border-b border-gray-200 bg-white/80 backdrop-blur-md sticky top-0 z-50">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <div class="flex items-center space-x-3">
+      <i data-lucide="bot" class="w-6 h-6 text-blue-500"></i>
+      <span class="text-lg font-bold tracking-tight">GPT-5.5 ファミリー <span class="text-gray-400 font-normal">| 深掘り解説</span></span>
+    </div>
+    <a href="01-メインニュース.html" class="text-sm font-medium text-gray-400 hover:text-blue-600 transition flex items-center">
+      <i data-lucide="arrow-left" class="w-4 h-4 mr-1"></i>週間サマリーへ
+    </a>
+  </div>
+</header>
+
+<section class="py-8 text-center border-b border-gray-200">
+  <div class="max-w-4xl mx-auto px-4">
+    <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-600 text-xs font-medium mb-4">
+      <i data-lucide="calendar" class="w-3 h-3 mr-2"></i>2026/04/23（Thinking/Pro）／05/05（Instant）
+    </div>
+    <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+      <span class="gradient-text">GPT-5.5 ファミリー総覧</span>
+    </h1>
+    <p class="text-gray-500 text-sm md:text-base">先行リリースされた Thinking / Pro に、5/5 で Instant が合流し既定モデルとなった</p>
+  </div>
+</section>
+
+<!-- 概要 -->
+<section class="py-10">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-bold mb-6 flex items-center"><i data-lucide="file-text" class="w-6 h-6 mr-3 text-blue-500"></i>概要</h2>
+    <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+      <p class="text-gray-700 leading-relaxed">
+        GPT-5.5はOpenAIの新世代モデルで、4月23日に上位の <strong>GPT-5.5 Thinking</strong> と <strong>GPT-5.5 Pro</strong> が有料プラン向けに先行リリースされ、API提供は翌4月24日に開始された。続いて5月5日には軽量・低レイテンシ版の <strong>GPT-5.5 Instant</strong> がChatGPTの新しい既定モデルとして全ユーザーに展開され、ファミリー構成が完成した。
+        OpenAIは本ファミリーを「<strong>real work（実務）に効く新しい知能クラス</strong>」と位置づけており、エージェンティックコーディング・コンピュータ操作・ナレッジワーク・初期段階の科学研究という4領域での明確な性能向上を訴求している。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ファミリー比較 -->
+<section class="py-10 bg-gray-50 border-t border-gray-200">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-bold mb-2 flex items-center"><i data-lucide="layers" class="w-6 h-6 mr-3 text-blue-500"></i>3つのバリアント</h2>
+    <p class="text-sm text-gray-500 mb-6">用途と対象ユーザーで明確に住み分けられた3モデルを比較する。</p>
+    <div class="grid md:grid-cols-3 gap-4">
+
+      <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+        <div class="p-4 bg-blue-50 border-b border-blue-100 flex justify-between items-center">
+          <h3 class="font-bold text-blue-700 flex items-center"><i data-lucide="brain" class="w-5 h-5 mr-2"></i>GPT-5.5 Thinking</h3>
+          <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded font-medium">04/23</span>
+        </div>
+        <div class="p-5 text-sm text-gray-600 space-y-2">
+          <div><span class="font-bold text-gray-700">位置づけ:</span> 上位の推論モデル</div>
+          <div><span class="font-bold text-gray-700">対象:</span> Plus / Pro / Business / Enterprise</div>
+          <div><span class="font-bold text-gray-700">強み:</span> 難問の迅速処理、コーディング・調査・分析・長文資料</div>
+          <div><span class="font-bold text-gray-700">API:</span> 04/24より</div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+        <div class="p-4 bg-blue-50 border-b border-blue-100 flex justify-between items-center">
+          <h3 class="font-bold text-blue-700 flex items-center"><i data-lucide="crown" class="w-5 h-5 mr-2"></i>GPT-5.5 Pro</h3>
+          <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded font-medium">04/23</span>
+        </div>
+        <div class="p-5 text-sm text-gray-600 space-y-2">
+          <div><span class="font-bold text-gray-700">位置づけ:</span> 最上位フロンティアモデル</div>
+          <div><span class="font-bold text-gray-700">対象:</span> Pro / Business / Enterprise</div>
+          <div><span class="font-bold text-gray-700">強み:</span> 難易度・品質ともに「大幅な進歩」、低レイテンシ化</div>
+          <div><span class="font-bold text-gray-700">API:</span> 04/24より</div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+        <div class="p-4 bg-emerald-50 border-b border-emerald-100 flex justify-between items-center">
+          <h3 class="font-bold text-emerald-700 flex items-center"><i data-lucide="zap" class="w-5 h-5 mr-2"></i>GPT-5.5 Instant</h3>
+          <span class="text-xs bg-emerald-100 text-emerald-700 px-2 py-1 rounded font-medium">05/05</span>
+        </div>
+        <div class="p-5 text-sm text-gray-600 space-y-2">
+          <div><span class="font-bold text-gray-700">位置づけ:</span> ChatGPT の新・既定モデル</div>
+          <div><span class="font-bold text-gray-700">対象:</span> 全ユーザー（Freeも順次）</div>
+          <div><span class="font-bold text-gray-700">強み:</span> 高ステークス領域での幻覚-52.5%、低レイテンシ維持</div>
+          <div><span class="font-bold text-gray-700">API:</span> <code class="text-xs bg-gray-100 px-1 rounded">chat-latest</code></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ベンチマーク -->
+<section class="py-10">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-bold mb-2 flex items-center"><i data-lucide="bar-chart-3" class="w-6 h-6 mr-3 text-blue-500"></i>ベンチマーク（Thinking 中心の公開値）</h2>
+    <p class="text-sm text-gray-500 mb-6">前世代GPT-5.4と他社フロンティアモデルを並べて比較。各指標が何を測るのかも併記する。</p>
+    <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-gray-50 border-b border-gray-200">
+            <th class="text-left px-6 py-4 font-bold text-gray-600">指標 / 測るもの</th>
+            <th class="text-left px-6 py-4 font-bold text-gray-600">GPT-5.4</th>
+            <th class="text-left px-6 py-4 font-bold text-gray-600">GPT-5.5</th>
+            <th class="text-left px-6 py-4 font-bold text-gray-600">Claude Opus 4.7</th>
+            <th class="text-left px-6 py-4 font-bold text-gray-600">Gemini 3.1 Pro</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          <tr>
+            <td class="px-6 py-3 text-gray-700">
+              <div class="font-medium">Terminal-Bench 2.0</div>
+              <div class="text-xs text-gray-400">CLIで実タスクをこなすエージェント能力</div>
+            </td>
+            <td class="px-6 py-3 text-gray-500">75.1%</td>
+            <td class="px-6 py-3 font-bold text-blue-600">82.7%</td>
+            <td class="px-6 py-3 text-gray-500">69.4%</td>
+            <td class="px-6 py-3 text-gray-500">68.5%</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-3 text-gray-700">
+              <div class="font-medium">SWE-Bench Pro</div>
+              <div class="text-xs text-gray-400">実OSSのバグ修正タスクで合格するか</div>
+            </td>
+            <td class="px-6 py-3 text-gray-500">57.7%</td>
+            <td class="px-6 py-3 text-gray-500">58.6%</td>
+            <td class="px-6 py-3 font-bold text-amber-600">64.3%</td>
+            <td class="px-6 py-3 text-gray-400">—</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-3 text-gray-700">
+              <div class="font-medium">MCP Atlas</div>
+              <div class="text-xs text-gray-400">MCPツール経由のエージェント遂行能力</div>
+            </td>
+            <td class="px-6 py-3 text-gray-500">67.2%</td>
+            <td class="px-6 py-3 font-bold text-blue-600">75.3%</td>
+            <td class="px-6 py-3 text-gray-400">—</td>
+            <td class="px-6 py-3 text-gray-400">—</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-3 text-gray-700">
+              <div class="font-medium">ARC-AGI-2</div>
+              <div class="text-xs text-gray-400">新規パズルでの抽象的推論・一般化能力</div>
+            </td>
+            <td class="px-6 py-3 text-gray-500">73.3%</td>
+            <td class="px-6 py-3 font-bold text-blue-600">85.0%</td>
+            <td class="px-6 py-3 text-gray-400">—</td>
+            <td class="px-6 py-3 text-gray-400">—</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-3 text-gray-700">
+              <div class="font-medium">FrontierMath (T1-3)</div>
+              <div class="text-xs text-gray-400">研究者級の未公開数学問題を解けるか</div>
+            </td>
+            <td class="px-6 py-3 text-gray-500">47.6%</td>
+            <td class="px-6 py-3 font-bold text-blue-600">51.7%</td>
+            <td class="px-6 py-3 text-gray-400">—</td>
+            <td class="px-6 py-3 text-gray-400">—</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-3 text-gray-700">
+              <div class="font-medium">GPQA Diamond</div>
+              <div class="text-xs text-gray-400">大学院レベルの理系（物理/化学/生物）問題</div>
+            </td>
+            <td class="px-6 py-3 text-gray-500">92.8%</td>
+            <td class="px-6 py-3 font-bold text-blue-600">93.6%</td>
+            <td class="px-6 py-3 text-gray-400">—</td>
+            <td class="px-6 py-3 text-gray-400">—</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-3 text-gray-700">
+              <div class="font-medium">AIME 2025（Instant値）</div>
+              <div class="text-xs text-gray-400">米国数学オリンピック予選レベルの計算問題</div>
+            </td>
+            <td class="px-6 py-3 text-gray-400">—</td>
+            <td class="px-6 py-3 font-bold text-blue-600">81.2</td>
+            <td class="px-6 py-3 text-gray-400">—</td>
+            <td class="px-6 py-3 text-gray-400">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="text-xs text-gray-500 mt-3">※ ARC-AGI-2 は +11.7pt と本世代で最大の伸び。SWE-Bench Pro では依然Claude Opus 4.7が首位。</p>
+  </div>
+</section>
+
+<!-- 強化領域 -->
+<section class="py-10 bg-gray-50 border-t border-gray-200">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-bold mb-2 flex items-center"><i data-lucide="sparkles" class="w-6 h-6 mr-3 text-blue-500"></i>OpenAIが強調する4領域</h2>
+    <p class="text-sm text-gray-500 mb-6">いずれも「実務で完結する作業」を意識した強化対象となっている。</p>
+    <div class="grid md:grid-cols-4 gap-4">
+      <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl text-center">
+        <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3"><i data-lucide="code-2" class="w-5 h-5"></i></div>
+        <h3 class="font-bold text-gray-800 mb-1">Agentic Coding</h3>
+        <p class="text-xs text-gray-500">Codex統合でブラウザ/ファイル/PC越しに連続作業</p>
+      </div>
+      <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl text-center">
+        <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3"><i data-lucide="mouse-pointer-click" class="w-5 h-5"></i></div>
+        <h3 class="font-bold text-gray-800 mb-1">Computer Use</h3>
+        <p class="text-xs text-gray-500">Webアプリ操作・スクリーンショット利用</p>
+      </div>
+      <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl text-center">
+        <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3"><i data-lucide="briefcase" class="w-5 h-5"></i></div>
+        <h3 class="font-bold text-gray-800 mb-1">Knowledge Work</h3>
+        <p class="text-xs text-gray-500">資料分析・文書生成・スプレッドシート</p>
+      </div>
+      <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl text-center">
+        <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3"><i data-lucide="flask-conical" class="w-5 h-5"></i></div>
+        <h3 class="font-bold text-gray-800 mb-1">Early-Stage Science</h3>
+        <p class="text-xs text-gray-500">GeneBench / BixBench 等で改善</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- API価格 -->
+<section class="py-10">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-bold mb-2 flex items-center"><i data-lucide="dollar-sign" class="w-6 h-6 mr-3 text-blue-500"></i>API 料金（GPT-5.4 / 5.5 比較）</h2>
+    <p class="text-sm text-gray-500 mb-6">GPT-5.5は前世代GPT-5.4のちょうど2倍の単価。ただし「同じCodexタスクをより少ないトークンで完了する」ため、実コストの増分は2倍未満になるとされる。</p>
+    <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-gray-50 border-b border-gray-200">
+            <th class="text-left px-6 py-4 font-bold text-gray-600">区分</th>
+            <th class="text-left px-6 py-4 font-bold text-gray-600">入力（per 1M）</th>
+            <th class="text-left px-6 py-4 font-bold text-gray-600">出力（per 1M）</th>
+            <th class="text-left px-6 py-4 font-bold text-gray-600">備考</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          <tr><td class="px-6 py-3 text-gray-700">GPT-5.4</td><td class="px-6 py-3 text-gray-500">$2.50</td><td class="px-6 py-3 text-gray-500">$15.00</td><td class="px-6 py-3 text-gray-500">前世代の旗艦</td></tr>
+          <tr><td class="px-6 py-3 text-gray-700">GPT-5.5</td><td class="px-6 py-3 font-bold text-blue-600">$5.00</td><td class="px-6 py-3 font-bold text-blue-600">$30.00</td><td class="px-6 py-3 text-gray-500">GPT-5.4 のちょうど2倍</td></tr>
+          <tr><td class="px-6 py-3 text-gray-700">GPT-5.5 Pro</td><td class="px-6 py-3 font-bold text-blue-600">$30.00</td><td class="px-6 py-3 font-bold text-blue-600">$180.00</td><td class="px-6 py-3 text-gray-500">GPT-5.5 標準の6倍</td></tr>
+          <tr><td class="px-6 py-3 text-gray-700">GPT-5.5 Instant</td><td class="px-6 py-3 text-gray-500" colspan="2">API名は <code class="text-xs bg-gray-100 px-1 rounded">chat-latest</code></td><td class="px-6 py-3 text-gray-500">既定モデル</td></tr>
+          <tr><td class="px-6 py-3 text-gray-700">Batch / Flex</td><td class="px-6 py-3 text-gray-500" colspan="2">標準レートの 0.5×</td><td class="px-6 py-3 text-gray-500">非同期・低優先度向け</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 注目ポイント -->
+<section class="py-10 bg-gray-50 border-t border-gray-200">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-bold mb-2 flex items-center"><i data-lucide="lightbulb" class="w-6 h-6 mr-3 text-blue-500"></i>注目ポイント</h2>
+    <p class="text-sm text-gray-500 mb-6">ファミリー戦略・Codex統合・個人化・ベンチの読み解きを整理。</p>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+        <h3 class="font-bold text-gray-800 mb-3 flex items-center"><i data-lucide="layers" class="w-5 h-5 mr-2 text-blue-500"></i>ファミリー設計の意図</h3>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          上位の Thinking / Pro を先行投入して有料層へ「重い実務」を、軽量の Instant を後発でデフォルト化して「日常会話＋個人化」を担わせる二段構え。<strong>料金の高い推論モデルと、無償で配る既定モデルを分離</strong> する典型的なフロンティア戦略となっている。
+        </p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+        <h3 class="font-bold text-gray-800 mb-3 flex items-center"><i data-lucide="puzzle" class="w-5 h-5 mr-2 text-blue-500"></i>Codex / ブラウザ統合</h3>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          GPT-5.5はCodexに統合され、<strong>ブラウザ操作・スクリーンショット・ファイル走査</strong> を横断するエージェントとして利用できる。「ChatGPT・Codex・AIブラウザを統合した <em>super app</em> 構想」の中核モデル。
+        </p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+        <h3 class="font-bold text-gray-800 mb-3 flex items-center"><i data-lucide="user-round-search" class="w-5 h-5 mr-2 text-blue-500"></i>Instant 固有の「個人化」</h3>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          5/5の Instant は、検索ツール経由で <strong>過去会話・ファイル・Gmail</strong> を参照する個人化応答を既定挙動とした。法律・医療・金融の幻覚を <strong>52.5%削減</strong> するなど、安全性と相性が良い。
+        </p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+        <h3 class="font-bold text-gray-800 mb-3 flex items-center"><i data-lucide="alert-triangle" class="w-5 h-5 mr-2 text-amber-500"></i>SWE-Bench Proでは Claude が上位</h3>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          Terminal-Bench 2.0やFrontierMathではGPT-5.5が首位だが、<strong>SWE-Bench Pro は依然Claude Opus 4.7 (64.3%)</strong>がリード。コーディング系の最終評価はベンチごとに割れている点に注意。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 引用 -->
+<section class="py-10">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-bold mb-2 flex items-center"><i data-lucide="quote" class="w-6 h-6 mr-3 text-blue-500"></i>一次情報からの引用</h2>
+    <p class="text-sm text-gray-500 mb-6">OpenAI公式ブログから、本ファミリーを象徴する2つの一節を抜粋。</p>
+    <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm space-y-4">
+      <div class="quote rounded-r-lg p-4 text-gray-700">
+        「GPT-5.5は real work（実務）のための新しい知能クラスである」<br>
+        <span class="text-xs text-gray-500 mt-2 block">— OpenAI「Introducing GPT-5.5」</span>
+      </div>
+      <div class="quote rounded-r-lg p-4 text-gray-700">
+        「GPT-5.5 Instantは、法律・医療・金融などのセンシティブな領域においてハルシネーションを削減しながら、これまでと同等の低レイテンシを維持する」<br>
+        <span class="text-xs text-gray-500 mt-2 block">— OpenAI「GPT-5.5 Instant: smarter, clearer, and more personalized」</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 情報ソース -->
+<section class="py-10 bg-gray-50 border-t border-gray-200">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-bold mb-2 flex items-center"><i data-lucide="link" class="w-6 h-6 mr-3 text-blue-500"></i>情報ソース</h2>
+    <p class="text-sm text-gray-500 mb-6">公式発表を最優先に、補足としてメディア報道・Wikipediaを参照した。</p>
+    <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm space-y-3">
+      <div class="flex items-start"><span class="text-emerald-500 mr-2">▶</span><a href="https://openai.com/index/introducing-gpt-5-5/" class="text-blue-600 hover:underline" target="_blank">Introducing GPT-5.5 — OpenAI</a> <span class="ml-2 text-xs bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded">[公式]</span></div>
+      <div class="flex items-start"><span class="text-emerald-500 mr-2">▶</span><a href="https://openai.com/index/gpt-5-5-instant/" class="text-blue-600 hover:underline" target="_blank">GPT-5.5 Instant: smarter, clearer, and more personalized — OpenAI</a> <span class="ml-2 text-xs bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded">[公式]</span></div>
+      <div class="flex items-start"><span class="text-amber-500 mr-2">▶</span><a href="https://techcrunch.com/2026/04/23/openai-chatgpt-gpt-5-5-ai-model-superapp/" class="text-blue-600 hover:underline" target="_blank">OpenAI releases GPT-5.5, bringing company one step closer to an AI 'super app' — TechCrunch</a> <span class="ml-2 text-xs bg-amber-50 text-amber-600 px-2 py-0.5 rounded">[メディア報道]</span></div>
+      <div class="flex items-start"><span class="text-amber-500 mr-2">▶</span><a href="https://techcrunch.com/2026/05/05/openai-releases-gpt-5-5-instant-a-new-default-model-for-chatgpt/" class="text-blue-600 hover:underline" target="_blank">OpenAI releases GPT-5.5 Instant — TechCrunch</a> <span class="ml-2 text-xs bg-amber-50 text-amber-600 px-2 py-0.5 rounded">[メディア報道]</span></div>
+      <div class="flex items-start"><span class="text-amber-500 mr-2">▶</span><a href="https://9to5mac.com/2026/04/23/openai-upgrades-chatgpt-and-codex-with-gpt-5-5-a-new-class-of-intelligence-for-real-work/" class="text-blue-600 hover:underline" target="_blank">OpenAI upgrades ChatGPT and Codex with GPT-5.5 — 9to5Mac</a> <span class="ml-2 text-xs bg-amber-50 text-amber-600 px-2 py-0.5 rounded">[メディア報道]</span></div>
+      <div class="flex items-start"><span class="text-amber-500 mr-2">▶</span><a href="https://en.wikipedia.org/wiki/GPT-5.5" class="text-blue-600 hover:underline" target="_blank">GPT-5.5 — Wikipedia</a> <span class="ml-2 text-xs bg-amber-50 text-amber-600 px-2 py-0.5 rounded">[補足]</span></div>
+    </div>
+    <div class="mt-8 text-center">
+      <a href="01-メインニュース.html" class="inline-flex items-center px-6 py-3 rounded-xl bg-blue-50 border border-blue-200 text-blue-600 hover:bg-blue-100 transition text-sm font-medium">
+        <i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i>週間サマリーへ戻る
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="py-10 bg-white border-t border-gray-200 text-center text-gray-400 text-sm">
+  <p>Weekly GenAI News — 2026/05/04〜05/10</p>
+</footer>
+
+<script>lucide.createIcons();</script>
+</body>
+</html>
