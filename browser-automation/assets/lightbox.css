@@ -1,0 +1,143 @@
+/* ============================================================
+   Media Lightbox v1.0
+   画像・動画クリックで拡大表示。ズーム / パン / ピンチ対応。
+   ライセンス: 自由に使ってください
+   ============================================================ */
+
+/* クリック対象の視覚フィードバック */
+[data-lightbox] {
+  cursor: zoom-in;
+  transition: opacity .15s;
+}
+[data-lightbox]:hover {
+  opacity: .92;
+}
+
+/* オーバーレイ */
+.lb-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 18, 14, .88);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  touch-action: none;
+}
+.lb-overlay.is-open {
+  display: flex;
+}
+
+.lb-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lb-content {
+  max-width: 92vw;
+  max-height: 88vh;
+  transform-origin: center center;
+  transition: transform .15s ease-out;
+  will-change: transform;
+  user-select: none;
+  -webkit-user-drag: none;
+  cursor: grab;
+}
+.lb-content.is-dragging {
+  transition: none;
+  cursor: grabbing;
+}
+.lb-overlay img.lb-content,
+.lb-overlay video.lb-content {
+  display: block;
+  object-fit: contain;
+  background: #000;
+  border-radius: 6px;
+  box-shadow: 0 30px 60px rgba(0,0,0,.5);
+}
+
+/* ツールバー */
+.lb-toolbar {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+.lb-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(40,36,30,.7);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background .15s;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-family: inherit;
+  font-size: 18px;
+  line-height: 1;
+  padding: 0;
+}
+.lb-btn:hover {
+  background: rgba(60,55,45,.85);
+}
+.lb-btn .lucide,
+.lb-btn svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2;
+}
+
+/* ズーム倍率表示 */
+.lb-zoom {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255,255,255,.75);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  background: rgba(40,36,30,.6);
+  padding: 6px 12px;
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  pointer-events: none;
+  z-index: 2;
+  font-family: inherit;
+}
+
+/* 操作ヒント */
+.lb-hint {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: rgba(255,255,255,.6);
+  font-size: 12px;
+  background: rgba(40,36,30,.5);
+  padding: 6px 12px;
+  border-radius: 8px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  pointer-events: none;
+  z-index: 2;
+  font-family: inherit;
+  max-width: calc(100vw - 200px);
+}
+@media (max-width: 540px) {
+  .lb-hint { display: none; }
+}

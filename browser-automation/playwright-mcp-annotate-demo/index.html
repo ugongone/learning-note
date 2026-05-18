@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>開発後の動作確認をできる限りAIに任せてみた</title>
+<link rel="stylesheet" href="../assets/lightbox.css">
+<script src="../assets/lightbox.js" defer></script>
+<style>
+  :root {
+    --bg: #f7f8fb;
+    --panel: #ffffff;
+    --panel-2: #ffffff;
+    --border: #e4e7ee;
+    --text: #1a1d26;
+    --muted: #5f6573;
+    --accent: #6d5cf0;
+    --accent-soft: rgba(109,92,240,.10);
+    --ok: #0f9d6b;
+    --mark: #e63946;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Noto Sans JP", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 56px 24px 96px; }
+
+  header.hero { margin-bottom: 56px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: var(--accent-soft); color: #5a48d6;
+    border: 1px solid rgba(109,92,240,.30);
+    padding: 5px 13px; border-radius: 999px;
+    font-size: 12px; font-weight: 600; letter-spacing: .03em;
+    margin-bottom: 22px;
+  }
+  .badge::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+  h1 {
+    font-size: 34px; font-weight: 800; letter-spacing: -.02em;
+    line-height: 1.3; margin-bottom: 18px;
+  }
+  h1 .grad {
+    background: linear-gradient(120deg, #6d5cf0 0%, #9b4fe0 55%, #c44fd0 100%);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .lead { font-size: 16px; color: var(--muted); max-width: 760px; }
+
+  .flow {
+    display: flex; flex-wrap: wrap; gap: 10px; margin: 32px 0 8px;
+  }
+  .flow .step {
+    flex: 1; min-width: 150px;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 12px; padding: 16px 18px;
+  }
+  .flow .step .n {
+    font-size: 12px; color: var(--accent); font-weight: 700; letter-spacing: .08em;
+  }
+  .flow .step .t { font-size: 14px; margin-top: 6px; color: var(--text); font-weight: 600; }
+  .flow .step .d { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+
+  section.shot { margin-top: 56px; }
+  .shot-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 8px; }
+  .shot-head .step-no {
+    font-size: 13px; font-weight: 700; color: #ffffff;
+    background: linear-gradient(120deg, #6d5cf0, #9b4fe0);
+    width: 30px; height: 30px; border-radius: 8px;
+    display: inline-flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .shot-head h2 { font-size: 20px; font-weight: 700; letter-spacing: -.01em; }
+  .shot-sub { color: var(--muted); font-size: 14px; margin: 4px 0 20px 44px; }
+  .frame {
+    border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+    background: var(--panel-2);
+    box-shadow: 0 18px 50px -24px rgba(40,44,70,.28);
+  }
+  .frame .bar {
+    display: flex; align-items: center; gap: 7px;
+    padding: 11px 16px; background: var(--panel); border-bottom: 1px solid var(--border);
+  }
+  .frame .bar i { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+  .frame .bar i:nth-child(1){ background:#ff5f57; }
+  .frame .bar i:nth-child(2){ background:#febc2e; }
+  .frame .bar i:nth-child(3){ background:#28c840; }
+  .frame .bar .url {
+    margin-left: 12px; font-size: 12px; color: var(--muted);
+    background: var(--bg); padding: 4px 12px; border-radius: 6px;
+    border: 1px solid var(--border);
+  }
+  .frame img { display: block; width: 100%; height: auto; }
+  .frame video { display: block; width: 100%; height: auto; background: #000; }
+
+  /* 動画セクション / 補足ステップ（修正指示など） */
+  .demo-video, .aside-step { margin-top: 56px; }
+  .block-title {
+    font-size: 20px; font-weight: 700; letter-spacing: -.01em; margin-bottom: 6px;
+  }
+  .block-sub {
+    font-size: 14px; color: var(--muted); margin-bottom: 18px; max-width: 760px;
+  }
+  .block-sub b { color: var(--text); font-weight: 600; }
+  .block-note {
+    font-size: 12px; color: var(--muted); margin-top: 12px;
+  }
+
+  .verify {
+    display: flex; align-items: center; gap: 10px;
+    margin: 16px 0 0 44px; font-size: 13.5px; color: var(--ok); font-weight: 600;
+  }
+  .verify::before {
+    content: "✓"; display: inline-flex; align-items: center; justify-content: center;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: rgba(52,211,153,.15); color: var(--ok); font-size: 12px; flex-shrink: 0;
+  }
+
+  .tech {
+    margin-top: 64px; background: var(--panel); border: 1px solid var(--border);
+    border-radius: 14px; padding: 30px 32px;
+  }
+  .tech h3 { font-size: 16px; margin-bottom: 16px; }
+  .tech ul { list-style: none; display: grid; gap: 12px; }
+  .tech li { display: flex; gap: 12px; font-size: 14px; color: var(--muted); }
+  .tech li b { color: var(--text); font-weight: 600; }
+  .tech li .k {
+    flex-shrink: 0; width: 130px; color: var(--accent);
+    font-size: 12px; font-weight: 700; letter-spacing: .04em; padding-top: 1px;
+  }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    background: #f0eefb; border: 1px solid #ddd8f3;
+    padding: 1.5px 6px; border-radius: 5px; font-size: 12.5px; color: #5a48d6;
+  }
+  footer {
+    margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--border);
+    font-size: 12.5px; color: var(--muted); text-align: center;
+  }
+
+  /* ページ主タイトル（このページで唯一の大見出し） */
+  .page-title {
+    font-size: 38px; font-weight: 800; letter-spacing: -.025em;
+    line-height: 1.3; margin-bottom: 10px;
+  }
+  .page-sub {
+    font-size: 16px; color: var(--muted); margin-bottom: 60px;
+  }
+
+  /* 導入：こんなことありませんか？ */
+  .intro { margin-bottom: 64px; }
+  .intro-lead {
+    font-size: 24px; font-weight: 700; letter-spacing: -.01em;
+    line-height: 1.5; margin-bottom: 28px; color: var(--text);
+  }
+  .intro .eyebrow {
+    font-size: 13px; font-weight: 700; letter-spacing: .08em;
+    color: var(--muted); text-transform: uppercase; margin-bottom: 14px;
+  }
+  .intro h2 {
+    font-size: 26px; font-weight: 800; letter-spacing: -.015em;
+    line-height: 1.4; margin-bottom: 28px;
+  }
+  .intro h2 .hl { color: #d32f3c; }
+  .pains { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .pain {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px;
+  }
+  .pain .ic {
+    width: 34px; height: 34px; border-radius: 9px;
+    background: rgba(230,57,70,.10); color: #d32f3c;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px; margin-bottom: 13px;
+  }
+  .pain p { font-size: 13.5px; color: var(--muted); }
+  .pain p b { color: var(--text); font-weight: 600; }
+  .intro .turn {
+    margin-top: 26px; font-size: 15px; color: var(--text);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .intro .turn::before {
+    content: "→"; color: var(--accent); font-weight: 800; font-size: 18px;
+  }
+  .intro .turn b { color: #5a48d6; }
+
+  /* MCP紹介 */
+  .mcp-intro {
+    background: linear-gradient(135deg, rgba(124,108,246,.10), rgba(176,108,246,.05));
+    border: 1px solid rgba(124,108,246,.28);
+    border-radius: 16px; padding: 30px 32px; margin-bottom: 64px;
+  }
+  .mcp-intro h2 {
+    font-size: 20px; font-weight: 700; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .mcp-intro h2 .tag {
+    font-size: 11px; font-weight: 700; letter-spacing: .05em;
+    background: var(--accent); color: #ffffff;
+    padding: 3px 9px; border-radius: 6px;
+  }
+  .mcp-intro p { font-size: 14px; color: var(--muted); margin-bottom: 10px; }
+  .mcp-intro p b { color: var(--text); font-weight: 600; }
+  .store-shot {
+    margin: 18px 0 6px; border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden; background: #fff;
+    max-width: 620px;
+    box-shadow: 0 10px 30px -18px rgba(40,44,70,.25);
+  }
+  .store-shot img { display: block; width: 100%; height: auto; }
+  .mcp-intro .cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 14px; padding: 10px 18px;
+    background: var(--accent); color: #ffffff;
+    font-size: 13.5px; font-weight: 700; text-decoration: none;
+    border-radius: 9px; transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .mcp-intro .cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 22px -8px rgba(124,108,246,.6);
+  }
+  .mcp-intro .cta::after { content: "↗"; font-size: 13px; }
+  .mcp-intro .note { font-size: 12px; color: var(--muted); margin-top: 12px; margin-bottom: 0; }
+
+  @media (max-width: 720px) {
+    .pains { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1 class="page-title">開発後の動作確認を<span class="grad">できる限りAIに任せてみた</span></h1>
+  <p class="page-sub">— 手作業の確認とスクショ説明、どこまで自動化できるか試した記録</p>
+
+  <section class="intro">
+    <div class="eyebrow">こんなこと、ありませんか？</div>
+    <p class="intro-lead">動作確認のたびに<span class="hl">ブラウザを手で触り</span>、撮ったスクショは<span class="hl">後で見ても何が要点か分からない</span>。</p>
+    <div class="pains">
+      <div class="pain">
+        <div class="ic">🖱️</div>
+        <p><b>毎回手作業で確認</b><br>同じ画面を開いてクリックしてリロードして…を人手で繰り返している。再現も共有も面倒。</p>
+      </div>
+      <div class="pain">
+        <div class="ic">🤔</div>
+        <p><b>スクショだけでは伝わらない</b><br>チームに送っても「で、どこを見ればいいの？」となり、結局口頭やテキストで補足している。</p>
+      </div>
+      <div class="pain">
+        <div class="ic">✏️</div>
+        <p><b>注釈を手で描く手間</b><br>矢印や吹き出しを画像編集ツールで毎回描き足す。位置合わせも地味に時間を食う。</p>
+      </div>
+    </div>
+    <div class="turn">そこで <b>Playwright MCP ＋ 注釈Skill</b> を組み合わせ、確認も注釈付きエビデンス生成も自動化します。</div>
+  </section>
+
+  <section class="mcp-intro">
+    <h2><span class="tag">Playwright MCP とは</span> AIエージェントが実ブラウザを操作できる仕組み</h2>
+    <p><b>Playwright MCP</b> は、Claude などの AI エージェントが MCP ツール経由で実ブラウザを操作できるようにする仕組みです。ページ遷移・クリック・入力・スクリプト実行・スクショ撮影を、人手を介さず指示だけで実行できます。</p>
+    <p>本デモは <b>ブラウザ拡張連携モード（Playwright Extension）</b> を使用。お使いの Chrome に拡張を入れるだけで、ログイン済みの実ブラウザをそのまま自動操作できます。</p>
+    <div class="store-shot">
+      <img src="demo-shots/playwright-mcp.png" alt="Chrome ウェブストアの Playwright Extension ページ。評価4.9、3万ユーザー" data-lightbox>
+    </div>
+    <a class="cta" href="https://chromewebstore.google.com/detail/playwright-extension/mmlmfjhmonkocbjadbfplnigmagldckm?utm_source=ext_app_menu" target="_blank" rel="noopener noreferrer">Playwright Extension を Chrome ウェブストアで見る</a>
+    <p class="note">※ 拡張インストール後、発行されるトークンを MCP 設定に登録すると連携できます。</p>
+  </section>
+
+  <header class="hero">
+    <p class="lead">
+      ここからは実例です。題材として learning-note にダークモード機能を追加し、その動作確認を
+      Playwright MCP で自動操作 → <code>playwright-screenshot-annotate</code> Skill で赤枠・矢印・吹き出しを付けてからスクショ撮影しました。
+      手作業ゼロで、下のような<b>チームにそのまま見せられる検証エビデンス</b>が生成されます。
+    </p>
+
+    <div class="flow">
+      <div class="step"><div class="n">STEP 1</div><div class="t">MCPでブラウザ操作</div><div class="d">ローカルサーバへ遷移・クリック・リロード</div></div>
+      <div class="step"><div class="n">STEP 2</div><div class="t">注釈を注入</div><div class="d">対象要素のbboxから枠・矢印・吹き出しを生成</div></div>
+      <div class="step"><div class="n">STEP 3</div><div class="t">スクショ撮影</div><div class="d">注釈付きの状態をそのまま保存</div></div>
+      <div class="step"><div class="n">STEP 4</div><div class="t">クリーンアップ</div><div class="d">注釈を除去し次の検証へ（ページは無傷）</div></div>
+    </div>
+  </header>
+
+  <section class="demo-video">
+    <h2 class="block-title">▶ まずは通しで、実際の動きをどうぞ</h2>
+    <p class="block-sub">AI への指示だけで、ブラウザ操作・注釈付け・スクショ撮影が進んでいく様子を録画しました。</p>
+    <div class="frame">
+      <video src="demo-shots/record-02.mov" controls preload="metadata" playsinline data-lightbox></video>
+    </div>
+    <div class="frame" style="margin-top:14px;">
+      <video src="demo-shots/record-01.mov" controls preload="metadata" playsinline data-lightbox></video>
+    </div>
+    <p class="block-note">※ 動画はクリックで再生／ダブルクリックで拡大できます。</p>
+  </section>
+
+  <section class="shot">
+    <div class="shot-head">
+      <span class="step-no">1</span>
+      <h2>BEFORE — ライトモード初期状態</h2>
+    </div>
+    <p class="shot-sub">ヘッダー右端にダークモード切替ボタン（<code>data-testid="dark-mode-toggle"</code>）を新規追加した。</p>
+    <div class="frame">
+      <div class="bar"><i></i><i></i><i></i><span class="url">localhost:8765/index.html</span></div>
+      <img src="demo-shots/verify-01-light-toggle-added.png" alt="ライトモード初期画面。ヘッダー右端の月アイコンに赤枠と矢印で注釈" data-lightbox>
+    </div>
+    <div class="verify">トグルボタンが意図した位置（breadcrumbの右）に追加されていることを確認</div>
+  </section>
+
+  <section class="shot">
+    <div class="shot-head">
+      <span class="step-no">2</span>
+      <h2>クリック直後 — ダークモード適用</h2>
+    </div>
+    <p class="shot-sub">MCPでトグルをクリック。<code>&lt;html&gt;</code> に <code>dark</code> クラスが付与され、シェル全体が暗転する。</p>
+    <div class="frame">
+      <div class="bar"><i></i><i></i><i></i><span class="url">localhost:8765/index.html</span></div>
+      <img src="demo-shots/verify-02-dark-applied.png" alt="ダークモード適用後の画面。ヘッダー・サイドバー・背景が暗色化、アイコンが太陽に変化" data-lightbox>
+    </div>
+    <div class="verify">ヘッダー / サイドバー / 背景がダーク化し、アイコンが月→太陽へ切替わることを確認</div>
+  </section>
+
+  <section class="shot">
+    <div class="shot-head">
+      <span class="step-no">3</span>
+      <h2>再読込後 — ダークモード維持</h2>
+    </div>
+    <p class="shot-sub">ページをリロード。<code>localStorage.theme = 'dark'</code> と <code>&lt;head&gt;</code> 内のチラつき防止スクリプトにより、初期表示からダークを維持する。</p>
+    <div class="frame">
+      <div class="bar"><i></i><i></i><i></i><span class="url">localhost:8765/index.html</span></div>
+      <img src="demo-shots/verify-03-dark-persisted.png" alt="リロード後もダークモードが維持されている画面" data-lightbox>
+    </div>
+    <div class="verify">リロード後も <code>html.dark</code> が維持され、設定が永続化されていることを確認</div>
+  </section>
+
+  <section class="aside-step">
+    <h2 class="block-title">一発では決まらない。そこは「指示して直す」</h2>
+    <p class="block-sub">
+      最初の注釈は吹き出しが窮屈で読みづらいものでした。そこを AI に口頭レベルの指示で伝え、
+      位置やレイアウトを調整し直しています。<b>完璧な自動生成ではなく、人が要点だけ指示して仕上げる</b>——
+      実際のやり取りはこんな雰囲気です。
+    </p>
+    <div class="frame">
+      <img src="demo-shots/修正指示.png" alt="Claude Code 上で、注釈が窮屈な点を指摘し修正を依頼しているやり取りの画面。右側に注釈付きブラウザが表示されている" data-lightbox>
+    </div>
+    <p class="block-note">※ 画像はクリックで拡大できます。</p>
+  </section>
+
+  <div class="tech">
+    <h3>このデモで使った仕組み</h3>
+    <ul>
+      <li><span class="k">Playwright MCP</span><span><b>ブラウザ自動操作</b>。navigate / click / evaluate / screenshot を MCP ツールとして呼び出し、ブラウザ拡張経由で実ブラウザを操作。</span></li>
+      <li><span class="k">注釈Skill</span><span><b>playwright-screenshot-annotate</b>。要素の実 bounding box から赤枠・矢印・吹き出しを生成。位置がズレず、撮影後は完全に除去されページを汚さない。</span></li>
+      <li><span class="k">検証対象</span><span><b>learning-note のダークモード</b>。1クリックで画面全体が変化するため BEFORE/AFTER が明確で、注釈デモの題材として最適。</span></li>
+      <li><span class="k">スコープ</span><span>外側シェル（header / sidebar / 背景）のみダーク対応。iframe内ノートHTMLは対象外（白いまま浮く設計）。</span></li>
+    </ul>
+  </div>
+
+  <footer>
+    開発後の動作確認をできる限りAIに任せてみた — Playwright MCP + playwright-screenshot-annotate Skill による記録
+  </footer>
+
+</div>
+</body>
+</html>
