@@ -326,7 +326,8 @@
         // Initialize
         async function init() {
             try {
-                const response = await fetch('notes-structure.json');
+                // キャッシュを無効化（古い構造が残るとサイドバーに反映されないため）
+                const response = await fetch(`notes-structure.json?_=${Date.now()}`, { cache: 'no-store' });
                 notesData = await response.json();
 
                 // Flatten files for search
